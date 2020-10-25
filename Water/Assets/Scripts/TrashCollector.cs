@@ -1,24 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Security.Policy;
+using System.Collections.Specialized;
 using UnityEngine;
-
 
 public class TrashCollector : MonoBehaviour
 {
     public bool has_floater=false;
+    private GameObject floater;
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if(gameObject.GetComponent<FixedJoint>())
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            Vector2 m_puntero Camera.main.ScreenToWorldPoint(Input.mousePosition)
+            RaycastHit2D hit = Physics2D.Raycast(m_puntero, Vector2.zero);
+            if (has_floater){
 
-            if (hit.collider != null)
-            {
-                hit.collider.gameObject.transform.SetParent(gameObject.transform);
-                hit.collider.gameObject.transform.position = gameObject.transform.position + new Vector3(0, 0.5f, 0);
-                hit.collider.gameObject.GetComponent<FixedJoint>().
+            }
+            else{
+                
+                if (hit.collider != null)
+                {
+                    hit.collider.gameObject.transform.SetParent(gameObject.transform);
+                    hit.collider.gameObject.transform.position = gameObject.transform.position + new Vector3(0, 0.3f, 0);
+                    
+                    hit.collider.gameObject.GetComponent<FixedJoint2D>().connectedBody=gameObject.GetComponent<Rigidbody2D>();
+                    hit.collider.gameObject.GetComponent<FixedJoint2D>().enabled = true;
+                }
             }
         }
     }
