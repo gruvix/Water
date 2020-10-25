@@ -66,6 +66,7 @@
     <Compile Include="Assets\Scripts\CameraManager.cs" />
     <Compile Include="Assets\Scripts\Player\CharacterController2D.cs" />
     <Compile Include="Assets\Scripts\Player\PlayerMovement.cs" />
+    <Compile Include="Assets\SetDensity.cs" />
     <Compile Include="Assets\TrashCollector.cs" />
     <Compile Include="Assets\UnderwaterFantasy\Scripts\Done_BGScroller.cs" />
     <Compile Include="Assets\UnderwaterFantasy\Scripts\Perspective2DSortMode.cs" />

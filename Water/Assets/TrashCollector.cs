@@ -13,7 +13,8 @@ public class TrashCollector : MonoBehaviour
 
             if (hit.collider != null)
             {
-                Debug.Log("Target Position: " + hit.collider.name);
+                hit.collider.gameObject.transform.SetParent(gameObject.transform);
+                hit.collider.gameObject.transform.position = gameObject.transform.position + new Vector3(0, 0.5f, 0);
             }
         }
     }
