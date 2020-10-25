@@ -2,3 +2,6 @@
 Water/Library/
 
 Water/Temp/
+.vs
+/Water/Water.sln
+/Water/Assembly-CSharp.csproj
