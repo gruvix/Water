@@ -11,13 +11,12 @@ public class TrashCollector : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Vector2 m_puntero Camera.main.ScreenToWorldPoint(Input.mousePosition)
+            Vector2 m_puntero = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(m_puntero, Vector2.zero);
             if (has_floater){
 
             }
             else{
-                
                 if (hit.collider != null)
                 {
                     hit.collider.gameObject.transform.SetParent(gameObject.transform);
