@@ -35,8 +35,15 @@ public class PlayerMovement : MonoBehaviour
     	controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump);
         jump = false;
 
-        animator.SetFloat("HorizontalSpeed", Mathf.Abs(body.velocity.x));
-        if(Mathf.Abs(body.velocity.y) > 0)
+        if(Mathf.Abs(body.velocity.x) > 0.1f)
+        {
+        	animator.SetFloat("HorizontalSpeed", Mathf.Abs(body.velocity.x)*1.5f);
+    	}
+    	else
+        {
+            animator.SetFloat("HorizontalSpeed", 0);
+        }
+        if(Mathf.Abs(body.velocity.y) > .3f)//
         {
             animator.SetBool("OnAir", true);
         }

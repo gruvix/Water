@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -716,6 +716,7 @@ MonoBehaviour:
   m_GroundCheck: {fileID: 1131302386}
   m_CeilingCheck: {fileID: 1799924418}
   m_CrouchDisableCollider: {fileID: 0}
+  m_Grounded: 0
   OnLandEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -849,6 +850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d155a2b32fff06458d8284bedb2db7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  has_floater: 0
 --- !u!4 &454551714 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5394661583292515337, guid: 4cae7efc644ae254c91f3dc45c28e1fe,
@@ -1623,7 +1625,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1370031506}
   - component: {fileID: 1370031507}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: TEST
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1998,7 +2000,7 @@ GameObject:
   - component: {fileID: 1696781108}
   - component: {fileID: 1696781110}
   - component: {fileID: 1696781109}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
