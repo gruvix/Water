@@ -716,6 +716,7 @@ MonoBehaviour:
   m_GroundCheck: {fileID: 1131302386}
   m_CeilingCheck: {fileID: 1799924418}
   m_CrouchDisableCollider: {fileID: 0}
+  m_Grounded: 0
   OnLandEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1633,7 +1634,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1370031506}
   - component: {fileID: 1370031507}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: TEST
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2163,7 +2164,7 @@ GameObject:
   - component: {fileID: 1696781108}
   - component: {fileID: 1696781110}
   - component: {fileID: 1696781109}
-  m_Layer: 0
+  m_Layer: 4
   m_Name: Water
   m_TagString: Untagged
   m_Icon: {fileID: 0}
