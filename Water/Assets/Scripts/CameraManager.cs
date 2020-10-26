@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraManager : MonoBehaviour {
+public class CameraManager : MonoBehaviour 
+{
 	public Transform target;
 	public float smoothing = 5f;
 	Vector3 offset;
@@ -16,6 +17,7 @@ public class CameraManager : MonoBehaviour {
 		targetZoom = cam.orthographicSize;
 		ParticleSystem rain = GetComponent<ParticleSystem>();
 	}
+
     void Update ()
 	{
 		//if (!Pausa.MenuPause && !Pausa.onEvent)
