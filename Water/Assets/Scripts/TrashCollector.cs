@@ -7,7 +7,8 @@ using UnityEngine;
 public class TrashCollector : MonoBehaviour
 {
     public bool has_floater=false;
-    public float alcance = .1f;
+    [Range(0.01f, 1f)]
+    public float alcance = 0.3f;
     private GameObject floater;
     private GameObject Bote;
     private Transform _areaefecto;
@@ -56,7 +57,7 @@ public class TrashCollector : MonoBehaviour
         }
         if (has_floater)
         {
-            _areaefecto.gameObject.GetComponent<AreaEfecto>().RotatePoints();
+            _areaefecto.transform.Rotate(0,0,1f, Space.Self);
         }
     }
 }
