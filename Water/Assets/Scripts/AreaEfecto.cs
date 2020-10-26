@@ -18,7 +18,7 @@ public class AreaEfecto : MonoBehaviour
     [Range(0, 5)]
     public float yoffset = 1;
 
-    void Start()
+    private void Start()
     {
         line = gameObject.GetComponent<LineRenderer>();
 
@@ -27,7 +27,7 @@ public class AreaEfecto : MonoBehaviour
         CreatePoints();
     }
 
-    void CreatePoints()
+    private void CreatePoints()
     {
         float x;
         float y;
@@ -44,5 +44,10 @@ public class AreaEfecto : MonoBehaviour
 
             angle += (360f / segments);
         }
+    }
+
+    public void RotatePoints()
+    {
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using UnityEngine;
@@ -6,18 +7,20 @@ using UnityEngine;
 public class TrashCollector : MonoBehaviour
 {
     public bool has_floater=false;
-    public float alcance = 1;
+    public float alcance = .1f;
     private GameObject floater;
     private GameObject Bote;
-    private LineRenderer AreaEfecto;
+    private Transform _areaefecto;
+    LineRenderer _line;
     private void Start()
     {
         Bote = GameObject.Find("Bote");
-        AreaEfecto = gameObject.GetComponent<LineRenderer>();
-        Debug.Log(AreaEfecto);
+        _areaefecto = gameObject.transform.Find("Areadeefecto");
+        _line=_areaefecto.gameObject.GetComponent<LineRenderer>();
+        //Debug.Log(AreaEfecto);
     }
 
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
@@ -25,12 +28,18 @@ public class TrashCollector : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(m_puntero, Vector2.zero);
             if (has_floater){
                 // Si tiene algo agarrado y haces click lo deja donde hiciste click y se lo da al bote
-                floater.transform.position = m_puntero;
-                floater.transform.SetParent(Bote.transform);
-                floater.GetComponent<FixedJoint2D>().connectedBody = Bote.GetComponent<Rigidbody2D>();
-                Debug.Log(floater.GetComponent<FixedJoint2D>().connectedBody);
-                has_floater = false;
-                AreaEfecto.enabled = false;
+                Debug.Log(Vector2.Distance(m_puntero, gameObject.transform.position));
+                if(Vector2.Distance(m_puntero, gameObject.transform.position)<=alcance){
+                    floater.transform.position = m_puntero;
+                    floater.transform.SetParent(Bote.transform);
+                    floater.GetComponent<FixedJoint2D>().connectedBody = Bote.GetComponent<Rigidbody2D>();
+                    has_floater = false;
+                    _line.enabled = false;
+                }
+                else{
+                    Debug.Log("muy lejos...");
+                }
+                
             }
             else{
                 if (hit.collider != null)
@@ -41,13 +50,13 @@ public class TrashCollector : MonoBehaviour
                     floater.GetComponent<FixedJoint2D>().connectedBody=gameObject.GetComponent<Rigidbody2D>();
                     floater.GetComponent<FixedJoint2D>().enabled = true;
                     has_floater = true;
-                    AreaEfecto.enabled = true;
+                    _line.enabled = true;
                 }
             }
         }
         if (has_floater)
         {
-
+            _areaefecto.gameObject.GetComponent<AreaEfecto>().RotatePoints();
         }
     }
 }
