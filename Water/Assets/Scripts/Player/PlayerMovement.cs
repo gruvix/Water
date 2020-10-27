@@ -1,25 +1,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class PlayerMovement : MonoBehaviour
-{   
+public class PlayerMovement : NetworkBehaviour
+{
 	public CharacterController2D controller;
 	public float runSpeed = 40f;
 	float horizontalMove = 0f;
     bool jump = false;
     private Animator animator;
     private Rigidbody2D body;
+    public Camera cam;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
+        cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
+        cam.GetComponent<CameraManager>().target = gameObject.transform;
     }
 
-    // Update is called once per frame
+
+  	[Client]
     void Update()
     {
+
+    	if (!hasAuthority){return;}
     	horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
         if (Input.GetButtonDown("Jump"))
@@ -28,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+  	[Client]
     void FixedUpdate ()
     {
     	//Move Character

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour 
 {
+	public Transform targetDefault;
 	public Transform target;
 	public float smoothing = 5f;
 	Vector3 offset;
@@ -15,7 +16,13 @@ public class CameraManager : MonoBehaviour
 		offset = transform.position - target.position;
 		cam = Camera.main;
 		targetZoom = cam.orthographicSize;
-		ParticleSystem rain = GetComponent<ParticleSystem>();
+	}
+
+	public void SetTarget (Transform trans)
+	{
+		offset = transform.position - trans.position;
+		target.position = trans.position;
+
 	}
 
     void Update ()
@@ -32,7 +39,11 @@ public class CameraManager : MonoBehaviour
 
 	// Update is called once per frame
 	void LateUpdate () {
-		Vector3 targetCamPos = target.position + offset;
+		if (target == null)
+		{
+			target = targetDefault;
+		}
+		Vector3 targetCamPos = target.position + offset + new Vector3(0,0,-10);
 		transform.position = Vector3.Lerp (transform.position, targetCamPos, smoothing * Time.deltaTime);
 	}
 }
