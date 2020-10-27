@@ -46,7 +46,6 @@ GameObject:
   - component: {fileID: 4984882867450586619}
   - component: {fileID: 263619806749472191}
   - component: {fileID: 7092423656027211127}
-  - component: {fileID: 2413207556155446305}
   m_Layer: 8
   m_Name: Astronaut
   m_TagString: Untagged
@@ -189,7 +188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3d337638b9afcb499d1ec419d1c77c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camMan: {fileID: 0}
   controller: {fileID: 263619806749472191}
   runSpeed: 7
 --- !u!114 &263619806749472191
@@ -235,22 +233,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   has_floater: 0
   alcance: 0.1
---- !u!114 &2413207556155446305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2767412768099323756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneId: 0
-  serverOnly: 0
-  m_AssetId: 
-  hasSpawned: 0
 --- !u!1 &2830910035116222183
 GameObject:
   m_ObjectHideFlags: 0

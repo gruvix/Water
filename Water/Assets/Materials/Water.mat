@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Water
-  m_Shader: {fileID: -6465566751694194690, guid: 7b6a86451cc04d24c91d499287fa0d8d,
+  m_Shader: {fileID: -6465566751694194690, guid: 9962c48dc02c517408180ca7bc1f1050,
     type: 3}
   m_ShaderKeywords: ETC1_EXTERNAL_ALPHA
   m_LightmapFlags: 4
@@ -20,8 +20,20 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_A2A92066:
+        m_Texture: {fileID: 2800000, guid: f10d29a80bdd36144b8303811abc46ff, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_DF2089D5:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: aa701e5be2dbcd24aad4fb9c3ca284da, type: 3}
+        m_Texture: {fileID: 8400000, guid: 21919a5a7519dd34889c01d990d13902, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_BB18EAAF_Texture_1:
+        m_Texture: {fileID: 8400000, guid: 21919a5a7519dd34889c01d990d13902, type: 2}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_D3132040_Texture_1:
@@ -39,5 +51,8 @@ Material:
     m_Floats:
     - Vector1_25269699: 100
     - Vector1_3227B750: 6.7
+    - Vector1_3F9BA636: 1
+    - Vector1_6FD340A5: 0.1
     m_Colors:
+    - Color_E1E4BE95: {r: 0.4481132, g: 0.5560912, b: 1, a: 1}
     - Vector2_57EAADDC: {r: 0.05, g: 0.05, b: 0, a: 0}

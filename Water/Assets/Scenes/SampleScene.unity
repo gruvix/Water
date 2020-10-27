@@ -1403,8 +1403,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1157836601}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.566, y: 3.2896032, z: -10}
-  m_LocalScale: {x: 0.46504855, y: 4.3802977, z: 1}
+  m_LocalPosition: {x: 0.421, y: 3.27, z: -10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1690875369}
   m_RootOrder: 1
@@ -1645,7 +1645,7 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 1828886600}
+  playerPrefab: {fileID: 0}
   autoCreatePlayer: 0
   playerSpawnMethod: 1
   spawnPrefabs:
@@ -2174,8 +2174,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1696781106}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.4783, y: -9.563, z: 0}
-  m_LocalScale: {x: 0.37118572, y: 2.2875984, z: 1}
+  m_LocalPosition: {x: 0.4783, y: -6.846, z: 0}
+  m_LocalScale: {x: 0.37118572, y: 1.5531951, z: 1}
   m_Children:
   - {fileID: 1370031506}
   m_Father: {fileID: 1690875369}
@@ -2221,7 +2221,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: f50769398a8953c44958c0e69d8a1afc, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.72156864}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2490,12 +2490,6 @@ PrefabInstance:
       objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cae7efc644ae254c91f3dc45c28e1fe, type: 3}
---- !u!1 &1828886600 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2767412768099323756, guid: 832fec5d004894e4594e8a7863856da1,
-    type: 3}
-  m_PrefabInstance: {fileID: 5905829237277625693}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1828886609 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2657024802320915948, guid: 832fec5d004894e4594e8a7863856da1,
@@ -2708,20 +2702,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2413207556155446305, guid: 832fec5d004894e4594e8a7863856da1,
-        type: 3}
-      propertyPath: sceneId
-      value: 238942766
-      objectReference: {fileID: 0}
-    - target: {fileID: 2413207556155446305, guid: 832fec5d004894e4594e8a7863856da1,
-        type: 3}
-      propertyPath: m_AssetId
-      value: 832fec5d004894e4594e8a7863856da1
-      objectReference: {fileID: 0}
     - target: {fileID: 2657024802320915948, guid: 832fec5d004894e4594e8a7863856da1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.155
+      value: 2.99
       objectReference: {fileID: 0}
     - target: {fileID: 2657024802320915948, guid: 832fec5d004894e4594e8a7863856da1,
         type: 3}
@@ -2778,11 +2762,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Astronaut
       objectReference: {fileID: 0}
-    - target: {fileID: 4984882867450586619, guid: 832fec5d004894e4594e8a7863856da1,
-        type: 3}
-      propertyPath: camMan
-      value: 
-      objectReference: {fileID: 519420030}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 832fec5d004894e4594e8a7863856da1, type: 3}
 --- !u!1001 &8755124198626089613
