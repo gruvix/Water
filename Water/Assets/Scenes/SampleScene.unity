@@ -696,9 +696,10 @@ GameObject:
   m_Component:
   - component: {fileID: 497902672}
   - component: {fileID: 497902673}
+  - component: {fileID: 497902674}
   m_Layer: 0
   m_Name: Floaters
-  m_TagString: Player
+  m_TagString: Floater
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -735,6 +736,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   theMat: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+--- !u!114 &497902674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 497902671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07967b834f8891047802e8be78d8757c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  theMat: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -880,7 +894,7 @@ PrefabInstance:
     - target: {fileID: 5394661583292515336, guid: 4cae7efc644ae254c91f3dc45c28e1fe,
         type: 3}
       propertyPath: m_TagString
-      value: Floater
+      value: test
       objectReference: {fileID: 0}
     - target: {fileID: 5394661583292515337, guid: 4cae7efc644ae254c91f3dc45c28e1fe,
         type: 3}
@@ -2787,6 +2801,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Astronaut
+      objectReference: {fileID: 0}
+    - target: {fileID: 2767412768099323756, guid: 832fec5d004894e4594e8a7863856da1,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7092423656027211127, guid: 832fec5d004894e4594e8a7863856da1,
         type: 3}
