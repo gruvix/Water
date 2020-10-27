@@ -6,13 +6,12 @@ public class SetMaterial : MonoBehaviour
 {
     public Material theMat;
 
-    void Start()
+    private void Start()
     {
 		ChangeMaterial(theMat);
     }
 
-
-    void ChangeMaterial(Material newMat)
+    public void ChangeMaterial(Material newMat)
     {
         Renderer[] children;
         children = GetComponentsInChildren<Renderer>();
@@ -25,5 +24,9 @@ public class SetMaterial : MonoBehaviour
             }
             rend.materials = mats;
         }
+    }
+
+    public void Resolve(){
+        ChangeMaterial(theMat);
     }
 }

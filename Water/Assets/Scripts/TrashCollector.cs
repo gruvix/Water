@@ -8,7 +8,7 @@ public class TrashCollector : MonoBehaviour
 {
     public bool has_floater=false;
     [Range(0.01f, 1f)]
-    public float alcance = 0.3f;
+    public float alcance = 0.4f;
     private GameObject floater;
     private GameObject Bote;
     private Transform _areaefecto;
@@ -36,11 +36,11 @@ public class TrashCollector : MonoBehaviour
                     floater.GetComponent<FixedJoint2D>().connectedBody = Bote.GetComponent<Rigidbody2D>();
                     has_floater = false;
                     _line.enabled = false;
+                    Bote.GetComponentInParent<SetMaterial>().Resolve();
                 }
                 else{
                     Debug.Log("muy lejos...");
                 }
-                
             }
             else{
                 if (hit.collider != null)
@@ -54,6 +54,10 @@ public class TrashCollector : MonoBehaviour
                     _line.enabled = true;
                 }
             }
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+
         }
         if (has_floater)
         {
