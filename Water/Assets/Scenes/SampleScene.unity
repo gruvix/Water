@@ -842,7 +842,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.002, y: -3.969, z: -10}
+  m_LocalPosition: {x: 3.002, y: -4.272, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2305,7 +2305,7 @@ BuoyancyEffector2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_SurfaceLevel: 3.71
-  m_Density: 100
+  m_Density: 50
   m_LinearDrag: 5
   m_AngularDrag: 5
   m_FlowAngle: 0
@@ -2742,6 +2742,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 263619806749472191, guid: 832fec5d004894e4594e8a7863856da1,
+        type: 3}
+      propertyPath: m_JumpForce
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 275343340544708691, guid: 832fec5d004894e4594e8a7863856da1,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: e91a3490e5d748c4ab2284e96e554be9, type: 2}
+    - target: {fileID: 1602421553302051482, guid: 832fec5d004894e4594e8a7863856da1,
+        type: 3}
+      propertyPath: m_LinearDrag
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1602421553302051482, guid: 832fec5d004894e4594e8a7863856da1,
+        type: 3}
+      propertyPath: m_UseAutoMass
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1602421553302051482, guid: 832fec5d004894e4594e8a7863856da1,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1602421553302051482, guid: 832fec5d004894e4594e8a7863856da1,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2657024802320915948, guid: 832fec5d004894e4594e8a7863856da1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2806,6 +2836,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4984882867450586619, guid: 832fec5d004894e4594e8a7863856da1,
+        type: 3}
+      propertyPath: runSpeed
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7092423656027211127, guid: 832fec5d004894e4594e8a7863856da1,
         type: 3}
@@ -2899,7 +2934,7 @@ PrefabInstance:
     - target: {fileID: 5366215175203610161, guid: 6e0ebac31fcecf94fb7f2fb48ef5e103,
         type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: -0.30700016
+      value: -0.27400017
       objectReference: {fileID: 0}
     - target: {fileID: 5840030613728796054, guid: 6e0ebac31fcecf94fb7f2fb48ef5e103,
         type: 3}
