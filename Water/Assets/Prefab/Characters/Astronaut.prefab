@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 7092423656027211127}
   m_Layer: 8
   m_Name: Astronaut
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -384,10 +384,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   segments: 20
-  xradius: 3
-  yradius: 3
-  xoffset: 0
-  yoffset: 0
 --- !u!1 &6866295257810284524
 GameObject:
   m_ObjectHideFlags: 0

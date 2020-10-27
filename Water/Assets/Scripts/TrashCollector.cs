@@ -6,13 +6,19 @@ using UnityEngine;
 
 public class TrashCollector : MonoBehaviour
 {
-    public bool has_floater=false;
+    
+    public bool has_floater=false; // indica si el personaje tiene agarrado algo
+    // Alcance para colocar objetos
     [Range(0.01f, 1f)]
     public float alcance = 0.4f;
+    LineRenderer _line; // Linea que indica el rango
     private GameObject floater;
+    // Variables de objetos del mundo
     private GameObject Bote;
     private Transform _areaefecto;
-    LineRenderer _line;
+    
+    
+
     private void Start()
     {
         Bote = GameObject.Find("Bote");
@@ -29,7 +35,7 @@ public class TrashCollector : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(m_puntero, Vector2.zero);
             if (has_floater){
                 // Si tiene algo agarrado y haces click lo deja donde hiciste click y se lo da al bote
-                Debug.Log(Vector2.Distance(m_puntero, gameObject.transform.position));
+                //Debug.Log(Vector2.Distance(m_puntero, gameObject.transform.position));
                 if(Vector2.Distance(m_puntero, gameObject.transform.position)<=alcance){
                     floater.transform.position = m_puntero;
                     floater.transform.SetParent(Bote.transform);
@@ -42,8 +48,9 @@ public class TrashCollector : MonoBehaviour
                     Debug.Log("muy lejos...");
                 }
             }
+            // Si el jugador no tiene nada agarrado agarra lo que haya clicleado si es que clickeo algo
             else{
-                if (hit.collider != null)
+                if (hit.collider != null && hit.collider.tag == "Floater")
                 {
                     floater = hit.collider.gameObject;
                     floater.transform.SetParent(gameObject.transform);
@@ -52,6 +59,7 @@ public class TrashCollector : MonoBehaviour
                     floater.GetComponent<FixedJoint2D>().enabled = true;
                     has_floater = true;
                     _line.enabled = true;
+                    Debug.Log(hit.collider.gameObject);
                 }
             }
         }
