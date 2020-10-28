@@ -28,5 +28,6 @@ public class SetMaterial : MonoBehaviour
 
     public void Resolve(){
         ChangeMaterial(theMat);
+
     }
 }

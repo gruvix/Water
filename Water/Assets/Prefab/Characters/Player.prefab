@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 8769843254203982792}
   - component: {fileID: -4441899586379360367}
   - component: {fileID: 3873433914411587592}
+  - component: {fileID: 8640554654847102184}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -122,7 +123,7 @@ Rigidbody2D:
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
+  m_UseAutoMass: 1
   m_Mass: 0.5
   m_LinearDrag: 1
   m_AngularDrag: 1
@@ -163,7 +164,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   controller: {fileID: 8769843254203982793}
-  runSpeed: 6
+  runSpeed: 10
+  cam: {fileID: 0}
 --- !u!114 &8769843254203982793
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1f055187a74602408ee9a2f0dd18039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_JumpForce: 70
+  m_JumpForce: 1
   m_CrouchSpeed: 0.318
   m_MovementSmoothing: 0.123
   m_AirControl: 1
@@ -241,6 +243,19 @@ MonoBehaviour:
   localPositionSensitivity: 0.01
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
+--- !u!114 &8640554654847102184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8769843254203982799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dac335a8ff223244c82bbe31758d0193, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Densidad: 0.673
 --- !u!1 &8769843254460423400
 GameObject:
   m_ObjectHideFlags: 0

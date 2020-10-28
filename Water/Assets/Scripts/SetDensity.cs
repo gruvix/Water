@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SetDensity : MonoBehaviour
 {
-    [Range(0.01f, 1f)]
+    [Range(0.01f, 2f)]
     public float Densidad=1;
     // Start is called before the first frame update
     void Start()

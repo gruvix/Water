@@ -50,6 +50,7 @@ public class TrashCollector : MonoBehaviour
             }
             // Si el jugador no tiene nada agarrado agarra lo que haya clicleado si es que clickeo algo
             else{
+                Debug.Log("clickeando sobre una " + hit.collider.name);
                 if (hit.collider != null && hit.collider.tag == "Floater")
                 {
                     floater = hit.collider.gameObject;
