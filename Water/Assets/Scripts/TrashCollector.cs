@@ -18,8 +18,7 @@ public class TrashCollector : MonoBehaviour
     private GameObject Bote;
     private Transform _areaefecto;
     
-    
-
+   
     private void Start()
     {
         Bote = GameObject.Find("Bote");
@@ -27,7 +26,6 @@ public class TrashCollector : MonoBehaviour
         _line=_areaefecto.gameObject.GetComponent<LineRenderer>();
         //Debug.Log(AreaEfecto);
     }
-    [Client]
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))

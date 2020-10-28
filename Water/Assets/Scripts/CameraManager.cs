@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,25 +24,25 @@ public class CameraManager : MonoBehaviour
 		target.position = trans.position;
 
 	}
-
     void Update ()
 	{
 		//if (!Pausa.MenuPause && !Pausa.onEvent)
 		//{
-			float ScrollWheelChange;
-			ScrollWheelChange = Input.GetAxis("Mouse ScrollWheel");
-			targetZoom -= ScrollWheelChange * 2f; // Cantidad de zoom por rueda
-			targetZoom = Mathf.Clamp(targetZoom, 1f, 3f); // LIMITES DE LA CAMARA
-			cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, Time.deltaTime * 10);
+		if (target == null)
+		{
+			target = targetDefault;
+		}
+		float ScrollWheelChange;
+		ScrollWheelChange = Input.GetAxis("Mouse ScrollWheel");
+		targetZoom -= ScrollWheelChange * 2f; // Cantidad de zoom por rueda
+		targetZoom = Mathf.Clamp(targetZoom, 1f, 3f); // LIMITES DE LA CAMARA
+		cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, Time.deltaTime * 10);
 		//}
 	}
 
 	// Update is called once per frame
 	void LateUpdate () {
-		if (target == null)
-		{
-			target = targetDefault;
-		}
+
 		Vector3 targetCamPos = target.position + offset + new Vector3(0,0,-10);
 		transform.position = Vector3.Lerp (transform.position, targetCamPos, smoothing * Time.deltaTime);
 	}

@@ -13,6 +13,7 @@ public class PlayerMovement : NetworkBehaviour
     private Rigidbody2D body;
     public Camera cam;
 
+    [Client]
     void Start()
     {
         animator = GetComponent<Animator>();
