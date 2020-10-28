@@ -26,7 +26,7 @@ public class TrashCollector : MonoBehaviour
         _line=_areaefecto.gameObject.GetComponent<LineRenderer>();
         //Debug.Log(AreaEfecto);
     }
-
+    [Client]
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
