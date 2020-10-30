@@ -43,7 +43,7 @@ public class CameraManager : MonoBehaviour
 	// Update is called once per frame
 	void LateUpdate () {
 
-		Vector3 targetCamPos = target.position + offset + new Vector3(0,0,-10);
+		Vector3 targetCamPos = target.position + offset + new Vector3(0,1,-10);
 		transform.position = Vector3.Lerp (transform.position, targetCamPos, smoothing * Time.deltaTime);
 	}
 }
