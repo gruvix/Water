@@ -17,7 +17,6 @@ public class WaterSplashDrops : MonoBehaviour
     	body = col.GetComponent<Rigidbody2D>();
         if(col.tag != "WaterBox" && Mathf.Abs(body.velocity.y) > 0.5f)
         {
-            Debug.Log("Splash Detected");
         	var Particle = Instantiate(Drops, col.transform.position, transform.rotation);
         	var main =  Particle.main;
         	var collider = Particle.collision;
