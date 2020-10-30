@@ -23,7 +23,6 @@ public class WaterSplashDrops : MonoBehaviour
         	var collider = Particle.collision;
         	collider.SetPlane(0, killer.transform);
         	main.startSpeed = Mathf.Abs(body.velocity.y)*Distance;
-        	Particle.enableEmission = true;
         	Particle.Play();
         	Destroy(Particle.gameObject, 3f);
         }
