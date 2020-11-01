@@ -18,6 +18,7 @@ public class WaterSplashDrops : MonoBehaviour
         if(col.tag != "WaterBox" && Mathf.Abs(body.velocity.y) > 0.5f)
         {
         	var Particle = Instantiate(Drops, col.transform.position, transform.rotation);
+            Particle.transform.SetParent(GameObject.Find("EffectHolder").transform);
         	var main =  Particle.main;
         	var collider = Particle.collision;
         	collider.SetPlane(0, killer.transform);
