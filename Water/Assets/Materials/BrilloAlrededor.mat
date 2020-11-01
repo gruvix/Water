@@ -43,7 +43,7 @@ Material:
     m_Floats:
     - _EnableExternalAlpha: 0
     m_Colors:
-    - Color_BF616C5D: {r: 0.4823529, g: 0.04013884, b: 0.04013884, a: 0}
+    - Color_BF616C5D: {r: 0.72658193, g: 0.04801533, b: 0.7830189, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}

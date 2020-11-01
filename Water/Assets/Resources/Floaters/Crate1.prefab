@@ -11,11 +11,10 @@ GameObject:
   - component: {fileID: 5394661583292515337}
   - component: {fileID: 5394661583292515343}
   - component: {fileID: 5394661583292515342}
-  - component: {fileID: 5394661583292515340}
   - component: {fileID: 5394661583292515341}
-  - component: {fileID: -7344450190532469096}
+  - component: {fileID: -4425857029067532458}
   - component: {fileID: -4852751765984331548}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Crate1
   m_TagString: Floater
   m_Icon: {fileID: 0}
@@ -107,24 +106,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!255 &5394661583292515340
-FixedJoint2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5394661583292515336}
-  m_Enabled: 0
-  serializedVersion: 4
-  m_EnableCollision: 0
-  m_ConnectedRigidBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_AutoConfigureConnectedAnchor: 1
-  m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.144, y: -0.3096}
-  m_DampingRatio: 0
-  m_Frequency: 0
 --- !u!61 &5394661583292515341
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -151,7 +132,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.6, y: 1.6}
   m_EdgeRadius: 0
---- !u!114 &-7344450190532469096
+--- !u!114 &-4425857029067532458
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -160,9 +141,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5394661583292515336}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c9dce64a3dfcc64ba0250e0b4e0ea98, type: 3}
+  m_Script: {fileID: 11500000, guid: 1cc95108651f4934b9cf64599f7bf20b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Break_Force: 1
 --- !u!114 &-4852751765984331548
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -37,7 +37,6 @@ public class FloaterFlow : MonoBehaviour
                 GameObject NewFloater = Instantiate(prefabList[prefabIndex]) as GameObject;
                 NewFloater.transform.position = SpawnPoint;
                 NewFloater.transform.parent = Floaters.transform;
-                NewFloater.GetComponent<FixedJoint2D>().enabled = false;
                 NewFloater.layer = 9;
             }
         }

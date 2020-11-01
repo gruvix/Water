@@ -33,15 +33,16 @@ public class TrashCollector : MonoBehaviour
             Vector2 m_puntero = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(m_puntero, Vector2.zero);
             if (has_floater){
+
+
                 // Si tiene algo agarrado y haces click lo deja donde hiciste click y se lo da al bote
                 //Debug.Log(Vector2.Distance(m_puntero, gameObject.transform.position));
                 if(Vector2.Distance(m_puntero, gameObject.transform.position)<=alcance){
-                    floater.transform.position = m_puntero;
-                    floater.transform.SetParent(Bote.transform);
-                    floater.GetComponent<FixedJoint2D>().connectedBody = Bote.GetComponent<Rigidbody2D>();
+
+                    floater.GetComponent<Waver>().Adopcion(m_puntero);
+
                     has_floater = false;
                     _line.enabled = false;
-                    Bote.GetComponentInParent<SetMaterial>().Resolve();
                 }
                 else{
                     Debug.Log("muy lejos...");
@@ -52,18 +53,21 @@ public class TrashCollector : MonoBehaviour
                 
                 if (hit.collider != null && hit.collider.tag == "Floater")
                 {
-                	Debug.Log("clickeando sobre una " + hit.collider.name);
                     floater = hit.collider.gameObject;
-                    floater.transform.SetParent(gameObject.transform);
-                    floater.transform.position = gameObject.transform.position + new Vector3(0, 0.3f, 0);
-                    floater.GetComponent<FixedJoint2D>().connectedBody=gameObject.GetComponent<Rigidbody2D>();
-                    floater.GetComponent<FixedJoint2D>().enabled = true;
+                    floater.GetComponent<Waver>().Transicion(gameObject);
                     has_floater = true;
                     _line.enabled = true;
-                    Debug.Log(hit.collider.gameObject);
                 }
             }
         }
+
+        if (Input.GetMouseButtonDown(1) && has_floater)//Click derecho suelta el objeto
+        {
+            floater.GetComponent<Waver>().Huerfano();
+            has_floater = false;
+            _line.enabled = false;
+        }
+
         if (Input.GetMouseButtonUp(0))
         {
 
@@ -72,5 +76,6 @@ public class TrashCollector : MonoBehaviour
         {
             _areaefecto.transform.Rotate(0,0,1f, Space.Self);
         }
+
     }
 }

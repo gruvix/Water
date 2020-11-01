@@ -18,10 +18,10 @@ public class AreaEfecto : MonoBehaviour
         // Elijo el radio como el alcance dividido la escala del sprite
         xradius = gameObject.transform.GetComponentInParent<TrashCollector>().alcance / gameObject.transform.parent.transform.localScale.x;
         yradius = xradius;
-        Debug.Log(gameObject.transform.parent);
         line = gameObject.GetComponent<LineRenderer>();
-        
+        #pragma warning disable 0618
         line.SetVertexCount(segments + 1);
+        #pragma warning restore 0618
         line.useWorldSpace = false;
         CreatePoints();
     }
@@ -30,7 +30,6 @@ public class AreaEfecto : MonoBehaviour
     {
         float x;
         float y;
-        float z;
 
         float angle = 20f;
 
