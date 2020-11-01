@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Floater
   - Bote
+  - Item
   layers:
   - Default
   - TransparentFX

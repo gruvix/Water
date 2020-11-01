@@ -8,12 +8,14 @@ using Mirror;
 public class TrashCollector : MonoBehaviour
 {
     
-    public bool has_floater=false; // indica si el personaje tiene agarrado algo
+    public bool has_floater = false; // indica si el personaje tiene agarrado algo
+    public bool has_item = false; //indica si el personaje tiene un objeto
     // Alcance para colocar objetos
     [Range(0.01f, 1f)]
     public float alcance = 0.4f;
     LineRenderer _line; // Linea que indica el rango
     private GameObject floater;
+    private GameObject item;
     // Variables de objetos del mundo
     private GameObject Bote;
     private Transform _areaefecto;
@@ -58,7 +60,16 @@ public class TrashCollector : MonoBehaviour
                     has_floater = true;
                     _line.enabled = true;
                 }
+
+                if (hit.collider != null && hit.collider.tag == "Item" && !has_item)
+                {
+                    item = hit.collider.gameObject;
+                    item.GetComponent<ItemHandler>().SetOwner(gameObject.transform);
+                    has_item = true;
+                }
+
             }
+
         }
 
         if (Input.GetMouseButtonDown(1) && has_floater)//Click derecho suelta el objeto
