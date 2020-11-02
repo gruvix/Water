@@ -16,6 +16,7 @@ public class Waver : MonoBehaviour
     private GameObject Floaters;
     private GameObject Bote;
     private GameObject SoulFragment;
+    private ParticleSystem deathEffect;
     private LineRenderer LinePrefab;
     public bool hasJoint = false;
     public float HP = 100;
@@ -28,7 +29,8 @@ public class Waver : MonoBehaviour
         Floaters = GameObject.Find("Floaters");
         Bote = GameObject.Find("Bote");
         SoulFragment = GameObject.Find("SoulFragment");
-        LinePrefab = Resources.Load<LineRenderer>("MagicConnector");
+        LinePrefab = Resources.Load<LineRenderer>("Effects/MagicConnector");
+        deathEffect = Resources.Load<ParticleSystem>("Effects/DestroyExplosion");
     }
 
     public void OnJointBreak2D()//Mucha Violencia -> huerfanizado
@@ -99,8 +101,24 @@ public class Waver : MonoBehaviour
 
     }
 
+    public void DestroyObject()//Cuando el objeto se destruye
+    {
+        if (line != null) 
+            {
+                Destroy(line.gameObject);
+            }
+            var death = Instantiate(deathEffect, gameObject.transform.position, Quaternion.identity, GameObject.Find("EffectHolder").transform);
+            Destroy(death.gameObject, 5f);
+            Destroy(gameObject);
+    }
+
     void Update()//Mueve la linea de acuerdo al objeto
     {
+        if (HP < 1)//Se destruye el objeto
+        {
+            DestroyObject();
+        }
+
         if (line != null)
         {
             line.SetPosition(0, SoulFragment.transform.position);

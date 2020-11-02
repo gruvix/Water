@@ -6,15 +6,24 @@ using UnityEngine;
 public class SpaceGun : MonoBehaviour
 {
 	public AudioSource audio;
+    Transform firePointNormal, firePointFlip, firePoint;
+    bool flipped = false;
 	Vector3 mouse_pos;
 	Vector3 object_pos;
-	Transform target;
+	Transform target; //A quien apunta
 	float angle;
 	float radians;
+    public GameObject bulletPrefab;
 	public float playerHeight = 0.1f;//Altura a la q va el arma
 	public float offset = 0.05f; //Que tan lejos está el arma del personaje
 	public float compensation = -38f;//compensa que la punta del arma no está en la base del sprite
 
+
+    void Start()
+    {
+        firePointNormal = this.gameObject.transform.GetChild(0);
+        firePointFlip = this.gameObject.transform.GetChild(1);
+    }
 
     public void SetItem(Transform owner)
     {
@@ -22,6 +31,14 @@ public class SpaceGun : MonoBehaviour
     	audio = GetComponent<AudioSource>();
     	gameObject.GetComponent<Rigidbody2D>().simulated = false;
         gameObject.GetComponent<PolygonCollider2D>().enabled = false;
+    }
+
+    void Shoot()
+    {
+        audio.Play();
+
+        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation * Quaternion.Euler(0,0,270));
+
     }
 
     // Update is called once per frame
@@ -38,21 +55,23 @@ public class SpaceGun : MonoBehaviour
     		angle = radians * Mathf.Rad2Deg;
     		if (angle > 90 || angle < -90)
     		{
-    			transform.rotation = Quaternion.Euler(new Vector3(180, 180, angle));
-    			gameObject.GetComponent<SpriteRenderer>().flipX = true;
+    			gameObject.GetComponent<SpriteRenderer>().flipY = true;
+                firePoint = firePointFlip;
+
     		}
     		else
     		{
-    			transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
-    			gameObject.GetComponent<SpriteRenderer>().flipX = false;
+    			gameObject.GetComponent<SpriteRenderer>().flipY = false;
+                firePoint = firePointNormal;
     		}
 
+            transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         	gameObject.transform.position = target.position + new Vector3(Mathf.Cos(radians) * offset, Mathf.Sin(radians) * offset + playerHeight, 0) ;
 
         }
             if (Input.GetMouseButtonDown(2))
         {
-				audio.Play();
+                Shoot();
         }
     }
 }
