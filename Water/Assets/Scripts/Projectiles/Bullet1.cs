@@ -18,7 +18,7 @@ public class Bullet1 : MonoBehaviour
     {
     	if (hitInfo.tag == "Floater")
     	{
-    		hitInfo.gameObject.GetComponent<Waver>().HP -= 35;
+    		hitInfo.gameObject.GetComponent<Waver>().Damage(20f);
     	}
     	Destroy(gameObject);
     }

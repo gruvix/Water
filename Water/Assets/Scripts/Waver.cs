@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +19,7 @@ public class Waver : MonoBehaviour
     private ParticleSystem deathEffect;
     private LineRenderer LinePrefab;
     public bool hasJoint = false;
+    public float hpMAX = 100;
     public float HP = 100;
 
     //Variables que definen el joint del cuerpo (ajustables en el PREFAB)
@@ -31,6 +32,13 @@ public class Waver : MonoBehaviour
         SoulFragment = GameObject.Find("SoulFragment");
         LinePrefab = Resources.Load<LineRenderer>("Effects/MagicConnector");
         deathEffect = Resources.Load<ParticleSystem>("Effects/DestroyExplosion");
+
+        if (gameObject.transform.parent.name == "Bote")
+        {
+           gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
+           MakeLine();
+        }
+
     }
 
     public void OnJointBreak2D()//Mucha Violencia -> huerfanizado
@@ -47,7 +55,8 @@ public class Waver : MonoBehaviour
     	Destroy(GetComponent<FixedJoint2D>());
     	hasJoint = false;
     	gameObject.transform.SetParent(Floaters.transform);
-    	Floaters.GetComponentInParent<SetMaterial>().Resolve();
+    	gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 0);//Cambia parámetro del material
+        
     	gameObject.layer = 9;
     }
 
@@ -62,7 +71,7 @@ public class Waver : MonoBehaviour
         gameObject.transform.position = owner.transform.position + new Vector3(0, 0.32f, 0);
         gameObject.GetComponent<FixedJoint2D>().connectedBody = owner.GetComponent<Rigidbody2D>();
         gameObject.layer = 8;
-        owner.GetComponentInParent<SetMaterial>().Resolve();
+        gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 0);
     }
 
     public void Adopcion(Vector2 puntero)//Ahora es del bote
@@ -72,10 +81,15 @@ public class Waver : MonoBehaviour
     	gameObject.transform.position = new Vector3( puntero[0], puntero[1], 0);
     	gameObject.transform.SetParent(Bote.transform);
     	gameObject.GetComponent<FixedJoint2D>().connectedBody = Bote.GetComponent<Rigidbody2D>();
-		Bote.GetComponentInParent<SetMaterial>().Resolve();
+		gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
         gameObject.layer = 10;
+        MakeLine();
 
-        //Aca se crea la linea magica
+    }
+
+    public void MakeLine()//Aca se crea la linea magica
+    {
+
         if (line != null) 
         {
             Destroy(line.gameObject);
@@ -83,7 +97,10 @@ public class Waver : MonoBehaviour
         line = Instantiate(LinePrefab, new Vector3(0,0,0), Quaternion.identity);
         line.widthMultiplier = 0.05f;
         line.transform.SetParent(GameObject.Find("EffectHolder").transform);
+        var renderer = line.GetComponent<Renderer>();
+        renderer.sortingOrder = -1;
     }
+
 
     public void JointCheck()//Se fija q haya un joint, si no lo hay lo crea
     {
@@ -110,6 +127,13 @@ public class Waver : MonoBehaviour
             var death = Instantiate(deathEffect, gameObject.transform.position, Quaternion.identity, GameObject.Find("EffectHolder").transform);
             Destroy(death.gameObject, 5f);
             Destroy(gameObject);
+    }
+
+    public void Damage(float DMG)
+    {
+        HP -= DMG;
+        Mathf.Clamp(HP, 0, hpMAX);
+        gameObject.GetComponent<Renderer>().material.SetFloat("_Health", HP / hpMAX * 100);
     }
 
     void Update()//Mueve la linea de acuerdo al objeto
