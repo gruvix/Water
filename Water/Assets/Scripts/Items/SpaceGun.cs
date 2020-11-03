@@ -10,7 +10,7 @@ public class SpaceGun : MonoBehaviour
     bool flipped = false;
 	Vector3 mouse_pos;
 	Vector3 object_pos;
-	Transform target; //A quien apunta
+	Transform target; //Desde quien apunta
 	float angle;
 	float radians;
     public GameObject bulletPrefab;

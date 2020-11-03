@@ -6,10 +6,10 @@ public class Waver : MonoBehaviour
 {
 
 //ESTE SCRIPT VA EN UN OBJETO
-	//1) Cuando es clickeado EL PERSONAJE llama a esta funcion; el objeto se va a la cabeza, si es de la balza se cambia el material a natural
-	//2) Desde la cabeza click IZ se une a la balza, cambia el parent y material
-	//2.5) Click derecho lo devuelve al agua
-	//3) cuando se rompe el fixedjoint se cae al agua, cambia el parent y material
+	//1) Cuando es clickeado EL PERSONAJE llama a esta funcion; el objeto se va a la cabeza y desactiva el brillo
+	//2) Desde la cabeza click IZ se une a la balza, cambia el parent y activa el brillo
+	//2.5) Click derecho lo devuelve al agua y desactiva el brillo
+	//3) cuando se rompe el fixedjoint se cae al agua, cambia el parent y desactiva el brillo
     #pragma warning disable 0649// <- evita el warning de "null" en unity
     LineRenderer line;
     #pragma warning restore 0649
@@ -32,7 +32,6 @@ public class Waver : MonoBehaviour
         SoulFragment = GameObject.Find("SoulFragment");
         LinePrefab = Resources.Load<LineRenderer>("Effects/MagicConnector");
         deathEffect = Resources.Load<ParticleSystem>("Effects/DestroyExplosion");
-
         if (gameObject.transform.parent.name == "Bote")
         {
            gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
@@ -40,6 +39,7 @@ public class Waver : MonoBehaviour
         }
 
     }
+
 
     public void OnJointBreak2D()//Mucha Violencia -> huerfanizado
     {
