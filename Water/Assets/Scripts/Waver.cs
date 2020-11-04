@@ -80,8 +80,8 @@ public class Waver : MonoBehaviour
         
     	gameObject.transform.position = new Vector3( puntero[0], puntero[1], 0);
     	gameObject.transform.SetParent(Bote.transform);
-    	gameObject.GetComponent<FixedJoint2D>().connectedBody = Bote.GetComponent<Rigidbody2D>();
-		gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
+    	gameObject.GetComponent<FixedJoint2D>().connectedBody = SoulFragment.GetComponent<Rigidbody2D>();
+        gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
         gameObject.layer = 10;
         MakeLine();
 
