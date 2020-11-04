@@ -62,7 +62,7 @@ public class TrashCollector : MonoBehaviour
                     has_floater = true;
                     _line.enabled = true;
 
-                    Ghost = hit.collider.gameObject.transform.GetChild(0);
+                    Ghost = hit.collider.gameObject.transform.GetChild(0);//Activa el efecto fantasma
                     Ghost.gameObject.SetActive(true);;
                     
 
@@ -79,13 +79,13 @@ public class TrashCollector : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKey(KeyCode.Q))
         {
-            Ghost.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.rotation.eulerAngles.z + 1f));
+        	Ghost.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.rotation.eulerAngles.z + 3));
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKey(KeyCode.E))
         {
-            Ghost.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.rotation.eulerAngles.z -1f));
+            Ghost.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.rotation.eulerAngles.z -3));
         }
 
 
@@ -112,6 +112,5 @@ public class TrashCollector : MonoBehaviour
         }
 
     }
-
 
 }
