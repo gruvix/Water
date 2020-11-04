@@ -18,6 +18,7 @@ public class TrashCollector : MonoBehaviour
     private GameObject item;
     // Variables de objetos del mundo
     private GameObject Bote;
+    private Transform Ghost;//Ghost es el fantasma verde guia de construccion
     private Transform _areaefecto;
     
    
@@ -45,6 +46,7 @@ public class TrashCollector : MonoBehaviour
 
                     has_floater = false;
                     _line.enabled = false;
+                    Ghost.gameObject.SetActive(false);
                 }
                 else{
                     Debug.Log("muy lejos...");
@@ -59,6 +61,11 @@ public class TrashCollector : MonoBehaviour
                     floater.GetComponent<Waver>().Transicion(gameObject);
                     has_floater = true;
                     _line.enabled = true;
+
+                    Ghost = hit.collider.gameObject.transform.GetChild(0);
+                    Ghost.gameObject.SetActive(true);;
+                    
+
                 }
 
                 if (hit.collider != null && hit.collider.tag == "Item" && !has_item)
@@ -72,8 +79,20 @@ public class TrashCollector : MonoBehaviour
 
         }
 
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Ghost.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.rotation.eulerAngles.z + 1f));
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Ghost.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.rotation.eulerAngles.z -1f));
+        }
+
+
+
         if (Input.GetMouseButtonDown(1) && has_floater)//Click derecho suelta el objeto
         {
+        	Ghost.gameObject.SetActive(false);
             floater.GetComponent<Waver>().Huerfano();
             has_floater = false;
             _line.enabled = false;
@@ -83,10 +102,16 @@ public class TrashCollector : MonoBehaviour
         {
 
         }
-        if (has_floater)
+
+
+        if (has_floater)//Crea el fantasma verde del objeto
         {
             _areaefecto.transform.Rotate(0,0,1f, Space.Self);
+            Vector2 puntero = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Ghost.gameObject.GetComponent<TargetJoint2D>().target = new Vector2(puntero[0], puntero[1]);
         }
 
     }
+
+
 }

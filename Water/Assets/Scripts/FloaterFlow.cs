@@ -47,10 +47,15 @@ public class FloaterFlow : MonoBehaviour
     
     private void OnTriggerExit2D(Collider2D col)
     {
-        if(col.tag == "Player" || col.tag == "Gema" ){
+        if (col.tag == "Player" || col.tag == "Gema" )
+        {
             Debug.Log("Game Over");
         }
-        Destroy(col.gameObject);
+
+        if (col.tag != "Ghost")
+        {
+            Destroy(col.gameObject);
+        }
     }
 
 }
