@@ -34,8 +34,7 @@ public class Waver : MonoBehaviour
         deathEffect = Resources.Load<ParticleSystem>("Effects/DestroyExplosion");
         if (gameObject.transform.parent.name == "Bote")
         {
-           gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
-           MakeLine();
+            Adopcion(new Vector2(gameObject.transform.position.x, gameObject.transform.position.y));
         }
 
     }

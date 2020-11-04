@@ -8,6 +8,7 @@ using Mirror;
 public class TrashCollector : MonoBehaviour
 {
     
+    public Transform Ghost;//Ghost es el fantasma verde guia de construccion
     public bool has_floater = false; // indica si el personaje tiene agarrado algo
     public bool has_item = false; //indica si el personaje tiene un objeto
     // Alcance para colocar objetos
@@ -18,8 +19,8 @@ public class TrashCollector : MonoBehaviour
     private GameObject item;
     // Variables de objetos del mundo
     private GameObject Bote;
-    private Transform Ghost;//Ghost es el fantasma verde guia de construccion
     private Transform _areaefecto;
+
     
    
     private void Start()
@@ -62,8 +63,14 @@ public class TrashCollector : MonoBehaviour
                     has_floater = true;
                     _line.enabled = true;
 
-                    Ghost = hit.collider.gameObject.transform.GetChild(0);//Activa el efecto fantasma
-                    Ghost.gameObject.SetActive(true);;
+                    //Ghost = hit.collider.gameObject.transform.GetChild(0);//Activa el efecto fantasma
+                    var ghostRender = Ghost.gameObject.GetComponent<SpriteRenderer>();
+                    var floaterRender = floater.GetComponent<SpriteRenderer>();
+                    ghostRender.sprite = floaterRender.sprite;
+                    Ghost.position = floater.transform.position;
+                    Ghost.localScale = floater.transform.localScale;
+                    Ghost.rotation = floater.transform.rotation;
+                    Ghost.gameObject.SetActive(true);
                     
 
                 }
