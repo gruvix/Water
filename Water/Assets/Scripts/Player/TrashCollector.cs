@@ -78,7 +78,10 @@ public class TrashCollector : MonoBehaviour
                 if (hit.collider != null && hit.collider.tag == "Item" && !has_item)
                 {
                     item = hit.collider.gameObject;
+
+                    item.GetComponent<SpaceGun>().enabled = true;
                     item.GetComponent<SpaceGun>().SetItem(gameObject.transform);
+                    
                     has_item = true;
                 }
 
