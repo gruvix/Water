@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
 
 public class Waver : MonoBehaviour
 {
@@ -51,8 +53,17 @@ public class Waver : MonoBehaviour
         {
             Destroy(line.gameObject);
         }
-    	Destroy(GetComponent<FixedJoint2D>());
-    	hasJoint = false;
+        if (hasJoint)
+        {
+            try {
+                Destroy(gameObject.GetComponent<FixedJoint2D>());
+            }
+            catch (Exception e)
+            {
+                print("Error en Huerfano: no existe joint");
+            }
+            hasJoint = false;
+        }
     	gameObject.transform.SetParent(Floaters.transform);
     	gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 0);//Cambia parámetro del material
         
@@ -68,7 +79,15 @@ public class Waver : MonoBehaviour
         }
         gameObject.transform.SetParent(owner.transform);
         gameObject.transform.position = owner.transform.position + new Vector3(0, 0.4f, 0);
-        gameObject.GetComponent<FixedJoint2D>().connectedBody = owner.GetComponent<Rigidbody2D>();
+        JointCheck();
+        try
+        {
+            gameObject.GetComponent<FixedJoint2D>().connectedBody = owner.GetComponent<Rigidbody2D>();
+        }
+        catch (Exception e)
+        {
+            print("Error en Transicion: no existe joint");
+        }
         gameObject.layer = 8;
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 0);
     }
@@ -78,7 +97,14 @@ public class Waver : MonoBehaviour
         gameObject.transform.position = target.position;
         gameObject.transform.rotation = target.rotation;
         JointCheck();
-        gameObject.GetComponent<FixedJoint2D>().connectedBody = SoulFragment.GetComponent<Rigidbody2D>();
+        try
+        {
+            gameObject.GetComponent<FixedJoint2D>().connectedBody = SoulFragment.GetComponent<Rigidbody2D>();
+        }
+        catch(Exception e)
+        {
+            print("Error en Adopcion: no existe joint");
+        }
         gameObject.transform.SetParent(Bote.transform);
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
         gameObject.layer = 10;
@@ -117,16 +143,16 @@ public class Waver : MonoBehaviour
     public void JointCheck()//Se fija q haya un joint, si no lo hay lo crea
     {
 
-    if (hasJoint == false)
-    	{	
-    	var joint = gameObject.AddComponent<FixedJoint2D>();
-    	joint.breakForce = Break_Force;
-    	hasJoint = true;
-    	}
-    else
-    {
-        gameObject.GetComponent<FixedJoint2D>().enabled = true;
-    }
+        if (!hasJoint)
+    	    {	
+    	    var joint = gameObject.AddComponent<FixedJoint2D>();
+    	    joint.breakForce = Break_Force;
+    	    hasJoint = true;
+    	    }
+        else
+        {
+            gameObject.GetComponent<FixedJoint2D>().enabled = true;
+        }
 
     }
 
@@ -136,9 +162,9 @@ public class Waver : MonoBehaviour
             {
                 Destroy(line.gameObject);
             }
-            var death = Instantiate(deathEffect, gameObject.transform.position, Quaternion.identity, GameObject.Find("EffectHolder").transform);
-            Destroy(death.gameObject, 5f);
-            Destroy(gameObject);
+        var death = Instantiate(deathEffect, gameObject.transform.position, Quaternion.identity, GameObject.Find("EffectHolder").transform);
+        Destroy(death.gameObject, 5f);
+        Destroy(gameObject);
     }
 
     public void Damage(float DMG)
