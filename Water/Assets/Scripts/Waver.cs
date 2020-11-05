@@ -34,7 +34,7 @@ public class Waver : MonoBehaviour
         deathEffect = Resources.Load<ParticleSystem>("Effects/DestroyExplosion");
         if (gameObject.transform.parent.name == "Bote")
         {
-            Adopcion(new Vector2(gameObject.transform.position.x, gameObject.transform.position.y));
+            Adopcion(gameObject.transform);
         }
 
     }
@@ -67,24 +67,37 @@ public class Waver : MonoBehaviour
             Destroy(line.gameObject);
         }
         gameObject.transform.SetParent(owner.transform);
-        gameObject.transform.position = owner.transform.position + new Vector3(0, 0.32f, 0);
+        gameObject.transform.position = owner.transform.position + new Vector3(0, 0.4f, 0);
         gameObject.GetComponent<FixedJoint2D>().connectedBody = owner.GetComponent<Rigidbody2D>();
         gameObject.layer = 8;
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 0);
     }
 
-    public void Adopcion(Vector2 puntero)//Ahora es del bote
+    public void Adopcion(Transform target)//Ahora es del bote
     {
-    	JointCheck();
-        
-    	gameObject.transform.position = new Vector3( puntero[0], puntero[1], 0);
-    	gameObject.transform.SetParent(Bote.transform);
-    	gameObject.GetComponent<FixedJoint2D>().connectedBody = SoulFragment.GetComponent<Rigidbody2D>();
+        gameObject.transform.position = target.position;
+        gameObject.transform.rotation = target.rotation;
+        JointCheck();
+        gameObject.GetComponent<FixedJoint2D>().connectedBody = SoulFragment.GetComponent<Rigidbody2D>();
+        gameObject.transform.SetParent(Bote.transform);
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
         gameObject.layer = 10;
         MakeLine();
 
     }
+
+    // public void Adopcion(Vector2 puntero)//Ahora es del bote
+    // {
+    // 	JointCheck();
+        
+    // 	gameObject.transform.position = new Vector3( puntero[0], puntero[1], 0);
+    // 	gameObject.transform.SetParent(Bote.transform);
+    // 	gameObject.GetComponent<FixedJoint2D>().connectedBody = SoulFragment.GetComponent<Rigidbody2D>();
+    //     gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
+    //     gameObject.layer = 10;
+    //     MakeLine();
+
+    // }
 
     public void MakeLine()//Aca se crea la linea magica
     {

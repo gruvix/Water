@@ -8,7 +8,7 @@ using Mirror;
 public class TrashCollector : MonoBehaviour
 {
     
-    public Transform Ghost;//Ghost es el fantasma verde guia de construccion
+    public GameObject Ghost;//Ghost es el fantasma verde guia de construccion
     public bool has_floater = false; // indica si el personaje tiene agarrado algo
     public bool has_item = false; //indica si el personaje tiene un objeto
     // Alcance para colocar objetos
@@ -20,15 +20,17 @@ public class TrashCollector : MonoBehaviour
     // Variables de objetos del mundo
     private GameObject Bote;
     private Transform _areaefecto;
+    private SpriteRenderer ghostRender;
 
     
    
     private void Start()
     {
+        Ghost.transform.SetParent(GameObject.Find("EffectHolder").transform);
         Bote = GameObject.Find("Bote");
         _areaefecto = gameObject.transform.Find("Areadeefecto");
         _line=_areaefecto.gameObject.GetComponent<LineRenderer>();
-        //Debug.Log(AreaEfecto);
+        ghostRender = Ghost.GetComponent<SpriteRenderer>();
     }
     private void Update()
     {
@@ -43,11 +45,11 @@ public class TrashCollector : MonoBehaviour
                 //Debug.Log(Vector2.Distance(m_puntero, gameObject.transform.position));
                 if(Vector2.Distance(m_puntero, gameObject.transform.position)<=alcance){
 
-                    floater.GetComponent<Waver>().Adopcion(m_puntero);
-
+                    floater.GetComponent<Waver>().Adopcion(Ghost.transform);
+                    Ghost.SetActive(false);
                     has_floater = false;
                     _line.enabled = false;
-                    Ghost.gameObject.SetActive(false);
+                    
                 }
                 else{
                     Debug.Log("muy lejos...");
@@ -63,14 +65,13 @@ public class TrashCollector : MonoBehaviour
                     has_floater = true;
                     _line.enabled = true;
 
-                    //Ghost = hit.collider.gameObject.transform.GetChild(0);//Activa el efecto fantasma
-                    var ghostRender = Ghost.gameObject.GetComponent<SpriteRenderer>();
+                    //Activa el efecto fantasma y copia el sprite
                     var floaterRender = floater.GetComponent<SpriteRenderer>();
                     ghostRender.sprite = floaterRender.sprite;
-                    Ghost.position = floater.transform.position;
-                    Ghost.localScale = floater.transform.localScale;
-                    Ghost.rotation = floater.transform.rotation;
-                    Ghost.gameObject.SetActive(true);
+                    Ghost.transform.position = floater.transform.position; 
+                    Ghost.transform.localScale = floater.transform.lossyScale;
+                    Ghost.transform.rotation = floater.transform.rotation;
+                    Ghost.SetActive(true);
                     
 
                 }
@@ -88,18 +89,18 @@ public class TrashCollector : MonoBehaviour
 
         if (Input.GetKey(KeyCode.Q))
         {
-        	Ghost.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.rotation.eulerAngles.z + 3));
+        	Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z + 3));
         }
         if (Input.GetKey(KeyCode.E))
         {
-            Ghost.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.rotation.eulerAngles.z -3));
+            Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z -3));
         }
 
 
 
         if (Input.GetMouseButtonDown(1) && has_floater)//Click derecho suelta el objeto
         {
-        	Ghost.gameObject.SetActive(false);
+        	Ghost.SetActive(false);
             floater.GetComponent<Waver>().Huerfano();
             has_floater = false;
             _line.enabled = false;
@@ -115,7 +116,7 @@ public class TrashCollector : MonoBehaviour
         {
             _areaefecto.transform.Rotate(0,0,1f, Space.Self);
             Vector2 puntero = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Ghost.gameObject.GetComponent<TargetJoint2D>().target = new Vector2(puntero[0], puntero[1]);
+            Ghost.GetComponent<TargetJoint2D>().target = new Vector2(puntero[0], puntero[1]);
         }
 
     }
