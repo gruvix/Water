@@ -54,7 +54,8 @@ public class Waver : MonoBehaviour
         {
             Destroy(line.gameObject);
         }
-       
+
+        DestroyJoint();
     	gameObject.transform.SetParent(Floaters.transform);
     	gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 0);//Cambia parámetro del material
         

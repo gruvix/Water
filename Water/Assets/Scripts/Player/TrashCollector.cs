@@ -17,6 +17,7 @@ public class TrashCollector : MonoBehaviour
     LineRenderer _line; // Linea que indica el rango
     private GameObject floater;
     private GameObject item;
+    private int dir = 1;
     // Variables de objetos del mundo
     private GameObject Bote;
     private Transform _areaefecto;
@@ -100,6 +101,15 @@ public class TrashCollector : MonoBehaviour
         {
         	Ghost.SetActive(false);
             floater.GetComponent<Waver>().Huerfano();
+            if(gameObject.transform.localScale.x > 0)
+            {
+                dir = 1;
+            }
+            else
+            {
+                dir = -1;
+            }
+            floater.GetComponent<Rigidbody2D>().velocity = gameObject.transform.right *2f * dir + transform.up *1.5f;
             has_floater = false;
             _line.enabled = false;
         }
