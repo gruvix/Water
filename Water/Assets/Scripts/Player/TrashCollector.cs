@@ -70,7 +70,7 @@ public class TrashCollector : MonoBehaviour
                     ghostRender.sprite = floaterRender.sprite;
                     Ghost.transform.position = floater.transform.position; 
                     Ghost.transform.localScale = floater.transform.lossyScale;
-                    Ghost.transform.rotation = floater.transform.rotation;
+                    Ghost.transform.rotation = floater.transform.localRotation;
                     Ghost.SetActive(true);
                 }
 

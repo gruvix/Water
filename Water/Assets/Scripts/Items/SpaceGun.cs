@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class SpaceGun : MonoBehaviour
 {
-	public AudioSource audio;
+	public AudioSource wepAudio;
     Transform firePointNormal, firePointFlip, firePoint;
-    bool flipped = false;
 	Vector3 mouse_pos;
 	Vector3 object_pos;
 	Transform target; //Desde quien apunta
@@ -28,14 +27,14 @@ public class SpaceGun : MonoBehaviour
     public void SetItem(Transform owner)
     {
     	target = owner;
-    	audio = GetComponent<AudioSource>();
+    	wepAudio = GetComponent<AudioSource>();
     	gameObject.GetComponent<Rigidbody2D>().simulated = false;
         gameObject.GetComponent<PolygonCollider2D>().enabled = false;
     }
 
     void Shoot()
     {
-        audio.Play();
+        wepAudio.Play();
 
         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation * Quaternion.Euler(0,0,270));
 
