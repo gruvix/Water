@@ -72,8 +72,6 @@ public class TrashCollector : MonoBehaviour
                     Ghost.transform.localScale = floater.transform.lossyScale;
                     Ghost.transform.rotation = floater.transform.rotation;
                     Ghost.SetActive(true);
-                    
-
                 }
 
                 if (hit.collider != null && hit.collider.tag == "Item" && !has_item)
