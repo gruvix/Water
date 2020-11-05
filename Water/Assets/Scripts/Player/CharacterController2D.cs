@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using System.Collections;
 
 public class CharacterController2D : MonoBehaviour
 {
 	[SerializeField] private float m_JumpForce = 400f;							// Amount of force added when the player jumps.
-	[Range(0, 1)] [SerializeField] private float m_CrouchSpeed = .36f;			// Amount of maxSpeed applied to crouching movement. 1 = 100%
+	[Range(0, 1)] [SerializeField] private float m_CrouchSpeed = 1f;			// Amount of maxSpeed applied to crouching movement. 1 = 100%
 	[Range(0, .3f)] [SerializeField] private float m_MovementSmoothing = 1f;	// How much to smooth out the movement
 	[SerializeField] private bool m_AirControl = false;							// Whether or not a player can steer while jumping;						
 	#pragma warning disable 0649	//Esto es para ignorar los warning, el numero depende del warning q sale
@@ -65,7 +66,7 @@ public class CharacterController2D : MonoBehaviour
 	}
 
 
-	public void Move(float move, bool crouch, bool jump)
+	public void Move(float move, bool crouch, bool jump, bool antijump)
 	{
 		// If crouching, check to see if the character can stand up
 		if (!crouch)
@@ -130,11 +131,30 @@ public class CharacterController2D : MonoBehaviour
 		// If the player should jump...
 		if (m_Grounded && jump)
 		{
+			if(!antijump)
+			{
+				m_Grounded = false;
+				m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+			}
 			// Add a vertical force to the player.
-			m_Grounded = false;
-			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+			else
+			{
+				m_Grounded = false;
+				Collider2D[] colliders = Physics2D.OverlapCircleAll(m_GroundCheck.position, k_GroundedRadius, m_WhatIsGround);
+				for (int i = 0; i < colliders.Length; i++)
+				{
+					if (colliders[i].gameObject.tag == "FloaterPlatform")
+					{
+						Physics2D.IgnoreCollision(colliders[i].GetComponent<Collider2D>(), GetComponent<Collider2D>());
+						m_Rigidbody2D.AddForce(new Vector2(0f, -0.1f));
+						StartCoroutine(HammerTime(colliders[i]));
+						//transform.position -= new Vector3(0f, 0.5f, 0f);
+					}
+				}
+			}
 		}
 	}
+
 
 
 	private void Flip()
@@ -148,4 +168,11 @@ public class CharacterController2D : MonoBehaviour
 		theScale.x *= -1;
 		transform.localScale = theScale;
 	}
+
+	IEnumerator HammerTime(Collider2D collider)
+	{
+		yield return new WaitForSecondsRealtime(0.5f);
+		Physics2D.IgnoreCollision(collider.GetComponent<Collider2D>(), GetComponent<Collider2D>(), false);
+	}
+
 }

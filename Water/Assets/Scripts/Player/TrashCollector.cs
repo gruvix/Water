@@ -59,7 +59,7 @@ public class TrashCollector : MonoBehaviour
             // Si el jugador no tiene nada agarrado agarra lo que haya clicleado si es que clickeo algo
             else{
                 
-                if (hit.collider != null && hit.collider.tag == "Floater")
+                if (hit.collider != null && (hit.collider.tag == "Floater"|| hit.collider.tag == "FloaterPlatform"))
                 {
                     floater = hit.collider.gameObject;
                     floater.GetComponent<Waver>().Transicion(gameObject);

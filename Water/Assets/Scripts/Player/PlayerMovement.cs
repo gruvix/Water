@@ -9,7 +9,7 @@ public class PlayerMovement : NetworkBehaviour
 	public float runSpeed = 40f;
 	float horizontalMove = 0f;
     bool jump = false;
-    bool crouch = false;
+    bool antijump = false;
     private Animator animator;
     private Rigidbody2D body;
     public Camera cam;
@@ -37,11 +37,11 @@ public class PlayerMovement : NetworkBehaviour
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            crouch = true;
+            antijump = true;
         }
         if (Input.GetKeyUp(KeyCode.S))
         {
-            crouch = false;
+            antijump = false;
         }
     }
 
@@ -49,7 +49,7 @@ public class PlayerMovement : NetworkBehaviour
     void FixedUpdate ()
     {
     	//Move Character
-    	controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
+    	controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump, antijump);
         jump = false;
 
         if(Mathf.Abs(body.velocity.x) > 0.1f)
