@@ -3516,5 +3516,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform1
       objectReference: {fileID: 0}
+    - target: {fileID: 4458015460816865228, guid: 12b79ee44ec0fba498da2249063ad8cd,
+        type: 3}
+      propertyPath: m_ColliderMask.m_Bits
+      value: 1296
+      objectReference: {fileID: 0}
+    - target: {fileID: 4458015460816865228, guid: 12b79ee44ec0fba498da2249063ad8cd,
+        type: 3}
+      propertyPath: m_UseColliderMask
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12b79ee44ec0fba498da2249063ad8cd, type: 3}

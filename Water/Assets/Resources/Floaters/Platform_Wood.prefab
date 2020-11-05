@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 4458015460816865224}
   - component: {fileID: 4458015460816865231}
   - component: {fileID: 4458015460816865225}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Platform_Wood
-  m_TagString: Untagged
+  m_TagString: Floater
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

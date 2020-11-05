@@ -9,6 +9,7 @@ public class PlayerMovement : NetworkBehaviour
 	public float runSpeed = 40f;
 	float horizontalMove = 0f;
     bool jump = false;
+    bool crouch = false;
     private Animator animator;
     private Rigidbody2D body;
     public Camera cam;
@@ -34,13 +35,21 @@ public class PlayerMovement : NetworkBehaviour
         {
             jump = true;
         }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            crouch = true;
+        }
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            crouch = false;
+        }
     }
 
   	[Client]
     void FixedUpdate ()
     {
     	//Move Character
-    	controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump);
+    	controller.Move(horizontalMove * Time.fixedDeltaTime, crouch, jump);
         jump = false;
 
         if(Mathf.Abs(body.velocity.x) > 0.1f)

@@ -69,11 +69,18 @@ public class Waver : MonoBehaviour
         {
             Destroy(line.gameObject);
         }
+
         gameObject.transform.SetParent(owner.transform);
         gameObject.transform.position = owner.transform.position + new Vector3(0, 0.4f, 0);
         JointCheck();
+
+        if(gameObject.GetComponent<PlatformEffector2D>() != null)//Esto es para las plataformas
+        {
+            gameObject.GetComponent<PlatformEffector2D>().enabled = false;
+        }
+
         Fjoint.connectedBody = owner.GetComponent<Rigidbody2D>();
-        gameObject.layer = 8;
+        gameObject.layer = 11;
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 0);
     }
 
@@ -81,11 +88,15 @@ public class Waver : MonoBehaviour
     {
         //Si giras un objetos con un fixed joint intenta girar el objeto al que esta agarrado, hay que destruirlo primero
         DestroyJoint();
-
         //Se asigna el bote como parent
         gameObject.transform.SetParent(Bote.transform);
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
         gameObject.layer = 10;
+
+        if(gameObject.GetComponent<PlatformEffector2D>() != null)//Esto es para las plataformas
+        {
+            gameObject.GetComponent<PlatformEffector2D>().enabled = true;
+        }
 
         gameObject.transform.SetPositionAndRotation(target.position,target.rotation);
         JointCheck();
@@ -131,9 +142,8 @@ public class Waver : MonoBehaviour
     public void DestroyJoint()
     {
         try{
-            Fjoint.enabled = false;
-            Fjoint = null;
             Destroy(gameObject.GetComponent<FixedJoint2D>());
+            Fjoint = null; 
         }
         catch (Exception e) {Debug.Log("No Joint to destroy" + e); }
         hasJoint = false;
