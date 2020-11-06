@@ -68,7 +68,7 @@ public class SpaceGun : MonoBehaviour
         	gameObject.transform.position = target.position + new Vector3(Mathf.Cos(radians) * offset, Mathf.Sin(radians) * offset + playerHeight, 0) ;
 
         }
-            if (Input.GetMouseButtonDown(2))
+            if (Input.GetMouseButton(2))
         {
                 Shoot();
         }

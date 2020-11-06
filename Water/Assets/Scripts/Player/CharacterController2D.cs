@@ -148,7 +148,6 @@ public class CharacterController2D : MonoBehaviour
 						Physics2D.IgnoreCollision(colliders[i].GetComponent<Collider2D>(), GetComponent<Collider2D>());
 						m_Rigidbody2D.AddForce(new Vector2(0f, -0.1f));
 						StartCoroutine(HammerTime(colliders[i]));
-						//transform.position -= new Vector3(0f, 0.5f, 0f);
 					}
 				}
 			}

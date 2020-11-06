@@ -16,7 +16,7 @@ public class Bullet1 : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
-    	if (hitInfo.tag == "Floater")
+    	if (hitInfo.tag == "Floater" || hitInfo.tag == "FloaterPlatform")
     	{
     		hitInfo.gameObject.GetComponent<Waver>().Damage(20f);
     	}

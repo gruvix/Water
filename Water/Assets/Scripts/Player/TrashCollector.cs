@@ -22,6 +22,7 @@ public class TrashCollector : MonoBehaviour
     private GameObject Bote;
     private Transform _areaefecto;
     private SpriteRenderer ghostRender;
+    private bool ghostCheck = true;
 
     
    
@@ -32,6 +33,7 @@ public class TrashCollector : MonoBehaviour
         _areaefecto = gameObject.transform.Find("Areadeefecto");
         _line=_areaefecto.gameObject.GetComponent<LineRenderer>();
         ghostRender = Ghost.GetComponent<SpriteRenderer>();
+        
     }
     private void Update()
     {
@@ -44,9 +46,11 @@ public class TrashCollector : MonoBehaviour
 
                 // Si tiene algo agarrado y haces click lo deja donde hiciste click y se lo da al bote
                 //Debug.Log(Vector2.Distance(m_puntero, gameObject.transform.position));
-                if(Vector2.Distance(m_puntero, gameObject.transform.position)<=alcance){
-
+                ghostCheck = Ghost.GetComponent<Ghost>().CanPlace;
+                if(Vector2.Distance(m_puntero, gameObject.transform.position)<=alcance && ghostCheck)
+                {
                     floater.GetComponent<Waver>().Adopcion(Ghost.transform);
+                    Ghost.GetComponent<Ghost>().DestroyCollider();
                     Ghost.SetActive(false);
                     has_floater = false;
                     _line.enabled = false;
@@ -73,6 +77,9 @@ public class TrashCollector : MonoBehaviour
                     Ghost.transform.localScale = floater.transform.lossyScale;
                     Ghost.transform.rotation = floater.transform.localRotation;
                     Ghost.SetActive(true);
+                    Ghost.GetComponent<Ghost>().SetCollider(floater);
+                    
+
                 }
 
                 if (hit.collider != null && hit.collider.tag == "Item" && !has_item)
@@ -112,6 +119,7 @@ public class TrashCollector : MonoBehaviour
             {
                 dir = -1;
             }
+            Ghost.GetComponent<Ghost>().DestroyCollider();
             floater.GetComponent<Rigidbody2D>().velocity = gameObject.transform.right *2f * dir + transform.up *1.5f;
             has_floater = false;
             _line.enabled = false;
