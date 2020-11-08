@@ -19,6 +19,7 @@ public class Waver : MonoBehaviour
     private GameObject SoulFragment;
     private ParticleSystem deathEffect;
     private LineRenderer LinePrefab;
+    private bool fixedCheck = false;
     public FixedJoint2D Fjoint;
     public bool hasJoint = false;
     public float hpMAX = 100;
@@ -90,9 +91,6 @@ public class Waver : MonoBehaviour
     public void Adopcion(Transform target)//Ahora es del bote
     {
     	gameObject.GetComponent<Rigidbody2D>().bodyType =  RigidbodyType2D.Dynamic;
-        //Si giras un objetos con un fixed joint intenta girar el objeto al que esta agarrado, hay que destruirlo primero
-        //DestroyJoint();
-        //Se asigna el bote como parent
         gameObject.transform.SetParent(Bote.transform);
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
         gameObject.layer = 10;
@@ -103,7 +101,7 @@ public class Waver : MonoBehaviour
         }
 
         gameObject.transform.SetPositionAndRotation(target.position,target.rotation);
-        
+        fixedCheck = true;
 
         
 
@@ -197,10 +195,11 @@ public class Waver : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (gameObject.transform.parent.name == "Bote" && gameObject.GetComponent<FixedJoint2D>() == null)
+        if (fixedCheck)
         {
- 			JointCheck();
+ 		JointCheck();
  		Fjoint.connectedBody = SoulFragment.GetComponent<Rigidbody2D>();
+ 		fixedCheck = false;
     	}
     }
     
