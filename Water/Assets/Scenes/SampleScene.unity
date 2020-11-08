@@ -1658,6 +1658,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Platform1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4458015460816865224, guid: 12b79ee44ec0fba498da2249063ad8cd,
+        type: 3}
+      propertyPath: m_Mass
+      value: 0.028100768
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12b79ee44ec0fba498da2249063ad8cd, type: 3}
 --- !u!4 &859021685 stripped
@@ -3404,7 +3409,7 @@ BuoyancyEffector2D:
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 784
+    m_Bits: 4880
   m_SurfaceLevel: 3.71
   m_Density: 1
   m_LinearDrag: 5
@@ -3940,12 +3945,12 @@ PrefabInstance:
     - target: {fileID: 1783570057928782239, guid: 3fc49d23a378cbc44af02120e36ebe23,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.862
+      value: -0.28
       objectReference: {fileID: 0}
     - target: {fileID: 1783570057928782239, guid: 3fc49d23a378cbc44af02120e36ebe23,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.251
+      value: 0.702
       objectReference: {fileID: 0}
     - target: {fileID: 1783570057928782239, guid: 3fc49d23a378cbc44af02120e36ebe23,
         type: 3}

@@ -101,12 +101,20 @@ public class Waver : MonoBehaviour
         }
 
         gameObject.transform.SetPositionAndRotation(target.position,target.rotation);
-        fixedCheck = true;
-
         
 
+        StartCoroutine(HammerTime());
+
         MakeLine();
+        
     }
+
+    IEnumerator HammerTime()
+    {
+        yield return new WaitForSeconds(0.01f);
+        fixedCheck = true;
+    }
+
 
     public void MakeLine()//Aca se crea la linea magica
     {

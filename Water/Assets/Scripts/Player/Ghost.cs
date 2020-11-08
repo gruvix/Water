@@ -39,9 +39,7 @@ public class Ghost : MonoBehaviour
 
     void Update()
     {
-    	Debug.Log(counter);
     	m_puntero = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
     }
 
     void FixedUpdate()
@@ -52,7 +50,7 @@ public class Ghost : MonoBehaviour
         	CanPlace = false;
         	gameObject.GetComponent<Collider2D>().enabled = false;
         }
-        
+
     	if(counter == 0)
     	{
     		gameObject.GetComponent<Renderer>().material.SetInt("_CanPlace", 1);
