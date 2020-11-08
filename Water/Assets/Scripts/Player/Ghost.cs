@@ -4,20 +4,26 @@ using UnityEngine;
 
 public class Ghost : MonoBehaviour
 {
-	public float speedLimit = 6f;
+	private float speedLimit = 7f;
 	public bool CanPlace = true;
+	private float distanciaGhost = 0.8f;
 	private int counter = 0;
 	private Component copyCollider = null;
 	private Component copyTrigger = null;
 	private System.Type type = null;
+	private Vector2 m_puntero;
     // Update is called once per frame
     void OnCollisionEnter2D(Collision2D collider)
     {
-        if (Mathf.Abs(collider.relativeVelocity.magnitude) > speedLimit && CanPlace)
+        if ((Mathf.Abs(collider.relativeVelocity.magnitude) > speedLimit && CanPlace)) 
         {
         	gameObject.GetComponent<Renderer>().material.SetInt("_CanPlace", 0);
         	CanPlace = false;
         	gameObject.GetComponent<Collider2D>().enabled = false;
+        }
+        else
+        {
+        	gameObject.GetComponent<TargetJoint2D>().maxForce = 0.012f;
         }
     }
 
@@ -28,19 +34,32 @@ public class Ghost : MonoBehaviour
 
     void OnTriggerExit2D()
     {
-
     	counter--;
-    	if(counter == 0)
-    	{
-    		gameObject.GetComponent<Renderer>().material.SetInt("_CanPlace", 1);
-    		CanPlace = true;
-    		gameObject.GetComponent<Collider2D>().enabled = true;
-    	}
     }
 
     void Update()
     {
     	Debug.Log(counter);
+    	m_puntero = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+    }
+
+    void FixedUpdate()
+    {
+    	if(Vector2.Distance(m_puntero, gameObject.transform.position) >= distanciaGhost)
+        {
+        	gameObject.GetComponent<Renderer>().material.SetInt("_CanPlace", 0);
+        	CanPlace = false;
+        	gameObject.GetComponent<Collider2D>().enabled = false;
+        }
+        
+    	if(counter == 0)
+    	{
+    		gameObject.GetComponent<Renderer>().material.SetInt("_CanPlace", 1);
+    		CanPlace = true;
+    		gameObject.GetComponent<Collider2D>().enabled = true;
+    		gameObject.GetComponent<TargetJoint2D>().maxForce = 0.1f;
+    	}
     }
 
     public void SetCollider(GameObject original)//Aca va cada tipo de collider
