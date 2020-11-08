@@ -50,6 +50,7 @@ public class Waver : MonoBehaviour
 
     public void Huerfano()//Se va pa'l agua
     {
+    	gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         if (line != null) 
         {
             Destroy(line.gameObject);
@@ -64,7 +65,9 @@ public class Waver : MonoBehaviour
 
     public void Transicion(GameObject owner)//Lo tiene el paisano
     {
-    	JointCheck();
+    	Destroy(Fjoint);
+    	gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+    	//JointCheck();
         if (line != null) 
         {
             Destroy(line.gameObject);
@@ -72,20 +75,21 @@ public class Waver : MonoBehaviour
 
         gameObject.transform.SetParent(owner.transform);
         gameObject.transform.position = owner.transform.position + new Vector3(0, 0.4f, 0);
-        JointCheck();
+        //JointCheck();
 
         if(gameObject.GetComponent<PlatformEffector2D>() != null)//Esto es para las plataformas
         {
             gameObject.GetComponent<PlatformEffector2D>().enabled = false;
         }
 
-        Fjoint.connectedBody = owner.GetComponent<Rigidbody2D>();
+        //Fjoint.connectedBody = owner.GetComponent<Rigidbody2D>();
         gameObject.layer = 11;
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 0);
     }
 
     public void Adopcion(Transform target)//Ahora es del bote
     {
+    	gameObject.GetComponent<Rigidbody2D>().bodyType =  RigidbodyType2D.Dynamic;
         //Si giras un objetos con un fixed joint intenta girar el objeto al que esta agarrado, hay que destruirlo primero
         //DestroyJoint();
         //Se asigna el bote como parent
@@ -99,9 +103,9 @@ public class Waver : MonoBehaviour
         }
 
         gameObject.transform.SetPositionAndRotation(target.position,target.rotation);
-        JointCheck();
+        
 
-        Fjoint.connectedBody = SoulFragment.GetComponent<Rigidbody2D>();
+        
 
         MakeLine();
     }
@@ -188,6 +192,16 @@ public class Waver : MonoBehaviour
             line.SetPosition(2, Vector3.Lerp(SoulFragment.transform.position, gameObject.transform.position, 0.66f));
             line.SetPosition(3, gameObject.transform.position);
         }
+
+    }
+
+    void FixedUpdate()
+    {
+        if (gameObject.transform.parent.name == "Bote" && gameObject.GetComponent<FixedJoint2D>() == null)
+        {
+ 			JointCheck();
+ 		Fjoint.connectedBody = SoulFragment.GetComponent<Rigidbody2D>();
+    	}
     }
     
 
