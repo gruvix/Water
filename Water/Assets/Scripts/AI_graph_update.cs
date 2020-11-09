@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AI : MonoBehaviour
+public class AI_graph_update : MonoBehaviour
 {
 
     private int count_time = 0;
