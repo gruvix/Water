@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 1783570057928782234}
   - component: {fileID: 499967129}
   - component: {fileID: 499967130}
+  - component: {fileID: -1064165132203228879}
   m_Layer: 12
   m_Name: SpaceGun
   m_TagString: Item
@@ -285,6 +286,22 @@ MonoBehaviour:
   playerHeight: 0.1
   offset: 0.05
   compensation: -38
+--- !u!114 &-1064165132203228879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783570057928782235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &2449999484438256259
 GameObject:
   m_ObjectHideFlags: 0

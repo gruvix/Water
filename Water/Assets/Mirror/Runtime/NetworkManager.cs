@@ -159,7 +159,22 @@ namespace Mirror
         /// </summary>
         [FormerlySerializedAs("m_SpawnPrefabs"), HideInInspector]
         public List<GameObject> spawnPrefabs = new List<GameObject>();
+        private void SetPrefabs()
+        {
+            foreach (GameObject i in Resources.LoadAll("Floaters", typeof(GameObject)))
+            {
+                spawnPrefabs.Add(i);
+            }
+            foreach (GameObject i in Resources.LoadAll("NPCs", typeof(GameObject)))
+            {
+                spawnPrefabs.Add(i);
+            }
+            foreach (GameObject i in Resources.LoadAll("Items", typeof(GameObject)))
+            {
+                spawnPrefabs.Add(i);
+            }
 
+        }
         /// <summary>
         /// NetworkManager singleton
         /// </summary>
@@ -256,6 +271,7 @@ namespace Mirror
         /// </summary>
         public virtual void Start()
         {
+            SetPrefabs();
             // headless mode? then start the server
             // can't do this in Awake because Awake is for initialization.
             // some transports might not be ready until Start.

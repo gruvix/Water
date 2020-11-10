@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 4458015460816865224}
   - component: {fileID: 4458015460816865231}
   - component: {fileID: 4458015460816865225}
+  - component: {fileID: 742151143424840585}
   m_Layer: 9
   m_Name: Platform_Wood
   m_TagString: FloaterPlatform
@@ -182,3 +183,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Densidad: 0.29
+--- !u!114 &742151143424840585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4458015460816865219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0

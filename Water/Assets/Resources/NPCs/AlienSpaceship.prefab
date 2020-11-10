@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1928461191902879273}
   - component: {fileID: 1928461191902879272}
+  - component: {fileID: 1597689314}
   m_Layer: 13
   m_Name: Graphic
   m_TagString: Untagged
@@ -81,6 +82,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!60 &1597689314
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928461191902879254}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.3, y: 1.6}
+    newSize: {x: 2.3, y: 1.6}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -1.1726422, y: -0.48938102}
+      - {x: 1.1877369, y: -0.48938102}
+      - {x: -0.008351997, y: 0.84412205}
 --- !u!1 &1928461192403286598
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,7 +122,7 @@ GameObject:
   - component: {fileID: 1928461192403286618}
   - component: {fileID: 1928461192403286619}
   - component: {fileID: 1928461192403286616}
-  - component: {fileID: 1928461192403286620}
+  - component: {fileID: 642769643856641625}
   m_Layer: 13
   m_Name: AlienSpaceship
   m_TagString: Untagged
@@ -194,31 +223,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   target: {fileID: 0}
---- !u!60 &1928461192403286620
-PolygonCollider2D:
+--- !u!114 &642769643856641625
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1928461192403286598}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.3, y: 1.6}
-    newSize: {x: 2.3, y: 1.6}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -1.1726422, y: -0.48938102}
-      - {x: 1.1877369, y: -0.48938102}
-      - {x: -0.008351997, y: 0.84412205}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0

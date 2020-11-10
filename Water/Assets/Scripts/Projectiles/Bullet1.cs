@@ -20,6 +20,14 @@ public class Bullet1 : MonoBehaviour
     	{
     		hitInfo.gameObject.GetComponent<Waver>().Damage(20f);
     	}
+        else
+		{
+            if(hitInfo.tag == "NPC")
+			{
+
+			}
+		}
+
     	Destroy(gameObject);
     }
 
