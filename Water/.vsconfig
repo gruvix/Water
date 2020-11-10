@@ -1,0 +1,28 @@
+{
+  "version": "1.0",
+  "components": [
+    "Microsoft.VisualStudio.Component.CoreEditor",
+    "Microsoft.VisualStudio.Workload.CoreEditor",
+    "Microsoft.VisualStudio.Component.NuGet",
+    "Microsoft.VisualStudio.Component.Roslyn.Compiler",
+    "Microsoft.VisualStudio.Component.Roslyn.LanguageServices",
+    "Microsoft.Component.MSBuild",
+    "Microsoft.VisualStudio.Component.TextTemplating",
+    "Microsoft.VisualStudio.Component.IntelliCode",
+    "Microsoft.Net.Component.4.7.1.TargetingPack",
+    "Microsoft.VisualStudio.Component.VC.CoreIde",
+    "Microsoft.VisualStudio.Component.VC.Tools.x86.x64",
+    "Microsoft.VisualStudio.Component.Graphics.Tools",
+    "Microsoft.VisualStudio.Component.VC.DiagnosticTools",
+    "Microsoft.VisualStudio.Component.Windows10SDK.18362",
+    "Microsoft.VisualStudio.Component.VC.Redist.14.Latest",
+    "Microsoft.VisualStudio.ComponentGroup.NativeDesktop.Core",
+    "Microsoft.VisualStudio.Component.VC.ASAN",
+    "Microsoft.VisualStudio.Workload.NativeDesktop",
+    "Microsoft.Net.Component.3.5.DeveloperTools",
+    "Microsoft.VisualStudio.Component.Unity",
+    "Component.UnityEngine.x64",
+    "Component.UnityEngine.x86",
+    "Microsoft.VisualStudio.Workload.ManagedGame"
+  ]
+}

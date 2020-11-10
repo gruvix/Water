@@ -8,7 +8,7 @@ public class Cannon : MonoBehaviour
     Transform firePoint;
 	Vector3 mouse_pos;
 	Vector3 object_pos;
-	Transform target; //Desde quien apunta
+	private Transform target; //Desde quien apunta
 	float angle;
 	float radians;
     public GameObject bulletPrefab;

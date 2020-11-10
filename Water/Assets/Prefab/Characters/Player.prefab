@@ -136,7 +136,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f30a736ef274b642b67f1bd22f6688b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedLimit: 6
   CanPlace: 1
 --- !u!1 &8769843254203982799
 GameObject:
@@ -157,6 +156,7 @@ GameObject:
   - component: {fileID: -4441899586379360367}
   - component: {fileID: 3873433914411587592}
   - component: {fileID: 8640554654847102184}
+  - component: {fileID: 270611071025930078}
   m_Layer: 8
   m_Name: Player
   m_TagString: Player
@@ -397,6 +397,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Densidad: 0.673
+--- !u!114 &270611071025930078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8769843254203982799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7dea1c4b0099744683ad976997ed97d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NPC_list: {fileID: 0}
 --- !u!1 &8769843254460423400
 GameObject:
   m_ObjectHideFlags: 0
