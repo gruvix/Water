@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraManager : MonoBehaviour 
+public class CameraManager : NetworkBehaviour
 {
 	public Transform targetDefault;
 	public Transform target;
@@ -12,19 +13,23 @@ public class CameraManager : MonoBehaviour
     private float targetZoom;
 
 	// Use this for initialization
+	[Client]
 	void Start () {
 		offset = transform.position - target.position;
 		cam = Camera.main;
 		targetZoom = cam.orthographicSize;
 	}
 
+	[Client]
 	public void SetTarget (Transform trans)
 	{
 		offset = transform.position - trans.position;
 		target.position = trans.position;
 
 	}
-    void Update ()
+
+	[Client]
+	void Update ()
 	{
 		//if (!Pausa.MenuPause && !Pausa.onEvent)
 		//{
@@ -40,6 +45,7 @@ public class CameraManager : MonoBehaviour
 		//}
 	}
 
+	[Client]
 	// Update is called once per frame
 	void LateUpdate () {
 
