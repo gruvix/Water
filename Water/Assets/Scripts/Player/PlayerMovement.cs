@@ -21,6 +21,7 @@ public class PlayerMovement : NetworkBehaviour
         body = GetComponent<Rigidbody2D>();
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         cam.GetComponent<CameraManager>().target = gameObject.transform;
+        cam.enabled = true;
     }
 
 
