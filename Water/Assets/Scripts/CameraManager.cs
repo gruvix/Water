@@ -31,8 +31,6 @@ public class CameraManager : NetworkBehaviour
 	[Client]
 	void Update ()
 	{
-		//if (!Pausa.MenuPause && !Pausa.onEvent)
-		//{
 		if (target == null)
 		{
 			target = targetDefault;
@@ -42,7 +40,6 @@ public class CameraManager : NetworkBehaviour
 		targetZoom -= ScrollWheelChange * 2f; // Cantidad de zoom por rueda
 		targetZoom = Mathf.Clamp(targetZoom, 1f, 3f); // LIMITES DE LA CAMARA
 		cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, Time.deltaTime * 10);
-		//}
 	}
 
 	[Client]
