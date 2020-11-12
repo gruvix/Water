@@ -33,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 4458015460816865219}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.019, y: 0.252, z: 0}
-  m_LocalScale: {x: 0.13324192, y: 0.13324192, z: 0.13324192}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -170,7 +170,7 @@ MonoBehaviour:
   hasJoint: 0
   hpMAX: 100
   HP: 100
-  Break_Force: 1
+  Break_Force: 50
 --- !u!114 &4458015460816865225
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -163,7 +163,7 @@ MonoBehaviour:
   hasJoint: 0
   hpMAX: 100
   HP: 100
-  Break_Force: 1
+  Break_Force: 50
 --- !u!114 &1389949215968154846
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -173,7 +173,7 @@ Transform:
   m_GameObject: {fileID: 8769843254203982799}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.99, y: -4.755, z: 0}
-  m_LocalScale: {x: 0.067492805, y: 0.07229551, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8769843254635714566}
   - {fileID: 8769843254460423401}
@@ -409,7 +409,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7dea1c4b0099744683ad976997ed97d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NPC_list: {fileID: 0}
 --- !u!1 &8769843254460423400
 GameObject:
   m_ObjectHideFlags: 0
