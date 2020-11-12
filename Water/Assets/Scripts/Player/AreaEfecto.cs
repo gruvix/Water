@@ -8,9 +8,9 @@ public class AreaEfecto : MonoBehaviour
     [Range(0, 50)]
     public int segments = 20;
     [Range(0, 5)]
-    private float xradius = 3;
+    private float xradius = 5;
     [Range(0, 5)]
-    private float yradius = 3;
+    private float yradius = 5;
     LineRenderer line;
 
     private void Start()
