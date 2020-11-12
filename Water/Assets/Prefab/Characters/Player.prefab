@@ -263,7 +263,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 0.013221448
+  m_Mass: 2.6981564
   m_LinearDrag: 1
   m_AngularDrag: 1
   m_GravityScale: 1
@@ -349,7 +349,7 @@ MonoBehaviour:
   Ghost: {fileID: 3480436779267936390}
   has_floater: 0
   has_item: 0
-  alcance: 0.4
+  alcance: 3.1
 --- !u!114 &-4441899586379360367
 MonoBehaviour:
   m_ObjectHideFlags: 0

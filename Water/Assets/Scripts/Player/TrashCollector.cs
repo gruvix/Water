@@ -12,7 +12,7 @@ public class TrashCollector : MonoBehaviour
     public bool has_floater = false; // indica si el personaje tiene agarrado algo
     public bool has_item = false; //indica si el personaje tiene un objeto
     // Alcance para colocar objetos
-    [Range(0.01f, 1f)]
+    [Range(0.01f, 5f)]
     public float alcance = 0.4f;
     LineRenderer _line; // Linea que indica el rango
     private GameObject floater;

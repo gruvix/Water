@@ -61,7 +61,7 @@ public class PlayerMovement : NetworkBehaviour
         {
             animator.SetFloat("HorizontalSpeed", 0);
         }
-        if(Mathf.Abs(body.velocity.y) > .3f)//
+        if(Mathf.Abs(body.velocity.y) > 10f)//
         {
             animator.SetBool("OnAir", true);
         }
