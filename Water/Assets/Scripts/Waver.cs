@@ -26,7 +26,8 @@ public class Waver : MonoBehaviour
     public float HP = 100;
 
     //Variables que definen el joint del cuerpo (ajustables en el PREFAB)
-    public float Break_Force = 1;
+    public float Break_Force = 5;
+    public float Damping_Ratio = 1;
 
     void Start()
     {
@@ -145,6 +146,7 @@ public class Waver : MonoBehaviour
                 Fjoint = gameObject.GetComponent<FixedJoint2D>();
             }
             Fjoint.breakForce = Break_Force;
+            Fjoint.dampingRatio = Damping_Ratio;
             hasJoint = true;
     	    }
         else
