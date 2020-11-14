@@ -29,23 +29,8 @@ public class NetWaver : NetworkBehaviour
     public float Break_Force = 50;
     public float Damping_Ratio = 1;
 
-    /*
-    [Server]
-    public override void OnStartServer()
-    {
-        RpcStart();
-        CmdStart();
-        Debug.Log("llego a OnStartServer() y es cliente:" + netIdentity.isClient + " es server:" + netIdentity.isServer + " tiene autoridad" + netIdentity.hasAuthority);
-    }
-    */
-    [Command]
-    private void CmdStart()
-    {
-        RpcStart();
-    }
-
-    [ClientRpc]
-    private void RpcStart()
+    [Client]
+    private void Start()
     {
         Floaters = GameObject.Find("Floaters");
         Bote = GameObject.Find("Bote");
@@ -54,27 +39,39 @@ public class NetWaver : NetworkBehaviour
         deathEffect = Resources.Load<ParticleSystem>("Effects/DestroyExplosion");
         if (gameObject.transform.parent.name == "Bote")
         {
-            CmdAdopcion(gameObject.transform);
+            Adopcion(gameObject.transform);
         }
-        Debug.Log("llego a startRcp"); 
+        Debug.Log("llego a Start");
+    }
+    [Client]
+    public override void OnStartClient()
+    {
+        Start();
+        Debug.Log("llego a OnStartClient()");
+    }
+    [Client]
+    public override void OnStartLocalPlayer()
+    {
+        Start();
+        Debug.Log("llego a OnStartLocalPlayer()");
+    }
+
+    [Server]
+    public override void OnStartServer()
+    {
+        Start();
+        Debug.Log("llego a OnStartLocalPlayer()");
     }
 
     [Client]
     public void OnJointBreak2D()//Mucha Violencia -> huerfanizado
     {
-        
-        CmdHuerfano();
+        Huerfano();
         Debug.Log("Se rompio union por exeso de fuerza");
     }
 
-    [Command]
-    public void CmdHuerfano()
-    {
-        RpcHuerfano();
-    }
-
-    [ClientRpc]
-    public void RpcHuerfano()//Se va pa'l agua
+    [Client]
+    public void Huerfano()//Se va pa'l agua
     {
     	gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         if (line != null) 
@@ -89,14 +86,9 @@ public class NetWaver : NetworkBehaviour
     	gameObject.layer = 9;
     }
 
-    [Command]
-    public void CmdTransicion(GameObject owner)
-    {
-        RpcTransicion(owner);
-    }
 
-    [ClientRpc]
-    public void RpcTransicion(GameObject owner)//Lo tiene el paisano
+    [Client]
+    public void Transicion(GameObject owner)//Lo tiene el paisano
     {
     	Destroy(Fjoint);
     	gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
@@ -120,14 +112,8 @@ public class NetWaver : NetworkBehaviour
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 0);
     }
 
-    [Command]
-    public void CmdAdopcion(Transform target)
-    {
-        RpcAdopcion(target);
-    }
-
-    [ClientRpc]
-    public void RpcAdopcion(Transform target)//Ahora es del bote
+    [Client]
+    public void Adopcion(Transform target)//Ahora es del bote
     {
     	gameObject.GetComponent<Rigidbody2D>().bodyType =  RigidbodyType2D.Dynamic;
         gameObject.transform.SetParent(Bote.transform);
@@ -146,7 +132,7 @@ public class NetWaver : NetworkBehaviour
         StartCoroutine(HammerTime());
         Debug.Log("Adopcion");
 
-        CmdMakeLine();
+        MakeLine();
     }
 
     IEnumerator HammerTime()
@@ -155,14 +141,8 @@ public class NetWaver : NetworkBehaviour
         fixedCheck = true;
     }
 
-    [Command]
-    public void CmdMakeLine()
-    {
-        RpcMakeLine();
-    }
-
-    [ClientRpc]
-    public void RpcMakeLine()//Aca se crea la linea magica
+    [Client]
+    public void MakeLine()//Aca se crea la linea magica
     {
 
         if (line != null) 
@@ -176,14 +156,8 @@ public class NetWaver : NetworkBehaviour
         renderer.sortingOrder = -1;
     }
 
-    [Command]
-    public void CmdJointCheck()
-    {
-        RpcJointCheck();
-    }
-
-    [ClientRpc]
-    public void RpcJointCheck()//Se fija q haya un joint, si no lo hay lo crea
+    [Client]
+    public void JointCheck()//Se fija q haya un joint, si no lo hay lo crea
     {
 
         if (Fjoint == null)
@@ -208,7 +182,7 @@ public class NetWaver : NetworkBehaviour
 
     }
 
-    [ClientRpc]
+    [Client]
     public void DestroyJoint()
     {
         try{
@@ -220,13 +194,8 @@ public class NetWaver : NetworkBehaviour
         hasJoint = false;
     }
 
-    [Command]
-    private void CmdDestroyObject()
-    {
-        DestroyObject();
-    }
 
-    [ClientRpc]
+    [Client]
     public void DestroyObject()//Cuando el objeto se destruye
     {
         if (line != null) 
@@ -238,13 +207,8 @@ public class NetWaver : NetworkBehaviour
         Destroy(gameObject);
     }
 
-    [Command]
-    public void CmdDamge(float DMG)
-    {
-        Damage(DMG);
-    }
 
-    [ClientRpc]
+    [Client]
     public void Damage(float DMG)
     {
         HP -= DMG;
@@ -257,7 +221,7 @@ public class NetWaver : NetworkBehaviour
     {
         if (HP < 1)//Se destruye el objeto
         {
-            CmdDestroyObject();
+            DestroyObject();
         }
 
         if (line != null)
@@ -275,7 +239,7 @@ public class NetWaver : NetworkBehaviour
     {
         if (fixedCheck)
         {
-            CmdJointCheck();
+            JointCheck();
             Fjoint.connectedBody = SoulFragment.GetComponent<Rigidbody2D>();
             fixedCheck = false;
         }

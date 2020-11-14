@@ -165,7 +165,7 @@ MonoBehaviour:
   hasJoint: 0
   hpMAX: 100
   HP: 100
-  Break_Force: 50
+  Break_Force: 500
   Damping_Ratio: 0.5
 --- !u!114 &-9181308443887792054
 MonoBehaviour:

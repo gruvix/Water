@@ -11,9 +11,9 @@ public class Waver : NetworkBehaviour
     //2) Desde la cabeza click IZ se une a la balza, cambia el parent y activa el brillo
     //2.5) Click derecho lo devuelve al agua y desactiva el brillo
     //3) cuando se rompe el fixedjoint se cae al agua, cambia el parent y desactiva el brillo
-//#pragma warning disable 0649// <- evita el warning de "null" en unity
+    //#pragma warning disable 0649// <- evita el warning de "null" en unity
     LineRenderer line;
-    #pragma warning restore 0649
+#pragma warning restore 0649
     private GameObject Floaters;
     private GameObject Bote;
     private GameObject SoulFragment;
@@ -26,26 +26,11 @@ public class Waver : NetworkBehaviour
     public float HP = 100;
 
     //Variables que definen el joint del cuerpo (ajustables en el PREFAB)
-    public float Break_Force = 50;
+    public float Break_Force = 500;
     public float Damping_Ratio = 1;
 
-    /*
-    [Server]
-    public override void OnStartServer()
-    {
-        RpcStart();
-        CmdStart();
-        Debug.Log("llego a OnStartServer() y es cliente:" + netIdentity.isClient + " es server:" + netIdentity.isServer + " tiene autoridad" + netIdentity.hasAuthority);
-    }
-    */
-    [Command]
-    private void CmdStart()
-    {
-        RpcStart();
-    }
-
-    [ClientRpc]
-    private void RpcStart()
+    [Client]
+    private void Start()
     {
         Floaters = GameObject.Find("Floaters");
         Bote = GameObject.Find("Bote");
@@ -54,54 +39,42 @@ public class Waver : NetworkBehaviour
         deathEffect = Resources.Load<ParticleSystem>("Effects/DestroyExplosion");
         if (gameObject.transform.parent.name == "Bote")
         {
-            CmdAdopcion(gameObject.transform);
+            Adopcion(gameObject.transform);
         }
-        Debug.Log("llego a startRcp"); 
     }
+
 
     [Client]
     public void OnJointBreak2D()//Mucha Violencia -> huerfanizado
     {
-        
-        CmdHuerfano();
+        Huerfano();
         Debug.Log("Se rompio union por exeso de fuerza");
     }
 
-    [Command]
-    public void CmdHuerfano()
+    [Client]
+    public void Huerfano()//Se va pa'l agua
     {
-        RpcHuerfano();
-    }
-
-    [ClientRpc]
-    public void RpcHuerfano()//Se va pa'l agua
-    {
-    	gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-        if (line != null) 
+        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        if (line != null)
         {
             Destroy(line.gameObject);
         }
 
         DestroyJoint();
-    	gameObject.transform.SetParent(Floaters.transform);
-    	gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 0);//Cambia parámetro del material
-        
-    	gameObject.layer = 9;
+        gameObject.transform.SetParent(Floaters.transform);
+        gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 0);//Cambia parámetro del material
+
+        gameObject.layer = 9;
     }
 
-    [Command]
-    public void CmdTransicion(GameObject owner)
-    {
-        RpcTransicion(owner);
-    }
 
-    [ClientRpc]
-    public void RpcTransicion(GameObject owner)//Lo tiene el paisano
+    [Client]
+    public void Transicion(GameObject owner)//Lo tiene el paisano
     {
-    	Destroy(Fjoint);
-    	gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-    	//JointCheck();
-        if (line != null) 
+        Destroy(Fjoint);
+        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        //JointCheck();
+        if (line != null)
         {
             Destroy(line.gameObject);
         }
@@ -110,7 +83,7 @@ public class Waver : NetworkBehaviour
         gameObject.transform.position = owner.transform.position + new Vector3(0, 0.4f, 0);
         //JointCheck();
 
-        if(gameObject.GetComponent<PlatformEffector2D>() != null)//Esto es para las plataformas
+        if (gameObject.GetComponent<PlatformEffector2D>() != null)//Esto es para las plataformas
         {
             gameObject.GetComponent<PlatformEffector2D>().enabled = false;
         }
@@ -120,33 +93,26 @@ public class Waver : NetworkBehaviour
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 0);
     }
 
-    [Command]
-    public void CmdAdopcion(Transform target)
+    [Client]
+    public void Adopcion(Transform target)//Ahora es del bote
     {
-        RpcAdopcion(target);
-    }
-
-    [ClientRpc]
-    public void RpcAdopcion(Transform target)//Ahora es del bote
-    {
-    	gameObject.GetComponent<Rigidbody2D>().bodyType =  RigidbodyType2D.Dynamic;
+        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         gameObject.transform.SetParent(Bote.transform);
         gameObject.GetComponent<NetworkTransformChild>().target = Bote.transform;
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
         gameObject.layer = 10;
 
-        if(gameObject.GetComponent<PlatformEffector2D>() != null)//Esto es para las plataformas
+        if (gameObject.GetComponent<PlatformEffector2D>() != null)//Esto es para las plataformas
         {
             gameObject.GetComponent<PlatformEffector2D>().enabled = true;
         }
 
-        gameObject.transform.SetPositionAndRotation(target.position,target.rotation);
-        
+        gameObject.transform.SetPositionAndRotation(target.position, target.rotation);
+
 
         StartCoroutine(HammerTime());
-        Debug.Log("Adopcion");
 
-        CmdMakeLine();
+        MakeLine();
     }
 
     IEnumerator HammerTime()
@@ -155,39 +121,27 @@ public class Waver : NetworkBehaviour
         fixedCheck = true;
     }
 
-    [Command]
-    public void CmdMakeLine()
-    {
-        RpcMakeLine();
-    }
-
-    [ClientRpc]
-    public void RpcMakeLine()//Aca se crea la linea magica
+    [Client]
+    public void MakeLine()//Aca se crea la linea magica
     {
 
-        if (line != null) 
+        if (line != null)
         {
             Destroy(line.gameObject);
         }
-        line = Instantiate(LinePrefab, new Vector3(0,0,0), Quaternion.identity);
+        line = Instantiate(LinePrefab, new Vector3(0, 0, 0), Quaternion.identity);
         line.widthMultiplier = 0.05f;
         line.transform.SetParent(GameObject.Find("EffectHolder").transform);
         var renderer = line.GetComponent<Renderer>();
         renderer.sortingOrder = -1;
     }
 
-    [Command]
-    public void CmdJointCheck()
-    {
-        RpcJointCheck();
-    }
-
-    [ClientRpc]
-    public void RpcJointCheck()//Se fija q haya un joint, si no lo hay lo crea
+    [Client]
+    public void JointCheck()//Se fija q haya un joint, si no lo hay lo crea
     {
 
         if (Fjoint == null)
-    	    {
+        {
             if (gameObject.GetComponent<FixedJoint2D>() == null)
             {
                 Fjoint = gameObject.AddComponent<FixedJoint2D>();
@@ -199,7 +153,7 @@ public class Waver : NetworkBehaviour
             Fjoint.breakForce = Break_Force;
             Fjoint.dampingRatio = Damping_Ratio;
             hasJoint = true;
-    	    }
+        }
         else
         {
             Fjoint.enabled = true;
@@ -208,43 +162,34 @@ public class Waver : NetworkBehaviour
 
     }
 
-    [ClientRpc]
+    [Client]
     public void DestroyJoint()
     {
-        try{
+        try
+        {
             Destroy(gameObject.GetComponent<FixedJoint2D>());
             Debug.Log(gameObject.GetComponent<FixedJoint2D>());
-            Fjoint = null; 
+            Fjoint = null;
         }
-        catch (Exception e) {Debug.Log("No Joint to destroy" + e); }
+        catch (Exception e) { Debug.Log("No Joint to destroy" + e); }
         hasJoint = false;
     }
 
-    [Command]
-    private void CmdDestroyObject()
-    {
-        DestroyObject();
-    }
 
-    [ClientRpc]
+    [Client]
     public void DestroyObject()//Cuando el objeto se destruye
     {
-        if (line != null) 
-            {
-                Destroy(line.gameObject);
-            }
+        if (line != null)
+        {
+            Destroy(line.gameObject);
+        }
         var death = Instantiate(deathEffect, gameObject.transform.position, Quaternion.identity, GameObject.Find("EffectHolder").transform);
         Destroy(death.gameObject, 5f);
         Destroy(gameObject);
     }
 
-    [Command]
-    public void CmdDamge(float DMG)
-    {
-        Damage(DMG);
-    }
 
-    [ClientRpc]
+    [Client]
     public void Damage(float DMG)
     {
         HP -= DMG;
@@ -257,7 +202,7 @@ public class Waver : NetworkBehaviour
     {
         if (HP < 1)//Se destruye el objeto
         {
-            CmdDestroyObject();
+            DestroyObject();
         }
 
         if (line != null)
@@ -275,7 +220,7 @@ public class Waver : NetworkBehaviour
     {
         if (fixedCheck)
         {
-            CmdJointCheck();
+            JointCheck();
             Fjoint.connectedBody = SoulFragment.GetComponent<Rigidbody2D>();
             fixedCheck = false;
         }

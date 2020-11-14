@@ -159,11 +159,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc95108651f4934b9cf64599f7bf20b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   Fjoint: {fileID: 0}
   hasJoint: 0
   hpMAX: 100
   HP: 100
-  Break_Force: 50
+  Break_Force: 500
   Damping_Ratio: 0.5
 --- !u!114 &1389949215968154846
 MonoBehaviour:
