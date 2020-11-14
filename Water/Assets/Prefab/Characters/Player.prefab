@@ -303,7 +303,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   controller: {fileID: 8769843254203982793}
-  runSpeed: 10
+  runSpeed: 30
   cam: {fileID: 0}
 --- !u!114 &8769843254203982793
 MonoBehaviour:

@@ -44,15 +44,18 @@ public class PlayerMovement : NetworkBehaviour
         {
             antijump = false;
         }
+        
     }
 
   	[Client]
     void FixedUpdate ()
     {
-    	//Move Character
-    	controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump, antijump);
-        jump = false;
-
+        //Move Character
+        if (hasAuthority) {
+            CmdMoveSync(horizontalMove,jump,antijump);
+            jump = false;
+        }
+    	
         if(Mathf.Abs(body.velocity.x) > 0.1f)
         {
         	animator.SetFloat("HorizontalSpeed", Mathf.Abs(body.velocity.x)*1.5f);
@@ -69,5 +72,20 @@ public class PlayerMovement : NetworkBehaviour
         {
             animator.SetBool("OnAir", false);
         }
+        
+
+    }
+
+    [Command]
+    private void CmdMoveSync(float horizontalMove_, bool jump_, bool antijump_)
+    {
+        RcpMove(horizontalMove_, jump_, antijump_);
+    }
+
+    [ClientRpc]
+    private void RcpMove(float horizontalMove_,bool jump_,bool antijump_)
+    {
+        controller.Move(horizontalMove_ * Time.fixedDeltaTime, false, jump_, antijump_);
+        //transform.Translate(posicion);
     }
 }
