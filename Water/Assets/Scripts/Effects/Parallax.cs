@@ -25,7 +25,7 @@ public class Parallax : MonoBehaviour
     	float temp = (transform.position.x * (1 - parallaxEffect));
         float dist = (transform.position.x - pointCero);
 
-        transform.position = new Vector3(transform.position.x + 0.01f * parallaxEffect, transform.position.y, transform.position.z);
+        transform.position = new Vector3(transform.position.x + 0.05f * parallaxEffect, transform.position.y, transform.position.z);
 
         if (dist > (bgLenght + length * 2)) 
         {
