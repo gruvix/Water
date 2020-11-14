@@ -84,7 +84,7 @@ public class Waver : NetworkBehaviour
         }
 
         gameObject.transform.SetParent(owner.transform);
-        gameObject.GetComponent<NetworkTransformChild>().target = owner.transform;
+        //gameObject.GetComponent<NetworkTransformChild>().target = owner.transform;
         gameObject.transform.position = owner.transform.position + new Vector3(0, 2f, 0);
 
 
