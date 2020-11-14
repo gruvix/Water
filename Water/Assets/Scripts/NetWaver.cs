@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using Mirror;
 
-public class Waver : NetworkBehaviour
+public class NetWaver : NetworkBehaviour
 {
     //ESTE SCRIPT VA EN UN OBJETO
     //1) Cuando es clickeado EL PERSONAJE llama a esta funcion; el objeto se va a la cabeza y desactiva el brillo

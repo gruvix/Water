@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 7328316138453487946}
   - component: {fileID: 4119282612537681368}
   - component: {fileID: 6456015757237786417}
+  - component: {fileID: 1890611516868874954}
+  - component: {fileID: 9112746617172831189}
   m_Layer: 11
   m_Name: Ghost
   m_TagString: Ghost
@@ -137,6 +139,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CanPlace: 1
+--- !u!114 &1890611516868874954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3480436779267936390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
+--- !u!114 &9112746617172831189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3480436779267936390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 734b48bea0b204338958ee3d885e11f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
+  target: {fileID: 8769843255078740957}
 --- !u!1 &8769843254203982799
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,6 +383,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d155a2b32fff06458d8284bedb2db7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   Ghost: {fileID: 3480436779267936390}
   has_floater: 0
   has_item: 0

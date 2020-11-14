@@ -34,6 +34,8 @@ public class TrashCollector : NetworkBehaviour
         _line=_areaefecto.gameObject.GetComponent<LineRenderer>();
         ghostRender = Ghost.GetComponent<SpriteRenderer>();
         
+
+
     }
     [Client]
     private void Update()
@@ -49,7 +51,7 @@ public class TrashCollector : NetworkBehaviour
                 ghostCheck = Ghost.GetComponent<Ghost>().CanPlace;
                 if(Vector2.Distance(m_puntero, gameObject.transform.position)<=alcance && ghostCheck)
                 {
-                    floater.GetComponent<Waver>().Adopcion(Ghost.transform);
+                    floater.GetComponent<Waver>().CmdAdopcion(Ghost.transform);
                     Ghost.GetComponent<Ghost>().DestroyCollider();
                     Ghost.SetActive(false);
                     has_floater = false;
@@ -66,7 +68,7 @@ public class TrashCollector : NetworkBehaviour
                 if (hit.collider != null && (hit.collider.tag == "Floater"|| hit.collider.tag == "FloaterPlatform"))
                 {
                     floater = hit.collider.gameObject;
-                    floater.GetComponent<Waver>().Transicion(gameObject);
+                    floater.GetComponent<Waver>().CmdTransicion(gameObject);
                     has_floater = true;
                     _line.enabled = true;
 
@@ -110,7 +112,7 @@ public class TrashCollector : NetworkBehaviour
         if (Input.GetMouseButtonDown(1) && has_floater)//Click derecho suelta el objeto
         {
         	Ghost.SetActive(false);
-            floater.GetComponent<Waver>().Huerfano();
+            floater.GetComponent<Waver>().CmdHuerfano();
             if(gameObject.transform.localScale.x > 0)
             {
                 dir = 1;
