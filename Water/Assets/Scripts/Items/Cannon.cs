@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Cannon : MonoBehaviour
 {
-	public AudioSource wepAudio;
+#pragma warning disable 0649
+
+
+    public AudioSource wepAudio;
     Transform firePoint;
 	Vector3 mouse_pos;
 	Vector3 object_pos;
@@ -16,6 +19,8 @@ public class Cannon : MonoBehaviour
 	public float offset = 0.05f; //Que tan lejos está el arma del personaje
 	public float compensation = -38f;//compensa que la punta del arma no está en la base del sprite
 
+
+#pragma warning restore 0649
 
     void Start()
     {

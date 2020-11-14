@@ -46,3 +46,5 @@ Water/Temp/
 /Water/*.sln
 /Water/*.cs
 obj
+
+Builds/
