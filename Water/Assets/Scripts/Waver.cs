@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Mirror;
 
-
-public class Waver : MonoBehaviour
+public class Waver : NetworkBehaviour
 {
     //ESTE SCRIPT VA EN UN OBJETO
     //1) Cuando es clickeado EL PERSONAJE llama a esta funcion; el objeto se va a la cabeza y desactiva el brillo
     //2) Desde la cabeza click IZ se une a la balza, cambia el parent y activa el brillo
     //2.5) Click derecho lo devuelve al agua y desactiva el brillo
     //3) cuando se rompe el fixedjoint se cae al agua, cambia el parent y desactiva el brillo
-#pragma warning disable 0649// <- evita el warning de "null" en unity
+//#pragma warning disable 0649// <- evita el warning de "null" en unity
     LineRenderer line;
     #pragma warning restore 0649
     private GameObject Floaters;
@@ -26,9 +26,10 @@ public class Waver : MonoBehaviour
     public float HP = 100;
 
     //Variables que definen el joint del cuerpo (ajustables en el PREFAB)
-    public float Break_Force = 5;
+    public float Break_Force = 50;
     public float Damping_Ratio = 1;
 
+    [Client]
     void Start()
     {
         Floaters = GameObject.Find("Floaters");
@@ -38,18 +39,19 @@ public class Waver : MonoBehaviour
         deathEffect = Resources.Load<ParticleSystem>("Effects/DestroyExplosion");
         if (gameObject.transform.parent.name == "Bote")
         {
-            Adopcion(gameObject.transform);
+            CmdAdopcion(gameObject.transform);
         }
-        
+        Debug.Log(hasAuthority);
     }
 
-
+    [Client]
     public void OnJointBreak2D()//Mucha Violencia -> huerfanizado
     {
         Huerfano();
         Debug.Log("Se rompio union por exeso de fuerza");
     }
 
+    [ClientRpc]
     public void Huerfano()//Se va pa'l agua
     {
     	gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
@@ -65,6 +67,7 @@ public class Waver : MonoBehaviour
     	gameObject.layer = 9;
     }
 
+    [ClientRpc]
     public void Transicion(GameObject owner)//Lo tiene el paisano
     {
     	Destroy(Fjoint);
@@ -89,10 +92,18 @@ public class Waver : MonoBehaviour
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 0);
     }
 
+    [Command]
+    public void CmdAdopcion(Transform target)
+    {
+        Adopcion(target);
+    }
+
+    [ClientRpc]
     public void Adopcion(Transform target)//Ahora es del bote
     {
     	gameObject.GetComponent<Rigidbody2D>().bodyType =  RigidbodyType2D.Dynamic;
         gameObject.transform.SetParent(Bote.transform);
+        gameObject.GetComponent<NetworkTransformChild>().target = Bote.transform;
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
         gameObject.layer = 10;
 
@@ -105,9 +116,9 @@ public class Waver : MonoBehaviour
         
 
         StartCoroutine(HammerTime());
+        Debug.Log("Adopcion");
 
         MakeLine();
-        
     }
 
     IEnumerator HammerTime()
@@ -116,7 +127,7 @@ public class Waver : MonoBehaviour
         fixedCheck = true;
     }
 
-
+    [ClientRpc]
     public void MakeLine()//Aca se crea la linea magica
     {
 
@@ -131,7 +142,13 @@ public class Waver : MonoBehaviour
         renderer.sortingOrder = -1;
     }
 
+    [Command]
+    public void CmdJointCheck()
+    {
+        JointCheck();
+    }
 
+    [ClientRpc]
     public void JointCheck()//Se fija q haya un joint, si no lo hay lo crea
     {
 
@@ -157,6 +174,7 @@ public class Waver : MonoBehaviour
 
     }
 
+    [ClientRpc]
     public void DestroyJoint()
     {
         try{
@@ -166,8 +184,15 @@ public class Waver : MonoBehaviour
         }
         catch (Exception e) {Debug.Log("No Joint to destroy" + e); }
         hasJoint = false;
-}
+    }
 
+    [Command]
+    private void CmdDestroyObject()
+    {
+        DestroyObject();
+    }
+
+    [ClientRpc]
     public void DestroyObject()//Cuando el objeto se destruye
     {
         if (line != null) 
@@ -179,6 +204,13 @@ public class Waver : MonoBehaviour
         Destroy(gameObject);
     }
 
+    [Command]
+    public void CmdDamge(float DMG)
+    {
+        Damage(DMG);
+    }
+
+    [ClientRpc]
     public void Damage(float DMG)
     {
         HP -= DMG;
@@ -186,11 +218,12 @@ public class Waver : MonoBehaviour
         gameObject.GetComponent<Renderer>().material.SetFloat("_Health", HP / hpMAX * 100);
     }
 
+    [Client]
     void Update()//Mueve la linea de acuerdo al objeto
     {
         if (HP < 1)//Se destruye el objeto
         {
-            DestroyObject();
+            CmdDestroyObject();
         }
 
         if (line != null)
@@ -203,15 +236,27 @@ public class Waver : MonoBehaviour
 
     }
 
+    [Client]
     void FixedUpdate()
     {
         if (fixedCheck)
         {
- 		JointCheck();
- 		Fjoint.connectedBody = SoulFragment.GetComponent<Rigidbody2D>();
- 		fixedCheck = false;
-    	}
+            JointCheck();
+            Fjoint.connectedBody = SoulFragment.GetComponent<Rigidbody2D>();
+            fixedCheck = false;
+        }
     }
-    
+    /*
+    [Command]
+    private void CmdDelayedJointCheck(){
+        
+    }
+
+    [ClientRpc]
+    private void DelayedJointCheck()
+    {
+
+    }
+    */
 
 }

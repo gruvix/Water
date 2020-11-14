@@ -5,7 +5,7 @@ using System.Collections.Specialized;
 using UnityEngine;
 using Mirror;
 
-public class TrashCollector : MonoBehaviour
+public class TrashCollector : NetworkBehaviour
 {
     
     public GameObject Ghost;//Ghost es el fantasma verde guia de construccion
@@ -25,7 +25,7 @@ public class TrashCollector : MonoBehaviour
     private bool ghostCheck = true;
 
     
-   
+   [Client]
     private void Start()
     {
         Ghost.transform.SetParent(GameObject.Find("EffectHolder").transform);
@@ -35,15 +35,15 @@ public class TrashCollector : MonoBehaviour
         ghostRender = Ghost.GetComponent<SpriteRenderer>();
         
     }
+    [Client]
     private void Update()
     {
+        if (!hasAuthority) { return; }
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 m_puntero = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(m_puntero, Vector2.zero);
             if (has_floater){
-
-
                 // Si tiene algo agarrado y haces click lo deja donde hiciste click y se lo da al bote
                 //Debug.Log(Vector2.Distance(m_puntero, gameObject.transform.position));
                 ghostCheck = Ghost.GetComponent<Ghost>().CanPlace;
