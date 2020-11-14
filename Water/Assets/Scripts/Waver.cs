@@ -41,6 +41,7 @@ public class Waver : NetworkBehaviour
         {
             Adopcion(gameObject.transform);
         }
+        fixedCheck = true;
     }
 
 
@@ -71,24 +72,27 @@ public class Waver : NetworkBehaviour
     [Client]
     public void Transicion(GameObject owner)//Lo tiene el paisano
     {
+        CmdSetAuthority(gameObject.GetComponent<NetworkIdentity>(), owner.GetComponent<NetworkIdentity>());
+        if (!hasAuthority) { return; }
+        Debug.Log("tengo autoridad");
         Destroy(Fjoint);
         gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-        //JointCheck();
+
         if (line != null)
         {
             Destroy(line.gameObject);
         }
 
         gameObject.transform.SetParent(owner.transform);
-        gameObject.transform.position = owner.transform.position + new Vector3(0, 0.4f, 0);
-        //JointCheck();
+        gameObject.GetComponent<NetworkTransformChild>().target = owner.transform;
+        gameObject.transform.position = owner.transform.position + new Vector3(0, 2f, 0);
+
 
         if (gameObject.GetComponent<PlatformEffector2D>() != null)//Esto es para las plataformas
         {
             gameObject.GetComponent<PlatformEffector2D>().enabled = false;
         }
 
-        //Fjoint.connectedBody = owner.GetComponent<Rigidbody2D>();
         gameObject.layer = 11;
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 0);
     }
@@ -96,6 +100,7 @@ public class Waver : NetworkBehaviour
     [Client]
     public void Adopcion(Transform target)//Ahora es del bote
     {
+        if (!hasAuthority) { return; }
         gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         gameObject.transform.SetParent(Bote.transform);
         gameObject.GetComponent<NetworkTransformChild>().target = Bote.transform;
@@ -107,12 +112,24 @@ public class Waver : NetworkBehaviour
             gameObject.GetComponent<PlatformEffector2D>().enabled = true;
         }
 
-        gameObject.transform.SetPositionAndRotation(target.position, target.rotation);
-
-
-        StartCoroutine(HammerTime());
-
+        //gameObject.transform.SetPositionAndRotation(target.position, target.rotation);
+        //StartCoroutine(HammerTime());
+        CmdAdoptPosition(target);
+              
         MakeLine();
+    }
+
+    [Command]
+    public void CmdAdoptPosition(Transform target)
+    {
+        RpcAdoptPosition(target);
+    }
+    [ClientRpc]
+    public void RpcAdoptPosition(Transform target)
+    {
+        Destroy(Fjoint);
+        gameObject.transform.SetPositionAndRotation(target.position, target.rotation);
+        StartCoroutine(HammerTime());
     }
 
     IEnumerator HammerTime()
@@ -124,7 +141,7 @@ public class Waver : NetworkBehaviour
     [Client]
     public void MakeLine()//Aca se crea la linea magica
     {
-
+        if (!hasAuthority) { return; }
         if (line != null)
         {
             Destroy(line.gameObject);
@@ -225,17 +242,12 @@ public class Waver : NetworkBehaviour
             fixedCheck = false;
         }
     }
-    /*
+
     [Command]
-    private void CmdDelayedJointCheck(){
-        
-    }
-
-    [ClientRpc]
-    private void DelayedJointCheck()
+    void CmdSetAuthority(NetworkIdentity grabID, NetworkIdentity playerID)
     {
-
+        grabID.AssignClientAuthority(connectionToClient);
+        Debug.Log("dando autoridad de " + grabID + " a " + playerID);
     }
-    */
 
 }

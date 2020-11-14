@@ -33,8 +33,6 @@ public class TrashCollector : NetworkBehaviour
         _areaefecto = gameObject.transform.Find("Areadeefecto");
         _line=_areaefecto.gameObject.GetComponent<LineRenderer>();
         ghostRender = Ghost.GetComponent<SpriteRenderer>();
-        
-
 
     }
     [Client]
@@ -51,7 +49,9 @@ public class TrashCollector : NetworkBehaviour
                 ghostCheck = Ghost.GetComponent<Ghost>().CanPlace;
                 if(Vector2.Distance(m_puntero, gameObject.transform.position)<=alcance && ghostCheck)
                 {
+
                     floater.GetComponent<Waver>().Adopcion(Ghost.transform);
+
                     Ghost.GetComponent<Ghost>().DestroyCollider();
                     Ghost.SetActive(false);
                     has_floater = false;
@@ -67,8 +67,14 @@ public class TrashCollector : NetworkBehaviour
                 
                 if (hit.collider != null && (hit.collider.tag == "Floater"|| hit.collider.tag == "FloaterPlatform"))
                 {
+
                     floater = hit.collider.gameObject;
+                    //Hay que darle autoridad al jugador local
+                    CmdSetAuthority(floater.GetComponent<NetworkIdentity>(), netIdentity);
+                    floater.GetComponent<NetworkTransformChild>().target = transform;
+                    Debug.Log("¿tengo autoridad sobre " + floater.GetComponent<NetworkIdentity>() + "? " + floater.GetComponent<NetworkIdentity>().hasAuthority);
                     floater.GetComponent<Waver>().Transicion(gameObject);
+                    
                     has_floater = true;
                     _line.enabled = true;
 
@@ -80,7 +86,6 @@ public class TrashCollector : NetworkBehaviour
                     Ghost.transform.rotation = floater.transform.localRotation;
                     Ghost.SetActive(true);
                     Ghost.GetComponent<Ghost>().SetCollider(floater);
-                    
 
                 }
 
@@ -142,4 +147,14 @@ public class TrashCollector : NetworkBehaviour
 
     }
 
+    //este comando da autoridsad sobre el objeto que cliqueas
+    [Command]
+    public void CmdSetAuthority(NetworkIdentity iobject, NetworkIdentity player)
+    {
+
+        //Checks if anyone else has authority and removes it and lastly gives the authority to the player who interacts with object
+        iobject.RemoveClientAuthority();
+        bool aut = iobject.AssignClientAuthority(player.connectionToClient);
+        Debug.Log("dando autoridad de " + iobject + " a " + player.connectionToClient + " y salio " + aut);
+    }
 }
