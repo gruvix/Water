@@ -7,7 +7,6 @@ using Mirror;
 
 public class TrashCollector : NetworkBehaviour
 {
-    
     public GameObject Ghost;//Ghost es el fantasma verde guia de construccion
     public bool has_floater = false; // indica si el personaje tiene agarrado algo
     public bool has_item = false; //indica si el personaje tiene un objeto
@@ -25,15 +24,14 @@ public class TrashCollector : NetworkBehaviour
     private bool ghostCheck = true;
 
     
-   [Client]
-    private void Start()
+    [Client]
+    public override void OnStartClient()
     {
-        Ghost.transform.SetParent(GameObject.Find("EffectHolder").transform);
         Bote = GameObject.Find("Bote");
         _areaefecto = gameObject.transform.Find("Areadeefecto");
         _line=_areaefecto.gameObject.GetComponent<LineRenderer>();
         ghostRender = Ghost.GetComponent<SpriteRenderer>();
-
+        Ghost.SetActive(false);
     }
     [Client]
     private void Update()
@@ -49,44 +47,22 @@ public class TrashCollector : NetworkBehaviour
                 ghostCheck = Ghost.GetComponent<Ghost>().CanPlace;
                 if(Vector2.Distance(m_puntero, gameObject.transform.position)<=alcance && ghostCheck)
                 {
-
-                    floater.GetComponent<Waver>().Adopcion(Ghost.transform);
-
-                    Ghost.GetComponent<Ghost>().DestroyCollider();
-                    Ghost.SetActive(false);
+                    Adopcion(floater);
                     has_floater = false;
-                    _line.enabled = false;
-                    
                 }
                 else{
                     Debug.Log("muy lejos...");
                 }
             }
+
             // Si el jugador no tiene nada agarrado agarra lo que haya clicleado si es que clickeo algo
             else{
                 
                 if (hit.collider != null && (hit.collider.tag == "Floater"|| hit.collider.tag == "FloaterPlatform"))
                 {
-
                     floater = hit.collider.gameObject;
-                    //Hay que darle autoridad al jugador local
-                    CmdSetAuthority(floater.GetComponent<NetworkIdentity>(), netIdentity);
-                    floater.GetComponent<NetworkTransformChild>().target = transform;
-                    Debug.Log("¿tengo autoridad sobre " + floater.GetComponent<NetworkIdentity>() + "? " + floater.GetComponent<NetworkIdentity>().hasAuthority);
-                    floater.GetComponent<Waver>().Transicion(gameObject);
-                    
+                    Transicion(floater);                    
                     has_floater = true;
-                    _line.enabled = true;
-
-                    //Activa el efecto fantasma y copia el sprite
-                    var floaterRender = floater.GetComponent<SpriteRenderer>();
-                    ghostRender.sprite = floaterRender.sprite;
-                    Ghost.transform.position = floater.transform.position; 
-                    Ghost.transform.localScale = floater.transform.lossyScale;
-                    Ghost.transform.rotation = floater.transform.localRotation;
-                    Ghost.SetActive(true);
-                    Ghost.GetComponent<Ghost>().SetCollider(floater);
-
                 }
 
                 if (hit.collider != null && hit.collider.tag == "Item" && !has_item)
@@ -132,19 +108,90 @@ public class TrashCollector : NetworkBehaviour
             _line.enabled = false;
         }
 
-        if (Input.GetMouseButtonUp(0))
-        {
-
-        }
-
-
         if (has_floater)//Crea el fantasma verde del objeto
         {
             _areaefecto.transform.Rotate(0,0,1f, Space.Self);
-            Vector2 puntero = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Ghost.GetComponent<TargetJoint2D>().target = new Vector2(puntero[0], puntero[1]);
         }
 
+    }
+
+    [Client]
+    public void Transicion(GameObject pickedupfloater)
+    {
+
+        ChangeGohstItem(pickedupfloater);
+        //Hay que darle autoridad al jugador local
+        NetworkDestroy(pickedupfloater);
+    }
+
+    [Client]
+    public void Adopcion(GameObject pickedupfloater)
+    {
+        ChangeGohstItem(null);
+        CmdCreatFloater(pickedupfloater);
+    }
+
+    [Client]
+    void ChangeGohstItem(GameObject floater_)
+    {
+        if (floater_)
+        {
+            _line.enabled = true;
+            Ghost.transform.position = floater_.transform.position;
+            Ghost.transform.localScale = floater_.transform.localScale / transform.localScale[0];
+            Ghost.transform.rotation = floater_.transform.rotation;
+            ghostRender.sprite = floater_.GetComponent<SpriteRenderer>().sprite;
+            Ghost.SetActive(true);
+            Ghost.GetComponent<Ghost>().SetCollider(floater_);
+        }
+        else
+        {
+            _line.enabled = false;
+            Ghost.transform.position = new Vector3(0,0,0);
+            Ghost.transform.localScale = transform.localScale;
+            Ghost.transform.rotation = transform.rotation;
+            ghostRender.sprite = null;
+            Ghost.SetActive(false);
+            Ghost.GetComponent<Ghost>().DestroyCollider();
+        }
+    }
+
+    [Command]
+    private void CmdCreatFloater()
+    {
+
+    }
+
+    [Client]
+    void NetworkDestroy(GameObject Object)
+    {
+        //Get the NetworkIdentity assigned to the object
+        NetworkIdentity id = Object.GetComponent<NetworkIdentity>();
+        // Check if we successfully got the NetworkIdentity Component from our object, if not we return(essentially do nothing).
+        if (id == null) return;
+        // First check if the objects NetworkIdentity can be transferred, or if it is server only.
+        if (hasAuthority)
+        {
+            // Do we already own this NetworkIdentity? If so, don't do anything.
+            if (id.hasAuthority == false)
+            {
+                // If we do not already have authority over the NetworkIdentity, assign authority.
+                // Keep in mind, using connectionToClient to get this NetworkIdentity is only valid for Network Player Objects.
+                if (id.AssignClientAuthority(connectionToClient) == true)
+                {
+                    // If takeover was successful, we can now destroy our GameObject.
+                    NetworkServer.Destroy(Object);
+                }
+            }
+            else
+            {
+                // Do nothing because we already have ownership of this NetworkIdentity.
+            }
+        }
+        else
+        {
+            //Server only, so we can't do anything.
+        }
     }
 
     //este comando da autoridsad sobre el objeto que cliqueas
@@ -153,7 +200,7 @@ public class TrashCollector : NetworkBehaviour
     {
 
         //Checks if anyone else has authority and removes it and lastly gives the authority to the player who interacts with object
-        iobject.RemoveClientAuthority();
+        //iobject.RemoveClientAuthority();
         bool aut = iobject.AssignClientAuthority(player.connectionToClient);
         Debug.Log("dando autoridad de " + iobject + " a " + player.connectionToClient + " y salio " + aut);
     }

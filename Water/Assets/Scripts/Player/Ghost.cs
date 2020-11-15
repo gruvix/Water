@@ -40,6 +40,7 @@ public class Ghost : MonoBehaviour
     void Update()
     {
         m_puntero = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        gameObject.GetComponent<TargetJoint2D>().target = m_puntero;
     }
 
     void FixedUpdate()
@@ -84,6 +85,7 @@ public class Ghost : MonoBehaviour
         {
             Destroy(colliders[i]);
         }
+
     }
 
     public Component CopyComponent(Component original, Component copy)

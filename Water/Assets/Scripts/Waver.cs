@@ -72,7 +72,6 @@ public class Waver : NetworkBehaviour
     [Client]
     public void Transicion(GameObject owner)//Lo tiene el paisano
     {
-        CmdSetAuthority(gameObject.GetComponent<NetworkIdentity>(), owner.GetComponent<NetworkIdentity>());
         if (!hasAuthority) { return; }
         Debug.Log("tengo autoridad");
         Destroy(Fjoint);
@@ -101,6 +100,7 @@ public class Waver : NetworkBehaviour
     public void Adopcion(Transform target)//Ahora es del bote
     {
         if (!hasAuthority) { return; }
+        Destroy(Fjoint);
         gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         gameObject.transform.SetParent(Bote.transform);
         gameObject.GetComponent<NetworkTransformChild>().target = Bote.transform;
@@ -114,8 +114,10 @@ public class Waver : NetworkBehaviour
 
         //gameObject.transform.SetPositionAndRotation(target.position, target.rotation);
         //StartCoroutine(HammerTime());
-        CmdAdoptPosition(target);
-              
+        
+        gameObject.transform.SetPositionAndRotation(target.position, target.rotation);
+        StartCoroutine(HammerTime());
+
         MakeLine();
     }
 
@@ -242,12 +244,4 @@ public class Waver : NetworkBehaviour
             fixedCheck = false;
         }
     }
-
-    [Command]
-    void CmdSetAuthority(NetworkIdentity grabID, NetworkIdentity playerID)
-    {
-        grabID.AssignClientAuthority(connectionToClient);
-        Debug.Log("dando autoridad de " + grabID + " a " + playerID);
-    }
-
 }

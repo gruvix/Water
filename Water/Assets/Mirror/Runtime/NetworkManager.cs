@@ -26,6 +26,7 @@ namespace Mirror
     {
         static readonly ILogger logger = LogFactory.GetLogger<NetworkManager>();
 
+
         public bool isMenu;
 
         /// <summary>
