@@ -128,7 +128,7 @@ public class TrashCollector : NetworkBehaviour
     public void Adopcion(GameObject pickedupfloater)
     {
         ChangeGohstItem(null);
-        CmdCreatFloater(pickedupfloater);
+        //CmdCreatFloater(pickedupfloater);
     }
 
     [Client]

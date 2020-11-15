@@ -26,8 +26,7 @@ namespace Mirror
     {
         static readonly ILogger logger = LogFactory.GetLogger<NetworkManager>();
 
-
-        public bool isMenu;
+        public bool isStarted = false;
 
         /// <summary>
         /// A flag to control whether the NetworkManager object is destroyed when the scene changes.
