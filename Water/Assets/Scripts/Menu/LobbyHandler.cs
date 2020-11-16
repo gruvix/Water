@@ -6,15 +6,39 @@ using UnityEngine.UI;
 
 public class LobbyHandler : NetworkBehaviour
 {
-    public bool IsReady;
-    public Button boton;
+    public bool IsReady = false;
+	public Button bnReady;
+	public Button bnStart;
+    public Button bnDisconnect;
+	public int totalUsers = 0;
+	public int readyUsers = 0;
 
 	private void Start()
 	{
-        boton.onClick.AddListener(BotonClick);
-    }
+		if (isClientOnly)//IS CLIENT
+		{
+			bnReady.gameObject.SetActive(true);
+			bnReady.onClick.AddListener(ReadyClick);
+		}
+		else//IS HOST
+		{
+			NetworkManager.singleton.playerPrefab.transform.GetChild(0).gameObject.SetActive(false);
+			NetworkManager.singleton.playerPrefab.transform.GetChild(1).gameObject.SetActive(true);
+			bnStart.gameObject.SetActive(true);
+			bnStart.onClick.AddListener(StartClick);
+		}
+		bnDisconnect.onClick.AddListener(DisconnectClick);
 
-	private void BotonClick()
+		totalUsers += 1;
+	}
+
+	private void StartClick()
+	{
+		Debug.Log("START GAME");
+	}
+
+
+	private void DisconnectClick()
 	{
         if(isClientOnly)
 		{
@@ -26,12 +50,26 @@ public class LobbyHandler : NetworkBehaviour
 		}
 	}
 
+
+	private void ReadyClick()
+	{
+		if(!IsReady)
+		{
+			bnReady.transform.GetChild(0).gameObject.SetActive(true);
+			bnReady.transform.GetChild(1).gameObject.SetActive(false);
+			readyUsers += 1;
+		}
+		else
+		{
+			bnReady.transform.GetChild(0).gameObject.SetActive(false);
+			bnReady.transform.GetChild(1).gameObject.SetActive(true);
+			readyUsers -= 1;
+		}
+		ReadyChange();
+	}
+
 	public void ReadyChange()
     {
         IsReady = !IsReady;
     }
-
-	private void Update()
-	{
-	}
 }

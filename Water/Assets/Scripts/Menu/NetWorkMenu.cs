@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.UI;
+using Telepathy;
 
 
 public class NetWorkMenu : NetworkBehaviour
@@ -55,7 +56,8 @@ public class NetWorkMenu : NetworkBehaviour
 		{
 			MenuMultiplayer.SetActive(true);
 			MenuConnecting.SetActive(false);
-		}
+            connecting = false;
+        }
 
 	}
 
