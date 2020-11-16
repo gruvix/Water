@@ -15,10 +15,15 @@ public class NetWorkMenu : NetworkBehaviour
     public GameObject MenuMultiplayer;
     public GameObject MenuConnecting;
     public GameObject MenuMain;
+    public Animator ErrorText;
+    public TMPro.TextMeshProUGUI RetryStatus;
     private bool connecting = false;
+    private int retryMax = 4;
+    private int retry;
 
     private void Start()
     {
+        retry = retryMax;
         if (NetworkManager.singleton.isStarted)
         {
             MenuMain.SetActive(false);
@@ -42,21 +47,36 @@ public class NetWorkMenu : NetworkBehaviour
     {
         NetworkManager.singleton.StartClient();
         connecting = true;
+        ErrorText.SetBool("Show", false);
     }
 
     private void CancelClick()
     {
-        NetworkManager.singleton.StopClient();
         connecting = false;
+        NetworkManager.singleton.StopClient();
+        RetryStatus.text = ("Connecting");
+        retry = retryMax;
     }
 
-	private void Update()
+	private void Update()//Failed Connection Check, will try again for _retryMax_ times
 	{
 		if (connecting && !NetworkClient.active)
 		{
-			MenuMultiplayer.SetActive(true);
-			MenuConnecting.SetActive(false);
-            connecting = false;
+            if(retry == 0)
+            { 
+			    MenuMultiplayer.SetActive(true);
+			    MenuConnecting.SetActive(false);
+                connecting = false;
+                RetryStatus.text = ("Connecting");
+                ErrorText.SetBool("Show", true);
+                retry = retryMax;
+            }
+			else
+			{
+                NetworkManager.singleton.StartClient();
+                RetryStatus.text = ($"Retrying ({retryMax + 1 - retry})");
+                retry--;
+			}
         }
 
 	}
