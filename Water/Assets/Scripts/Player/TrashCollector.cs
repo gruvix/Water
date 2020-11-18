@@ -112,28 +112,40 @@ public class TrashCollector : NetworkBehaviour
         {
             _areaefecto.transform.Rotate(0,0,1f, Space.Self);
         }
-
     }
 
     [Client]
     public void Transicion(GameObject pickedupfloater)
     {
-
+        if (!hasAuthority) { return; }
         ChangeGohstItem(pickedupfloater);
-        //Hay que darle autoridad al jugador local
         NetworkDestroy(pickedupfloater);
+        //Hay que darle autoridad al jugador local
     }
 
     [Client]
     public void Adopcion(GameObject pickedupfloater)
     {
+        if (!hasAuthority) { return; }
         ChangeGohstItem(null);
+
         //CmdCreatFloater(pickedupfloater);
     }
-
-    [Client]
-    void ChangeGohstItem(GameObject floater_)
+    /*
+    [Command]
+    public void CmdPickUpFloater(GameObject pickedupfloater)
     {
+        ZeroPos = new Vector3(transform.position.x, transform.position.y+2,0)
+        ZeroRot = Quaternion.identity;
+        Instantiate(pickedupfloater, ZeroPos, ZeroRot);
+
+        NetworkDestroy(pickedupfloater);
+    }
+    */
+    [Client]
+    public void ChangeGohstItem(GameObject floater_)
+    {
+        if (!hasAuthority) { return; }
         if (floater_)
         {
             _line.enabled = true;
@@ -159,7 +171,7 @@ public class TrashCollector : NetworkBehaviour
     [Command]
     private void CmdCreatFloater()
     {
-
+        GameObject newBoatObject = Instantiate(sceneObjectPrefab, pos, rot);
     }
 
     [Client]
