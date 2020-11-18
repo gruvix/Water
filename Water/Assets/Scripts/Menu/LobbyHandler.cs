@@ -13,7 +13,8 @@ public class LobbyHandler : NetworkBehaviour
 	public int totalUsers = 0;
 	public int readyUsers = 0;
 	public GameObject playergamePrefab;
-	[Scene]
+
+[Scene]
 	public string gameScene;
 
 	[Client]
@@ -30,19 +31,26 @@ public class LobbyHandler : NetworkBehaviour
 			NetworkManager.singleton.playerPrefab.transform.GetChild(0).gameObject.SetActive(false);
 			NetworkManager.singleton.playerPrefab.transform.GetChild(1).gameObject.SetActive(true);
 			bnStart.gameObject.SetActive(true);
-			bnStart.onClick.AddListener(StartClick);
+			//bnStart.onClick.AddListener(StartClick);
 		}
 		bnDisconnect.onClick.AddListener(DisconnectClick);
-		
+
 	}
 
-	private void StartClick()
+	[Command]
+	public void StartClick()
 	{
 		if (isClientOnly) { return; }
-		
-		NetworkManager.singleton.ServerChangeScene(gameScene);
-
+		StartCoroutine(waiter());
 	}
+
+	IEnumerator waiter()
+	{
+		yield return new WaitForSecondsRealtime(1f);
+		NetworkManager.singleton.ServerChangeScene(gameScene);
+	}
+
+
 
 	private void DisconnectClick()
 	{

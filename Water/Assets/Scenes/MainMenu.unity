@@ -1428,6 +1428,8 @@ MonoBehaviour:
   MenuMain: {fileID: 223405842}
   ErrorText: {fileID: 779198659}
   RetryStatus: {fileID: 257043911}
+  playermenuPrefab: {fileID: 3554662957309914608, guid: cdeb95f2c252eda4a941a894e851c7e1,
+    type: 3}
 --- !u!114 &297484707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8745,7 +8747,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -25.199951, y: 16.400024}
+  m_AnchoredPosition: {x: -25.200134, y: 16.400146}
   m_SizeDelta: {x: -1796.4164, y: -1060.4951}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2009207907

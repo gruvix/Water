@@ -17,6 +17,7 @@ public class NetWorkMenu : NetworkBehaviour
     public GameObject MenuMain;
     public Animator ErrorText;
     public TMPro.TextMeshProUGUI RetryStatus;
+    public GameObject playermenuPrefab;
     private bool connecting = false;
     private int retryMax = 4;
     private int retry;
@@ -36,6 +37,7 @@ public class NetWorkMenu : NetworkBehaviour
         bnHost.onClick.AddListener(HostClick);
         bnConnect.onClick.AddListener(ConnectClick);
         bnCancel.onClick.AddListener(CancelClick);
+        NetworkManager.singleton.playerPrefab = playermenuPrefab;
     }
 
     private void HostClick()
