@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Ghost : MonoBehaviour
 {
-    private float speedLimit = 7f;
+    private float speedLimit = 50f;
     public bool CanPlace = true;
-    private float distanciaGhost = 0.8f;
+    private float distanciaGhost = 5f;
     private int counter = 0;
     private Component copyCollider = null;
     private Component copyTrigger = null;
@@ -15,9 +15,9 @@ public class Ghost : MonoBehaviour
     // Update is called once per frame
     void OnCollisionEnter2D(Collision2D collider)
     {
-        if (Mathf.Abs(collider.relativeVelocity.magnitude) <= speedLimit || !CanPlace)
+        if (Mathf.Abs(collider.relativeVelocity.magnitude) <= speedLimit && CanPlace)
         {
-            gameObject.GetComponent<TargetJoint2D>().maxForce = 0.012f;
+            gameObject.GetComponent<TargetJoint2D>().maxForce = 0.1f;
         }
         else
         {
@@ -45,7 +45,8 @@ public class Ghost : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Vector2.Distance(m_puntero, gameObject.transform.position) >= distanciaGhost)
+        var dist = Vector2.Distance(m_puntero, gameObject.transform.position);
+        if (dist >= distanciaGhost)
         {
             gameObject.GetComponent<Renderer>().material.SetInt("_CanPlace", 0);
             CanPlace = false;
@@ -54,10 +55,13 @@ public class Ghost : MonoBehaviour
 
         if (counter == 0)
         {
-            gameObject.GetComponent<Renderer>().material.SetInt("_CanPlace", 1);
-            CanPlace = true;
-            gameObject.GetComponent<Collider2D>().enabled = true;
-            gameObject.GetComponent<TargetJoint2D>().maxForce = 0.1f;
+            if (dist < distanciaGhost)
+			{
+                gameObject.GetComponent<Renderer>().material.SetInt("_CanPlace", 1);
+                CanPlace = true;
+                gameObject.GetComponent<Collider2D>().enabled = true;
+            }
+            gameObject.GetComponent<TargetJoint2D>().maxForce = 0.4f;
         }
     }
 
