@@ -10,6 +10,7 @@ public class Starter : MonoBehaviour
         foreach (GameObject i in Resources.LoadAll("Floaters", typeof(GameObject)))
         {
             FindObjectOfType<NetworkManager>().spawnPrefabs.Add(i);
+            Debug.Log("Prefab Cargado: " + i);
         }
 
     }

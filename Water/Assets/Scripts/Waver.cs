@@ -194,7 +194,6 @@ public class Waver : NetworkBehaviour
         hasJoint = false;
     }
 
-
     [Client]
     public void DestroyObject()//Cuando el objeto se destruye
     {

@@ -59,10 +59,10 @@ public class TrashCollector : NetworkBehaviour
             else{
                 
                 if (hit.collider != null && (hit.collider.tag == "Floater"|| hit.collider.tag == "FloaterPlatform"))
-                {
-                    floater = hit.collider.gameObject;
-                    Transicion(floater);                    
-                    has_floater = true;
+                {                    
+                        Transicion(hit.collider.gameObject);
+                        has_floater = true;
+
                 }
 
                 if (hit.collider != null && hit.collider.tag == "Item" && !has_item)
@@ -119,7 +119,7 @@ public class TrashCollector : NetworkBehaviour
     {
         if (!hasAuthority) { return; }
         ChangeGohstItem(pickedupfloater);
-        NetworkDestroy(pickedupfloater);
+        CmdPickUpFloater(pickedupfloater);
         //Hay que darle autoridad al jugador local
     }
 
@@ -127,21 +127,40 @@ public class TrashCollector : NetworkBehaviour
     public void Adopcion(GameObject pickedupfloater)
     {
         if (!hasAuthority) { return; }
+        CmdMakeThisBoat();
         ChangeGohstItem(null);
-
         //CmdCreatFloater(pickedupfloater);
     }
-    /*
+
+    [Client]
+    public GameObject GetPrefab(GameObject pickedupfloater)
+    {
+        foreach (GameObject i in NetworkManager.singleton.spawnPrefabs)
+        {
+            Debug.Log("i es: " + i.GetComponent<NetworkIdentity>().assetId + " y estoy buscando: " + pickedupfloater.GetComponent<NetworkIdentity>().assetId);
+            Debug.Log("i es: " + i.name + " y estoy buscando: " + pickedupfloater.name);
+            if (i.name == pickedupfloater.name || i.GetComponent<NetworkIdentity>().assetId == pickedupfloater.GetComponent<NetworkIdentity>().assetId)
+            {
+                return i;
+            }
+        }
+        return null;
+    }
+
     [Command]
     public void CmdPickUpFloater(GameObject pickedupfloater)
     {
-        ZeroPos = new Vector3(transform.position.x, transform.position.y+2,0)
-        ZeroRot = Quaternion.identity;
-        Instantiate(pickedupfloater, ZeroPos, ZeroRot);
-
+        floater = GetPrefab(pickedupfloater);
+        var ZeroPos = new Vector3(transform.position.x, transform.position.y + 2, 0);
+        var ZeroRot = Quaternion.identity;
+        
+        GameObject HeadThing = Instantiate(floater, ZeroPos, ZeroRot);
+        HeadThing.transform.SetParent(transform);
+        HeadThing.GetComponent<NetworkTransformChild>().target = transform;
+        NetworkServer.Spawn(HeadThing);
         NetworkDestroy(pickedupfloater);
     }
-    */
+    
     [Client]
     public void ChangeGohstItem(GameObject floater_)
     {
@@ -169,9 +188,15 @@ public class TrashCollector : NetworkBehaviour
     }
 
     [Command]
-    private void CmdCreatFloater()
+    private void CmdMakeThisBoat()
     {
-        GameObject newBoatObject = Instantiate(sceneObjectPrefab, pos, rot);
+
+        GameObject newBoatObject = Instantiate(floater, Ghost.transform.position, Ghost.transform.rotation);
+        Debug.Log("Colocando objeto en " + Ghost.transform.position + " pero fue colocado en " + newBoatObject.transform.position);
+        newBoatObject.transform.SetParent(Bote.transform);
+        newBoatObject.GetComponent<NetworkTransformChild>().target = Bote.transform;
+        NetworkServer.Spawn(newBoatObject);
+        floater = null;
     }
 
     [Client]
@@ -210,7 +235,6 @@ public class TrashCollector : NetworkBehaviour
     [Command]
     public void CmdSetAuthority(NetworkIdentity iobject, NetworkIdentity player)
     {
-
         //Checks if anyone else has authority and removes it and lastly gives the authority to the player who interacts with object
         //iobject.RemoveClientAuthority();
         bool aut = iobject.AssignClientAuthority(player.connectionToClient);
