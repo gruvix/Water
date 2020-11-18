@@ -2240,6 +2240,9 @@ MonoBehaviour:
   bnDisconnect: {fileID: 1517551212}
   totalUsers: 0
   readyUsers: 0
+  playergamePrefab: {fileID: 8769843254203982799, guid: c70894082716c2f40951fc7b951b17ad,
+    type: 3}
+  gameScene: Assets/Scenes/SampleScene.unity
 --- !u!114 &1943337901
 MonoBehaviour:
   m_ObjectHideFlags: 0
