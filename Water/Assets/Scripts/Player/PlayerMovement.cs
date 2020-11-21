@@ -6,7 +6,7 @@ using Mirror;
 public class PlayerMovement : NetworkBehaviour
 {
 	public CharacterController2D controller;
-	public float runSpeed = 40f;
+	public float runSpeed = 50f;
 	float horizontalMove = 0f;
     bool jump = false;
     bool antijump = false;
@@ -56,9 +56,9 @@ public class PlayerMovement : NetworkBehaviour
             jump = false;
         }
     	
-        if(Mathf.Abs(body.velocity.x) > 0.1f)
+        if(Mathf.Abs(body.velocity.x) > 0.5f)
         {
-        	animator.SetFloat("HorizontalSpeed", Mathf.Abs(body.velocity.x)*1.5f);
+        	animator.SetFloat("HorizontalSpeed", Mathf.Abs(body.velocity.x)*0.4f);//Velocidad animacion caminar
     	}
     	else
         {

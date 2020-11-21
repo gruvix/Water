@@ -10,11 +10,11 @@ public class LobbyHandler : NetworkBehaviour
 	public Button bnReady;
 	public Button bnStart;
     public Button bnDisconnect;
-	public int totalUsers = 0;
+	[SyncVar]
 	public int readyUsers = 0;
 	public GameObject playergamePrefab;
 
-[Scene]
+	[Scene]
 	public string gameScene;
 
 	[Client]
@@ -28,29 +28,12 @@ public class LobbyHandler : NetworkBehaviour
 		else//IS HOST
 		{
 			Debug.Log("IS HOST");
-			NetworkManager.singleton.playerPrefab.transform.GetChild(0).gameObject.SetActive(false);
-			NetworkManager.singleton.playerPrefab.transform.GetChild(1).gameObject.SetActive(true);
+			NetworkManager.singleton.playerPrefab.transform.GetChild(0).gameObject.SetActive(true);
+			NetworkManager.singleton.playerPrefab.transform.GetChild(1).gameObject.SetActive(false);
 			bnStart.gameObject.SetActive(true);
-			//bnStart.onClick.AddListener(StartClick);
 		}
 		bnDisconnect.onClick.AddListener(DisconnectClick);
-
 	}
-
-	[Command]
-	public void StartClick()
-	{
-		if (isClientOnly) { return; }
-		StartCoroutine(waiter());
-	}
-
-	IEnumerator waiter()
-	{
-		yield return new WaitForSecondsRealtime(1f);
-		NetworkManager.singleton.ServerChangeScene(gameScene);
-	}
-
-
 
 	private void DisconnectClick()
 	{
@@ -72,6 +55,7 @@ public class LobbyHandler : NetworkBehaviour
 			bnReady.transform.GetChild(0).gameObject.SetActive(true);
 			bnReady.transform.GetChild(1).gameObject.SetActive(false);
 			readyUsers += 1;
+			
 		}
 		else
 		{

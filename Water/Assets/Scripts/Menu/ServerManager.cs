@@ -16,9 +16,27 @@ public class ServerManager : NetworkBehaviour
         bnStart.onClick.AddListener(Startgame);
     }
 
-    void Startgame()
+	private void OnClientStart()
+	{
+        updateLobby();
+	}
+
+    [ClientRpc]
+    private void updateLobby()
+	{
+        Debug.Log("Player Has connected");
+	}
+
+	private void Startgame()
 	{
         ChangePlayerPrefab();
+        StartCoroutine(waiter());
+        
+    }
+
+	private IEnumerator waiter()
+    {
+        yield return new WaitForSecondsRealtime(1f);
         NetworkManager.singleton.ServerChangeScene(gameScene);
     }
 
