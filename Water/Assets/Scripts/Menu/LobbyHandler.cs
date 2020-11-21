@@ -28,8 +28,7 @@ public class LobbyHandler : NetworkBehaviour
 		else//IS HOST
 		{
 			Debug.Log("IS HOST");
-			NetworkManager.singleton.playerPrefab.transform.GetChild(0).gameObject.SetActive(true);
-			NetworkManager.singleton.playerPrefab.transform.GetChild(1).gameObject.SetActive(false);
+			readyUsers++;
 			bnStart.gameObject.SetActive(true);
 		}
 		bnDisconnect.onClick.AddListener(DisconnectClick);

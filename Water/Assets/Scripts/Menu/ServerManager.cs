@@ -13,6 +13,7 @@ public class ServerManager : NetworkBehaviour
 
     void Start()
     {
+        bnStart.onClick.AddListener(ChangePlayerPrefab);
         bnStart.onClick.AddListener(Startgame);
     }
 
@@ -29,18 +30,13 @@ public class ServerManager : NetworkBehaviour
 
 	private void Startgame()
 	{
-        ChangePlayerPrefab();
-        StartCoroutine(waiter());
         
-    }
-
-	private IEnumerator waiter()
-    {
-        yield return new WaitForSecondsRealtime(1f);
         NetworkManager.singleton.ServerChangeScene(gameScene);
+
     }
 
-    [ClientRpc]
+
+	[ClientRpc]
     public void ChangePlayerPrefab()
     {
         NetworkManager.singleton.playerPrefab = playergamePrefab;

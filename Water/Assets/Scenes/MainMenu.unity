@@ -745,8 +745,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 19.39
-  m_fontSizeBase: 19.39
+  m_fontSize: 22.2
+  m_fontSizeBase: 22.2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1578,7 +1578,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 13.6
+  m_PixelsPerUnitMultiplier: 40
 --- !u!222 &309816368
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7812,7 +7812,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 13.6
+  m_PixelsPerUnitMultiplier: 40
 --- !u!222 &1480525520
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8465,7 +8465,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 1
+  m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -8747,7 +8747,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -25.200134, y: 16.400146}
+  m_AnchoredPosition: {x: -25.200195, y: 16.400146}
   m_SizeDelta: {x: -1796.4164, y: -1060.4951}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2009207907
