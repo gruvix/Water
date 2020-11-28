@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 4458015460816865228}
   - component: {fileID: 4458015460816865229}
   - component: {fileID: 4458015460816865224}
-  - component: {fileID: 4458015460816865231}
   - component: {fileID: 4458015460816865225}
   - component: {fileID: 3541220542863405163}
   - component: {fileID: 2485738081219381078}
+  - component: {fileID: 5483717913690797686}
   m_Layer: 9
   m_Name: Platform_Wood
   m_TagString: FloaterPlatform
@@ -154,26 +154,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4458015460816865231
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4458015460816865219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cc95108651f4934b9cf64599f7bf20b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  Fjoint: {fileID: 0}
-  hasJoint: 0
-  hpMAX: 100
-  HP: 100
-  Break_Force: 500
-  Damping_Ratio: 0.5
 --- !u!114 &4458015460816865225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,3 +202,21 @@ MonoBehaviour:
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
   target: {fileID: 0}
+--- !u!255 &5483717913690797686
+FixedJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4458015460816865219}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_DampingRatio: 0
+  m_Frequency: 0

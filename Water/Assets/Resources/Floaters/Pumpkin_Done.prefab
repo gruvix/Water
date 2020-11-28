@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1526377085529744490}
   - component: {fileID: -8555047076436058969}
   - component: {fileID: -3468174006908830337}
-  - component: {fileID: 4942125494087469814}
   - component: {fileID: 1389949215968154846}
   - component: {fileID: 6293942615844965634}
+  - component: {fileID: 3341779908666001625}
   m_Layer: 0
   m_Name: Pumpkin_Done
   m_TagString: Floater
@@ -147,26 +147,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Densidad: 0.675
---- !u!114 &4942125494087469814
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3312129807768472582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cc95108651f4934b9cf64599f7bf20b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  Fjoint: {fileID: 0}
-  hasJoint: 0
-  hpMAX: 100
-  HP: 100
-  Break_Force: 500
-  Damping_Ratio: 0.5
 --- !u!114 &1389949215968154846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,3 +182,21 @@ MonoBehaviour:
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
   target: {fileID: 0}
+--- !u!255 &3341779908666001625
+FixedJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3312129807768472582}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_DampingRatio: 0
+  m_Frequency: 0

@@ -8,6 +8,10 @@ using Mirror;
 public class TrashCollector : NetworkBehaviour
 {
     public GameObject Ghost;//Ghost es el fantasma verde guia de construccion
+    private SpriteRenderer ghostRender;
+    private bool ghostCheck = true;
+    public GameObject CarriedObject; //El sprite que le muestra a los demas que tenes agarrado
+    private SpriteRenderer pickedRender;
     public bool has_floater = false; // indica si el personaje tiene agarrado algo
     public bool has_item = false; //indica si el personaje tiene un objeto
     // Alcance para colocar objetos
@@ -20,10 +24,9 @@ public class TrashCollector : NetworkBehaviour
     // Variables de objetos del mundo
     private GameObject Bote;
     private Transform _areaefecto;
-    private SpriteRenderer ghostRender;
-    private bool ghostCheck = true;
-
+    private GameObject Gema;
     
+  
     [Client]
     public override void OnStartClient()
     {
@@ -32,6 +35,11 @@ public class TrashCollector : NetworkBehaviour
         _line=_areaefecto.gameObject.GetComponent<LineRenderer>();
         ghostRender = Ghost.GetComponent<SpriteRenderer>();
         Ghost.SetActive(false);
+        Gema = GameObject.Find("SoulFragment");
+        
+        CarriedObject = gameObject.transform.Find("CarriedObject").gameObject;
+        CarriedObject.SetActive(false);
+        pickedRender = CarriedObject.GetComponent<SpriteRenderer>();
     }
     [Client]
     private void Update()
@@ -62,7 +70,6 @@ public class TrashCollector : NetworkBehaviour
                 {                    
                         Transicion(hit.collider.gameObject);
                         has_floater = true;
-
                 }
 
                 if (hit.collider != null && hit.collider.tag == "Item" && !has_item)
@@ -88,12 +95,9 @@ public class TrashCollector : NetworkBehaviour
             Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z -3));
         }
 
-
-
         if (Input.GetMouseButtonDown(1) && has_floater)//Click derecho suelta el objeto
         {
         	Ghost.SetActive(false);
-            floater.GetComponent<Waver>().Huerfano();
             if(gameObject.transform.localScale.x > 0)
             {
                 dir = 1;
@@ -132,8 +136,8 @@ public class TrashCollector : NetworkBehaviour
         //CmdCreatFloater(pickedupfloater);
     }
 
-    [Client]
-    public GameObject GetPrefab(GameObject pickedupfloater)
+    [ClientRpc]
+    public void RpcGetPrefab(GameObject pickedupfloater)
     {
         foreach (GameObject i in NetworkManager.singleton.spawnPrefabs)
         {
@@ -141,26 +145,31 @@ public class TrashCollector : NetworkBehaviour
             Debug.Log("i es: " + i.name + " y estoy buscando: " + pickedupfloater.name);
             if (i.name == pickedupfloater.name || i.GetComponent<NetworkIdentity>().assetId == pickedupfloater.GetComponent<NetworkIdentity>().assetId)
             {
-                return i;
+                floater = i;
             }
         }
-        return null;
+        floater = null;
     }
 
     [Command]
     public void CmdPickUpFloater(GameObject pickedupfloater)
     {
-        floater = GetPrefab(pickedupfloater);
-        var ZeroPos = new Vector3(transform.position.x, transform.position.y + 2, 0);
-        var ZeroRot = Quaternion.identity;
-        
-        GameObject HeadThing = Instantiate(floater, ZeroPos, ZeroRot);
-        HeadThing.transform.SetParent(transform);
-        HeadThing.GetComponent<NetworkTransformChild>().target = transform;
-        NetworkServer.Spawn(HeadThing);
+        RpcGetPrefab(pickedupfloater);
+        Debug.Log(floater);
+        RpcShowPickup(pickedupfloater);
+        //Copia el sprite del prefab a un objeto en el player para que muestre que tiene agarrado
         NetworkDestroy(pickedupfloater);
     }
-    
+
+
+    [ClientRpc]
+    private void RpcShowPickup(GameObject pickedupfloater)
+    {
+        //busca el prefab del objeto antes de destruirlo
+        CarriedObject.SetActive(true);
+        pickedRender.sprite = floater.GetComponent<SpriteRenderer>().sprite;
+    }
+
     [Client]
     public void ChangeGohstItem(GameObject floater_)
     {
@@ -183,6 +192,7 @@ public class TrashCollector : NetworkBehaviour
             Ghost.transform.rotation = transform.rotation;
             ghostRender.sprite = null;
             Ghost.SetActive(false);
+            ghostRender.enabled = false;
             Ghost.GetComponent<Ghost>().DestroyCollider();
         }
     }
@@ -190,18 +200,23 @@ public class TrashCollector : NetworkBehaviour
     [Command]
     private void CmdMakeThisBoat()
     {
-
         GameObject newBoatObject = Instantiate(floater, Ghost.transform.position, Ghost.transform.rotation);
         Debug.Log("Colocando objeto en " + Ghost.transform.position + " pero fue colocado en " + newBoatObject.transform.position);
         newBoatObject.transform.SetParent(Bote.transform);
         newBoatObject.GetComponent<NetworkTransformChild>().target = Bote.transform;
+        newBoatObject.GetComponent<FixedJoint2D>().connectedBody = Gema.GetComponent<Rigidbody2D>();
         NetworkServer.Spawn(newBoatObject);
         floater = null;
+
+        CarriedObject.SetActive(false);
+        pickedRender.sprite = null;
     }
+
 
     [Client]
     void NetworkDestroy(GameObject Object)
     {
+        Debug.Log("Destruyendo objeto" + Object);
         //Get the NetworkIdentity assigned to the object
         NetworkIdentity id = Object.GetComponent<NetworkIdentity>();
         // Check if we successfully got the NetworkIdentity Component from our object, if not we return(essentially do nothing).

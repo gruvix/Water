@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 6149812672535719173}
   - component: {fileID: -3420564478269935217}
   - component: {fileID: 8285321957069552783}
-  - component: {fileID: 3930674269124248404}
   - component: {fileID: 7372254676621389141}
   - component: {fileID: 1830526140627283568}
+  - component: {fileID: 6583451171020364845}
   m_Layer: 0
   m_Name: Skull
   m_TagString: Floater
@@ -147,26 +147,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Densidad: 0.706
---- !u!114 &3930674269124248404
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2063099855512699099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cc95108651f4934b9cf64599f7bf20b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  Fjoint: {fileID: 0}
-  hasJoint: 0
-  hpMAX: 100
-  HP: 100
-  Break_Force: 500
-  Damping_Ratio: 0.5
 --- !u!114 &7372254676621389141
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,3 +182,21 @@ MonoBehaviour:
   localRotationSensitivity: 0.01
   localScaleSensitivity: 0.01
   target: {fileID: 0}
+--- !u!255 &6583451171020364845
+FixedJoint2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2063099855512699099}
+  m_Enabled: 1
+  serializedVersion: 4
+  m_EnableCollision: 0
+  m_ConnectedRigidBody: {fileID: 0}
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0, y: 0}
+  m_DampingRatio: 0
+  m_Frequency: 0
