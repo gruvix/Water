@@ -10,6 +10,7 @@ public class ServerManager : NetworkBehaviour
     public GameObject playergamePrefab;
     [Scene]
     public string gameScene;
+    public LobbyHandler lobby;
 
     void Start()
     {
@@ -17,28 +18,23 @@ public class ServerManager : NetworkBehaviour
         bnStart.onClick.AddListener(Startgame);
     }
 
-	public override void OnStartServer()
-	{
-		base.OnStartServer();
-        updateLobby();
-    }
-
-	public override void OnStartClient()
-	{
-		base.OnStartClient();
-	}
-
-	[ClientRpc]
-    private void updateLobby()
-	{
-        Debug.Log("Player Has connected");
-	}
-
 	private void Startgame()
 	{
         NetworkManager.singleton.ServerChangeScene(gameScene);
     }
 
+    private void OnServerConnect()
+	{
+        lobby.totalUsers++;
+        Debug.LogError("A PLAYER CONNECTED MESSAGE FOR SERVERONLY");
+        test();
+	}
+
+    [ClientRpc]
+    private void test()
+	{
+        Debug.Log("A player has connected");
+	}
 
 	[ClientRpc]
     public void ChangePlayerPrefab()

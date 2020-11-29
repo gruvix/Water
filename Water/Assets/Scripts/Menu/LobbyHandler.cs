@@ -13,9 +13,9 @@ public class LobbyHandler : NetworkBehaviour
 	public Button bnStart;
 	public Button bnDisconnect;
 	[SyncVar]
-	public int readyUsers = 0;
+	public int readyUsers;
 	[SyncVar]
-	public int totalUsers = 1;
+	public int totalUsers;
 	public GameObject playergamePrefab;
 
 	[Scene]
@@ -32,19 +32,23 @@ public class LobbyHandler : NetworkBehaviour
 		}
 		else//IS HOST
 		{
-			Debug.Log("IS HOST");
-			readyUsers++;
+			totalUsers = 1;
+			readyUsers = 1;
 			bnStart.gameObject.SetActive(true);
+			
 		}
 		bnDisconnect.onClick.AddListener(DisconnectClick);
 	}
 
-	public override void OnStartLocalPlayer()
+	public override void OnStartClient()
 	{
-		base.OnStartLocalPlayer();
-		ClientScene.localPlayer.gameObject.GetComponent<LobbyPlayer>().playerNumber = NetworkManager.singleton.numPlayers;
+		base.OnStartClient();
+		if (!isClientOnly)
+		{
+			ClientScene.localPlayer.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+			ClientScene.localPlayer.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+		}
 	}
-
 
 	private void DisconnectClick()
 	{

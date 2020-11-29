@@ -1181,6 +1181,7 @@ MonoBehaviour:
   playergamePrefab: {fileID: 8769843254203982799, guid: c70894082716c2f40951fc7b951b17ad,
     type: 3}
   gameScene: Assets/Scenes/SampleScene.unity
+  lobby: {fileID: 1943337900}
 --- !u!224 &1056011839
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2303,13 +2304,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b18b4ab1250801c4e9c0132d6a5eecb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncMode: 0
+  syncMode: 1
   syncInterval: 0.5
   IsReady: 0
   bnReady: {fileID: 1753345225}
   bnStart: {fileID: 379409629}
   bnDisconnect: {fileID: 1517551212}
   readyUsers: 0
+  totalUsers: 0
   playergamePrefab: {fileID: 8769843254203982799, guid: c70894082716c2f40951fc7b951b17ad,
     type: 3}
   gameScene: Assets/Scenes/SampleScene.unity
