@@ -19,7 +19,8 @@ public class TrashCollector : NetworkBehaviour
     public float alcance = 0.4f;
     LineRenderer _line; // Linea que indica el rango
     private GameObject floater;
-    [SyncVar(hook = nameof(OnChangeEquipment))]
+    private GameObject floateronclient;
+    [SyncVar(hook = nameof(OnChangeFloater))]
     private int nFloater;
     private GameObject item;
     private int dir = 1;
@@ -125,40 +126,52 @@ public class TrashCollector : NetworkBehaviour
         if (!hasAuthority) { return; }
         GetPrefab(pickedupfloater);
         ChangeGohstItem(pickedupfloater);
-        NetworkDestroy(pickedupfloater);
         //Hay que darle autoridad al jugador local
+        CmdNetworkDestroy(pickedupfloater);
     }
 
     [Client]
     public void Adopcion(GameObject pickedupfloater)
     {
         if (!hasAuthority) { return; }
-        CmdMakeThisBoat();
+        Debug.Log("Creando objeto" + floater);
+        CmdMakeThisBoat(Ghost.transform.position, Ghost.transform.rotation);
         ChangeGohstItem(null);
-        //CmdCreatFloater(pickedupfloater);
+        nFloater = -1;
+        floater = null;
+    }
+
+    [Command]
+    private void CmdMakeThisBoat(Vector3 position,Quaternion rotation)
+    {
+        GameObject newBoatObject = Instantiate(NetworkManager.singleton.spawnPrefabs[nFloater],position,rotation) ;
+        Debug.Log("Colocando objeto en " + Ghost.transform.position + " pero fue colocado en " + newBoatObject.transform.position);
+        newBoatObject.transform.SetParent(Bote.transform);
+        newBoatObject.GetComponent<NetworkTransformChild>().target = Bote.transform;
+        newBoatObject.GetComponent<FixedJoint2D>().connectedBody = Gema.GetComponent<Rigidbody2D>();
+        NetworkServer.Spawn(newBoatObject);
+        floater = null;
     }
 
     [Client]
-    public void RpcGetPrefab(GameObject pickedupfloater)
+    public void GetPrefab(GameObject pickedupfloater)
     {
-        j = 0;
+        int nf = 0;
         foreach (GameObject i in NetworkManager.singleton.spawnPrefabs)
         {
             Debug.Log("i es: " + i.GetComponent<NetworkIdentity>().assetId + " y estoy buscando: " + pickedupfloater.GetComponent<NetworkIdentity>().assetId);
             Debug.Log("i es: " + i.name + " y estoy buscando: " + pickedupfloater.name);
             if (i.name == pickedupfloater.name || i.GetComponent<NetworkIdentity>().assetId == pickedupfloater.GetComponent<NetworkIdentity>().assetId)
             {
-                floater = j;
+                floater = i;
+                nFloater = nf;
+                return;
             }
+            nf++;
         }
+        nFloater = -1;
         floater = null;
-    }
-
-    [Command]
-    public void CmdPickUpFloater(GameObject pickedupfloater)
-    {
-        //Copia el sprite del prefab a un objeto en el player para que muestre que tiene agarrado
-        NetworkDestroy(pickedupfloater);
+        return;
     }
 
     [Client]
@@ -188,31 +201,18 @@ public class TrashCollector : NetworkBehaviour
         }
     }
 
-    [Command]
-    private void CmdMakeThisBoat()
-    {
-        GameObject newBoatObject = Instantiate(floater, Ghost.transform.position, Ghost.transform.rotation);
-        Debug.Log("Colocando objeto en " + Ghost.transform.position + " pero fue colocado en " + newBoatObject.transform.position);
-        newBoatObject.transform.SetParent(Bote.transform);
-        newBoatObject.GetComponent<NetworkTransformChild>().target = Bote.transform;
-        newBoatObject.GetComponent<FixedJoint2D>().connectedBody = Gema.GetComponent<Rigidbody2D>();
-        NetworkServer.Spawn(newBoatObject);
-        floater = null;
-    }
-
-
+    [Client]
     private void OnChangeFloater(int oldFloater, int newFloater)
     {
-        GameObject thisFloater = NetworkManager.singleton.spawnPrefabs[nFloater];
-        if (thisFloater != null)
+        if (newFloater >= 0)
         {
-            Debug.Log(thisFloater);
+            floateronclient = NetworkManager.singleton.spawnPrefabs[newFloater];
+            Debug.Log(floateronclient);
             CarriedObject.SetActive(true);
-            pickedRender.sprite = thisFloater.GetComponent<SpriteRenderer>().sprite;
+            pickedRender.sprite = floateronclient.GetComponent<SpriteRenderer>().sprite;
         }
         else
         {
-            Debug.Log(thisFloater);
             CarriedObject.SetActive(false);
             pickedRender.sprite = null;
         }
@@ -250,6 +250,13 @@ public class TrashCollector : NetworkBehaviour
             //Server only, so we can't do anything.
         }
     }
+
+    [Command(ignoreAuthority = true)]
+    private void CmdNetworkDestroy(GameObject Object)
+    {
+        NetworkServer.Destroy(Object);
+    }
+
 
     //este comando da autoridsad sobre el objeto que cliqueas
     [Command]
