@@ -19,6 +19,8 @@ public class TrashCollector : NetworkBehaviour
     public float alcance = 0.4f;
     LineRenderer _line; // Linea que indica el rango
     private GameObject floater;
+    [SyncVar(hook = nameof(OnChangeEquipment))]
+    private int nFloater;
     private GameObject item;
     private int dir = 1;
     // Variables de objetos del mundo
@@ -26,7 +28,6 @@ public class TrashCollector : NetworkBehaviour
     private Transform _areaefecto;
     private GameObject Gema;
     
-  
     [Client]
     public override void OnStartClient()
     {
@@ -122,8 +123,9 @@ public class TrashCollector : NetworkBehaviour
     public void Transicion(GameObject pickedupfloater)
     {
         if (!hasAuthority) { return; }
+        GetPrefab(pickedupfloater);
         ChangeGohstItem(pickedupfloater);
-        CmdPickUpFloater(pickedupfloater);
+        NetworkDestroy(pickedupfloater);
         //Hay que darle autoridad al jugador local
     }
 
@@ -136,16 +138,17 @@ public class TrashCollector : NetworkBehaviour
         //CmdCreatFloater(pickedupfloater);
     }
 
-    [ClientRpc]
+    [Client]
     public void RpcGetPrefab(GameObject pickedupfloater)
     {
+        j = 0;
         foreach (GameObject i in NetworkManager.singleton.spawnPrefabs)
         {
             Debug.Log("i es: " + i.GetComponent<NetworkIdentity>().assetId + " y estoy buscando: " + pickedupfloater.GetComponent<NetworkIdentity>().assetId);
             Debug.Log("i es: " + i.name + " y estoy buscando: " + pickedupfloater.name);
             if (i.name == pickedupfloater.name || i.GetComponent<NetworkIdentity>().assetId == pickedupfloater.GetComponent<NetworkIdentity>().assetId)
             {
-                floater = i;
+                floater = j;
             }
         }
         floater = null;
@@ -154,20 +157,8 @@ public class TrashCollector : NetworkBehaviour
     [Command]
     public void CmdPickUpFloater(GameObject pickedupfloater)
     {
-        RpcGetPrefab(pickedupfloater);
-        Debug.Log(floater);
-        RpcShowPickup(pickedupfloater);
         //Copia el sprite del prefab a un objeto en el player para que muestre que tiene agarrado
         NetworkDestroy(pickedupfloater);
-    }
-
-
-    [ClientRpc]
-    private void RpcShowPickup(GameObject pickedupfloater)
-    {
-        //busca el prefab del objeto antes de destruirlo
-        CarriedObject.SetActive(true);
-        pickedRender.sprite = floater.GetComponent<SpriteRenderer>().sprite;
     }
 
     [Client]
@@ -207,11 +198,25 @@ public class TrashCollector : NetworkBehaviour
         newBoatObject.GetComponent<FixedJoint2D>().connectedBody = Gema.GetComponent<Rigidbody2D>();
         NetworkServer.Spawn(newBoatObject);
         floater = null;
-
-        CarriedObject.SetActive(false);
-        pickedRender.sprite = null;
     }
 
+
+    private void OnChangeFloater(int oldFloater, int newFloater)
+    {
+        GameObject thisFloater = NetworkManager.singleton.spawnPrefabs[nFloater];
+        if (thisFloater != null)
+        {
+            Debug.Log(thisFloater);
+            CarriedObject.SetActive(true);
+            pickedRender.sprite = thisFloater.GetComponent<SpriteRenderer>().sprite;
+        }
+        else
+        {
+            Debug.Log(thisFloater);
+            CarriedObject.SetActive(false);
+            pickedRender.sprite = null;
+        }
+    }
 
     [Client]
     void NetworkDestroy(GameObject Object)
