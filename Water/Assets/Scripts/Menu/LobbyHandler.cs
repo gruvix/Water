@@ -6,12 +6,16 @@ using UnityEngine.UI;
 
 public class LobbyHandler : NetworkBehaviour
 {
-    public bool IsReady = false;
+	//ClientScene.localPlayer PARA EL PEJOTA DE CADA UNO
+
+	public bool IsReady = false;
 	public Button bnReady;
 	public Button bnStart;
-    public Button bnDisconnect;
+	public Button bnDisconnect;
 	[SyncVar]
 	public int readyUsers = 0;
+	[SyncVar]
+	public int totalUsers = 1;
 	public GameObject playergamePrefab;
 
 	[Scene]
@@ -22,6 +26,7 @@ public class LobbyHandler : NetworkBehaviour
 	{
 		if (isClientOnly)//IS CLIENT
 		{
+
 			bnReady.gameObject.SetActive(true);
 			bnReady.onClick.AddListener(ReadyClick);
 		}
@@ -33,6 +38,13 @@ public class LobbyHandler : NetworkBehaviour
 		}
 		bnDisconnect.onClick.AddListener(DisconnectClick);
 	}
+
+	public override void OnStartLocalPlayer()
+	{
+		base.OnStartLocalPlayer();
+		ClientScene.localPlayer.gameObject.GetComponent<LobbyPlayer>().playerNumber = NetworkManager.singleton.numPlayers;
+	}
+
 
 	private void DisconnectClick()
 	{

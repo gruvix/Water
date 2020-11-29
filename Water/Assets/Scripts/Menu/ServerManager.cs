@@ -17,12 +17,18 @@ public class ServerManager : NetworkBehaviour
         bnStart.onClick.AddListener(Startgame);
     }
 
-	private void OnClientStart()
+	public override void OnStartServer()
 	{
+		base.OnStartServer();
         updateLobby();
+    }
+
+	public override void OnStartClient()
+	{
+		base.OnStartClient();
 	}
 
-    [ClientRpc]
+	[ClientRpc]
     private void updateLobby()
 	{
         Debug.Log("Player Has connected");
@@ -30,9 +36,7 @@ public class ServerManager : NetworkBehaviour
 
 	private void Startgame()
 	{
-        
         NetworkManager.singleton.ServerChangeScene(gameScene);
-
     }
 
 
