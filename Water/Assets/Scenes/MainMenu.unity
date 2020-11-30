@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -7831,8 +7831,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1565120312}
   - component: {fileID: 1565120311}
-  - component: {fileID: 1565120310}
   - component: {fileID: 1565120313}
+  - component: {fileID: 1565120310}
   m_Layer: 0
   m_Name: NetWorkManager
   m_TagString: Untagged
@@ -7849,7 +7849,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1565120309}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7424c1070fad4ba2a7a96b02fbeb4bb, type: 3}
+  m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   OnClientConnected:
@@ -7876,12 +7876,14 @@ MonoBehaviour:
   OnServerDisconnected:
     m_PersistentCalls:
       m_Calls: []
-  port: 7777
+  Port: 7777
   NoDelay: 1
-  serverMaxMessageSize: 16384
-  serverMaxReceivesPerTick: 10000
-  clientMaxMessageSize: 16384
-  clientMaxReceivesPerTick: 1000
+  Interval: 10
+  FastResend: 0
+  CongestionWindow: 1
+  SendWindowSize: 128
+  ReceiveWindowSize: 128
+  debugGUI: 0
 --- !u!114 &1565120311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7902,7 +7904,7 @@ MonoBehaviour:
   serverTickRate: 30
   offlineScene: Assets/Scenes/MainMenu.unity
   onlineScene: Assets/Scenes/Lobby.unity
-  transport: {fileID: 1565120310}
+  transport: {fileID: 0}
   networkAddress: localhost
   maxConnections: 4
   disconnectInactiveConnections: 0

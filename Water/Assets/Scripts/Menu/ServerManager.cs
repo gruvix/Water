@@ -11,7 +11,7 @@ public class ServerManager : NetworkBehaviour
     [Scene]
     public string gameScene;
     public LobbyHandler lobby;
-    NetworkManager netManager;
+    private int count_time;
 
     void Start()
     {
@@ -22,35 +22,26 @@ public class ServerManager : NetworkBehaviour
     private void Startgame()
     {
         NetworkManager.singleton.ServerChangeScene(gameScene);
-        netManager = NetworkManager.singleton;
     }
 
-	private void OnPlayerConnected(NetworkConnection player)
+	private void Update()
 	{
-        Debug.Log("Player Connected????");
-        UpdateCount();
-	}
-
-	public override void OnStartClient()
-	{
-		base.OnStartClient();
-        Debug.Log("Player has connected wiiiii");
-        int count = NetworkManager.singleton.numPlayers;
-		/*foreach (NetworkConnection con in NetworkServer.connections)
-		{
-            if(con!=null)
-			{
-                count++;
-			}
-		}*/
-        UpdateCount();
-        lobby.totalUsers = count;
+        if (lobby.totalUsers != NetworkManager.singleton.numPlayers) 
+        {
+            UpdateLobby();
+        }
     }
 
-	[ClientRpc]
-    private void UpdateCount()
-	{
-        Debug.Log("A player has connected UGAGAGA");
+	private void UpdateLobby()
+    {
+        float yOffset = 0.6f;
+        foreach (GameObject Player in GameObject.FindGameObjectsWithTag("Player"))
+        {
+            lobby.MoveLobbyPlayer(Player.GetComponent<NetworkIdentity>().connectionToClient, yOffset);
+            yOffset -= 0.3f;
+        }
+        lobby.totalUsers = NetworkManager.singleton.numPlayers;
+        Debug.Log($"Users Online: {lobby.totalUsers}");
 	}
 
 	[ClientRpc]

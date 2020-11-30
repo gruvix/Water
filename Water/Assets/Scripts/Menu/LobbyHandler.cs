@@ -38,6 +38,12 @@ public class LobbyHandler : NetworkBehaviour
 		bnDisconnect.onClick.AddListener(DisconnectClick);
 	}
 
+	[TargetRpc]
+	public void MoveLobbyPlayer(NetworkConnection target, float yOffset)
+	{
+		ClientScene.localPlayer.transform.position = new Vector3(ClientScene.localPlayer.transform.position.x, yOffset, ClientScene.localPlayer.transform.position.z);
+	}
+
 	public override void OnStartClient()
 	{
 		base.OnStartClient();
