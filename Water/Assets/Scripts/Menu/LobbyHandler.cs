@@ -16,7 +16,6 @@ public class LobbyHandler : NetworkBehaviour
 	public int readyUsers;
 	[SyncVar]
 	public int totalUsers;
-	public GameObject playergamePrefab;
 
 	[Scene]
 	public string gameScene;
@@ -26,7 +25,6 @@ public class LobbyHandler : NetworkBehaviour
 	{
 		if (isClientOnly)//IS CLIENT
 		{
-
 			bnReady.gameObject.SetActive(true);
 			bnReady.onClick.AddListener(ReadyClick);
 		}

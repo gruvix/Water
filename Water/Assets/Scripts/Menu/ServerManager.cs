@@ -23,16 +23,23 @@ public class ServerManager : NetworkBehaviour
         NetworkManager.singleton.ServerChangeScene(gameScene);
     }
 
-    private void OnServerConnect()
-	{
-        lobby.totalUsers++;
-        Debug.LogError("A PLAYER CONNECTED MESSAGE FOR SERVERONLY");
-        test();
-	}
 
-    [ClientRpc]
-    private void test()
+	private void OnPlayerConnected()
 	{
+        int count = NetworkManager.singleton.numPlayers;
+		/*foreach (NetworkConnection con in NetworkServer.connections)
+		{
+            if(con!=null)
+			{
+                count++;
+			}
+		}*/
+        UpdateCount(count);
+    }
+
+    private void UpdateCount(int TU)
+	{
+        lobby.totalUsers = TU;
         Debug.Log("A player has connected");
 	}
 
