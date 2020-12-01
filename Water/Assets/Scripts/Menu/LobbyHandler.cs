@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class LobbyHandler : NetworkBehaviour
 {
-	//ClientScene.localPlayer PARA EL PEJOTA DE CADA UNO
-
 	public bool IsReady = false;
 	public Button bnReady;
 	public Button bnStart;
@@ -26,7 +24,6 @@ public class LobbyHandler : NetworkBehaviour
 		if (isClientOnly)//IS CLIENT
 		{
 			bnReady.gameObject.SetActive(true);
-			bnReady.onClick.AddListener(ReadyClick);
 		}
 		else//IS HOST
 		{
@@ -83,7 +80,14 @@ public class LobbyHandler : NetworkBehaviour
 		{
 			bnReady.gameObject.SetActive(true);
 			bnStart.gameObject.SetActive(false);
+			AddKickBn(ClientScene.localPlayer.gameObject);
 		}
+	}
+
+	[Command(ignoreAuthority = true)]//ACA SE AGREGA EL BOTON DE KICK
+	private void AddKickBn(GameObject newPlayer)
+	{
+		//Instantiate
 	}
 
 	private void DisconnectClick()
@@ -99,26 +103,32 @@ public class LobbyHandler : NetworkBehaviour
 	}
 
 
-	private void ReadyClick()
+	public void ReadyClick()
 	{
-		if(!IsReady)
+		bnReady.transform.GetChild(0).gameObject.SetActive(!IsReady);
+		bnReady.transform.GetChild(1).gameObject.SetActive(IsReady);
+		IsReady = !IsReady;
+		CmdReadyChange(ClientScene.localPlayer.gameObject, IsReady);
+	}
+
+	[Command(ignoreAuthority = true)]
+	public void CmdReadyChange(GameObject player, bool readyState)
+    {
+        if(readyState)
 		{
-			bnReady.transform.GetChild(0).gameObject.SetActive(true);
-			bnReady.transform.GetChild(1).gameObject.SetActive(false);
 			readyUsers += 1;
-			
 		}
 		else
 		{
-			bnReady.transform.GetChild(0).gameObject.SetActive(false);
-			bnReady.transform.GetChild(1).gameObject.SetActive(true);
 			readyUsers -= 1;
 		}
-		ReadyChange();
-	}
-
-	public void ReadyChange()
-    {
-        IsReady = !IsReady;
+		ReadyUpdate(player, readyState);
     }
+
+	[ClientRpc]
+	public void ReadyUpdate(GameObject player, bool readyState)
+	{
+		player.transform.GetChild(0).gameObject.SetActive(!readyState);
+		player.transform.GetChild(1).gameObject.SetActive(readyState);
+	}
 }

@@ -28,14 +28,33 @@ public class ServerManager : NetworkBehaviour
 	{
         if (lobby.totalUsers != NetworkManager.singleton.numPlayers) 
         {
+            lobby.readyUsers = 0;
             if (lobby.totalUsers < NetworkManager.singleton.numPlayers)
             {
                 lobby.NameFieldRpc();
             }
+            foreach (GameObject Player in GameObject.FindGameObjectsWithTag("Player"))
+            {
+                bool ready = false;
+                if (Player.transform.GetChild(1).gameObject.activeSelf)
+                {
+                    lobby.readyUsers++;
+                    ready = true;
+                }
+                lobby.ReadyUpdate(Player, ready);
+            }
             UpdateLobby();
         }
-    }
 
+        if (lobby.readyUsers != lobby.totalUsers)
+        {
+            bnStart.gameObject.SetActive(false);
+        }
+        else
+		{
+            bnStart.gameObject.SetActive(true);
+		}
+    }
 
 
     private void UpdateLobby()
