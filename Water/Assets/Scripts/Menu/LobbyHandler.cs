@@ -38,11 +38,29 @@ public class LobbyHandler : NetworkBehaviour
 		bnDisconnect.onClick.AddListener(DisconnectClick);
 	}
 
-	[Command(ignoreAuthority = true)]
-	public void UpdateName()
+	public void NameField()
 	{
-		//ClientScene.localPlayer.transform.GetComponent<TMPro.TextMeshProUGUI>().text = nameField.text;
-		//UpdateForAll(ClientScene.localPlayer.gameObject, nameField.text); DEBE LLAMAR AL SERVER MANAGER Y ESTA FUNCION
+		CmdUpdateName(ClientScene.localPlayer.gameObject, nameField.text);
+	}
+
+	[ClientRpc]
+	public void NameFieldRpc()
+	{
+		CmdUpdateName(ClientScene.localPlayer.gameObject, nameField.text);
+	}
+
+
+	[Command(ignoreAuthority = true)]
+	public void CmdUpdateName(GameObject player, string name)
+	{
+		UpdateForAll(player, name);
+	}
+
+
+	[ClientRpc]
+	private void UpdateForAll(GameObject player, string name)
+	{
+		player.transform.GetComponent<TMPro.TextMeshProUGUI>().text = name;
 	}
 
 

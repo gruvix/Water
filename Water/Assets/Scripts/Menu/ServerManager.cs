@@ -28,15 +28,14 @@ public class ServerManager : NetworkBehaviour
 	{
         if (lobby.totalUsers != NetworkManager.singleton.numPlayers) 
         {
+            if (lobby.totalUsers < NetworkManager.singleton.numPlayers)
+            {
+                lobby.NameFieldRpc();
+            }
             UpdateLobby();
         }
     }
 
-    [ClientRpc]
-    private void UpdateForAll(GameObject player, string name)
-    {
-        player.transform.GetComponent<TMPro.TextMeshProUGUI>().text = name;
-    }
 
 
     private void UpdateLobby()

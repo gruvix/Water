@@ -1899,7 +1899,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1943337900}
-        m_MethodName: UpdateName
+        m_MethodName: NameField
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
