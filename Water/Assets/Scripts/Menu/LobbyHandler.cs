@@ -16,9 +16,9 @@ public class LobbyHandler : NetworkBehaviour
 	public int readyUsers;
 	[SyncVar]
 	public int totalUsers;
-
 	[Scene]
 	public string gameScene;
+	public TMPro.TMP_InputField nameField;
 
 	[Client]
 	private void Start()
@@ -38,6 +38,15 @@ public class LobbyHandler : NetworkBehaviour
 		bnDisconnect.onClick.AddListener(DisconnectClick);
 	}
 
+	[Command(ignoreAuthority = true)]
+	public void UpdateName()
+	{
+		//ClientScene.localPlayer.transform.GetComponent<TMPro.TextMeshProUGUI>().text = nameField.text;
+		//UpdateForAll(ClientScene.localPlayer.gameObject, nameField.text); DEBE LLAMAR AL SERVER MANAGER Y ESTA FUNCION
+	}
+
+
+
 	[TargetRpc]
 	public void MoveLobbyPlayer(NetworkConnection target, float yOffset)
 	{
@@ -51,6 +60,11 @@ public class LobbyHandler : NetworkBehaviour
 		{
 			ClientScene.localPlayer.gameObject.transform.GetChild(0).gameObject.SetActive(false);
 			ClientScene.localPlayer.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+		}
+		else
+		{
+			bnReady.gameObject.SetActive(true);
+			bnStart.gameObject.SetActive(false);
 		}
 	}
 

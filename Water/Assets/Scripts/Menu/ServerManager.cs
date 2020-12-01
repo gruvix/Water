@@ -32,7 +32,14 @@ public class ServerManager : NetworkBehaviour
         }
     }
 
-	private void UpdateLobby()
+    [ClientRpc]
+    private void UpdateForAll(GameObject player, string name)
+    {
+        player.transform.GetComponent<TMPro.TextMeshProUGUI>().text = name;
+    }
+
+
+    private void UpdateLobby()
     {
         float yOffset = 0.6f;
         foreach (GameObject Player in GameObject.FindGameObjectsWithTag("Player"))
