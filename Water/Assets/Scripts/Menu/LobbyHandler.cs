@@ -33,10 +33,13 @@ public class LobbyHandler : NetworkBehaviour
 			
 		}
 		bnDisconnect.onClick.AddListener(DisconnectClick);
+		nameField.text = "Error_No_Name";
+		NameField();
 	}
 
 	public void NameField()
 	{
+		NetworkManager.singleton.userName = nameField.text;
 		CmdUpdateName(ClientScene.localPlayer.gameObject, nameField.text);
 	}
 

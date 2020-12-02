@@ -7901,12 +7901,12 @@ MonoBehaviour:
   runInBackground: 1
   autoStartServerBuild: 1
   showDebugMessages: 0
-  serverTickRate: 30
+  serverTickRate: 60
   offlineScene: Assets/Scenes/MainMenu.unity
   onlineScene: Assets/Scenes/Lobby.unity
-  transport: {fileID: 0}
+  transport: {fileID: 1565120310}
   networkAddress: localhost
-  maxConnections: 4
+  maxConnections: 5
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}

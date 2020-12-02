@@ -11,7 +11,6 @@ public class ServerManager : NetworkBehaviour
     [Scene]
     public string gameScene;
     public LobbyHandler lobby;
-    private int count_time;
 
     void Start()
     {

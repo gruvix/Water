@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 910590029}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.919, y: 0.042000026, z: 0}
+  m_LocalPosition: {x: -1.2200254, y: -0.013816625, z: 0}
   m_LocalScale: {x: 0.16744962, y: 0.1674491, z: 1}
   m_Children: []
   m_Father: {fileID: 3554662957309914609}
@@ -116,7 +116,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.691, y: 0.0438}
+  m_AnchoredPosition: {x: -0.992, y: -0.012}
   m_SizeDelta: {x: 1.2985423, y: 1.3640432}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1711477768
@@ -224,7 +224,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2011180145}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.91300005, y: 0.0501, z: 0}
+  m_LocalPosition: {x: -1.2140255, y: -0.0057166517, z: 0}
   m_LocalScale: {x: 0.18993731, y: 0.2246678, z: 1}
   m_Children: []
   m_Father: {fileID: 3554662957309914609}
@@ -320,8 +320,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.864, y: 0.484}
-  m_SizeDelta: {x: 1.1533577, y: 0.4401269}
+  m_AnchoredPosition: {x: 0.9186, y: 0.4915}
+  m_SizeDelta: {x: 1.717274, y: 0.21359366}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6486606653516346471
 CanvasRenderer:
@@ -350,7 +350,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Player
+  m_text: Nombre
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -377,15 +377,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 0.3
-  m_fontSizeBase: 0.3
+  m_fontSize: 0.15
+  m_fontSizeBase: 0.15
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 4096
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -393,9 +393,9 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_enableWordWrapping: 1
+  m_enableWordWrapping: 0
   m_wordWrappingRatios: 0.4
-  m_overflowMode: 0
+  m_overflowMode: 1
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 1

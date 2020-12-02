@@ -24,6 +24,7 @@ namespace Mirror
     public class NetworkManager : MonoBehaviour
     {
         public bool isStarted = false;
+        public string userName;
         static readonly ILogger logger = LogFactory.GetLogger<NetworkManager>();
 
         /// <summary>
