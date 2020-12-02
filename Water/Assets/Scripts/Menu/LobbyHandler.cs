@@ -65,7 +65,7 @@ public class LobbyHandler : NetworkBehaviour
 	{
 		NetworkManager.singleton.userName = nameField.text;
 		CmdUpdateName(ClientScene.localPlayer.gameObject, $"<#{htmlColor}>{nameField.text}</color>");
-		hostName = nameField.text;
+		if (!isClientOnly) { hostName = nameField.text; }
 	}
 
 	[ClientRpc]
