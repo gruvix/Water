@@ -7897,6 +7897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isStarted: 0
+  userName: 
   dontDestroyOnLoad: 1
   runInBackground: 1
   autoStartServerBuild: 1

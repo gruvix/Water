@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using Mirror.RemoteCalls;
 using UnityEngine.UI;
 
 public class LobbyHandler : NetworkBehaviour
@@ -14,9 +15,15 @@ public class LobbyHandler : NetworkBehaviour
 	public int readyUsers;
 	[SyncVar]
 	public int totalUsers;
+	[SyncVar]
+	public string hostName;
 	[Scene]
 	public string gameScene;
 	public TMPro.TMP_InputField nameField;
+	public string htmlColor = null;
+	public Chat chat;
+	private bool started = false;
+	private int delay = 0;
 
 	[Client]
 	private void Start()
@@ -33,20 +40,39 @@ public class LobbyHandler : NetworkBehaviour
 			
 		}
 		bnDisconnect.onClick.AddListener(DisconnectClick);
-		nameField.text = "Error_No_Name";
+		nameField.text = "No_Name";//ACA IRIA EL NOMBRE DESDE ANTES
+	}
+
+	private void PlayerStart()
+	{
+		if (!isClientOnly)
+		{
+			ClientScene.localPlayer.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+			ClientScene.localPlayer.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+		}
+		else
+		{
+			bnReady.gameObject.SetActive(true);
+			bnStart.gameObject.SetActive(false);
+		}
+		var rgb = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+		htmlColor = ColorUtility.ToHtmlStringRGB(rgb);
 		NameField();
+		chat.ChatWelcome();
 	}
 
 	public void NameField()
 	{
 		NetworkManager.singleton.userName = nameField.text;
-		CmdUpdateName(ClientScene.localPlayer.gameObject, nameField.text);
+		CmdUpdateName(ClientScene.localPlayer.gameObject, $"<#{htmlColor}>{nameField.text}</color>");
+		hostName = nameField.text;
 	}
 
 	[ClientRpc]
 	public void NameFieldRpc()
 	{
-		CmdUpdateName(ClientScene.localPlayer.gameObject, nameField.text);
+		string name = $"<#{htmlColor}>{nameField.text}</color>";
+		CmdUpdateName(ClientScene.localPlayer.gameObject, name);
 	}
 
 
@@ -71,21 +97,7 @@ public class LobbyHandler : NetworkBehaviour
 		ClientScene.localPlayer.transform.position = new Vector3(ClientScene.localPlayer.transform.position.x, yOffset, ClientScene.localPlayer.transform.position.z);
 	}
 
-	public override void OnStartClient()
-	{
-		base.OnStartClient();
-		if (!isClientOnly)
-		{
-			ClientScene.localPlayer.gameObject.transform.GetChild(0).gameObject.SetActive(false);
-			ClientScene.localPlayer.gameObject.transform.GetChild(1).gameObject.SetActive(true);
-		}
-		else
-		{
-			bnReady.gameObject.SetActive(true);
-			bnStart.gameObject.SetActive(false);
-			AddKickBn(ClientScene.localPlayer.gameObject);
-		}
-	}
+
 
 	[Command(ignoreAuthority = true)]//ACA SE AGREGA EL BOTON DE KICK
 	private void AddKickBn(GameObject newPlayer)
@@ -133,5 +145,22 @@ public class LobbyHandler : NetworkBehaviour
 	{
 		player.transform.GetChild(0).gameObject.SetActive(!readyState);
 		player.transform.GetChild(1).gameObject.SetActive(readyState);
+	}
+
+	private void Update()
+	{
+		if(!started)
+		{
+			if(delay < 5)
+			{
+				
+				delay++;
+			}
+			else
+			{
+				PlayerStart();
+				started = true;
+			}
+		}
 	}
 }

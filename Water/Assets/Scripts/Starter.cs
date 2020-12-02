@@ -7,11 +7,9 @@ public class Starter : MonoBehaviour
 {
     void Start()
     {
-        foreach (GameObject i in Resources.LoadAll("Floaters", typeof(GameObject)))
+        foreach (GameObject i in Resources.LoadAll("Floaters", typeof(GameObject)))//Agrega los prefabs iniciales al NWM
         {
             FindObjectOfType<NetworkManager>().spawnPrefabs.Add(i);
-            Debug.Log("Prefab Cargado: " + i);
         }
-
     }
 }
