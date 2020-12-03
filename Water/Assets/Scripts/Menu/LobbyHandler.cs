@@ -34,10 +34,7 @@ public class LobbyHandler : NetworkBehaviour
 		}
 		else//IS HOST
 		{
-			totalUsers = 1;
-			readyUsers = 1;
 			bnStart.gameObject.SetActive(true);
-			
 		}
 		bnDisconnect.onClick.AddListener(DisconnectClick);
 		nameField.text = "No_Name";//ACA IRIA EL NOMBRE DESDE ANTES
@@ -49,6 +46,8 @@ public class LobbyHandler : NetworkBehaviour
 		{
 			ClientScene.localPlayer.gameObject.transform.GetChild(0).gameObject.SetActive(false);
 			ClientScene.localPlayer.gameObject.transform.GetChild(1).gameObject.SetActive(true);
+			readyUsers = 1;
+			IsReady = true;
 		}
 		else
 		{

@@ -2997,7 +2997,7 @@ MonoBehaviour:
   bnReady: {fileID: 1753345225}
   bnStart: {fileID: 379409629}
   bnDisconnect: {fileID: 1517551212}
-  readyUsers: 0
+  readyUsers: 1
   totalUsers: 0
   hostName: 
   gameScene: Assets/Scenes/SampleScene.unity
