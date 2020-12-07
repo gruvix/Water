@@ -80,6 +80,13 @@ public class Ghost : MonoBehaviour
                 }
             }
         }
+        GetComponent<SpriteRenderer>().sprite = original.GetComponent<SpriteRenderer>().sprite;
+        transform.position = original.transform.position;
+        float x = original.transform.localScale.x / gameObject.transform.parent.localScale.x;
+        float y = original.transform.localScale.y / gameObject.transform.parent.lossyScale.y;
+        float z = original.transform.localScale.z / gameObject.transform.parent.lossyScale.z;
+        transform.localScale = new Vector3(x, y, z);
+        transform.rotation = original.transform.rotation;
     }
 
     public void DestroyCollider()
@@ -89,12 +96,10 @@ public class Ghost : MonoBehaviour
         {
             Destroy(colliders[i]);
         }
-
     }
 
     public Component CopyComponent(Component original, Component copy)
     {
-
         type = original.GetType();
         copy = gameObject.AddComponent(type);
         // Copied fields can be restricted with BindingFlags
