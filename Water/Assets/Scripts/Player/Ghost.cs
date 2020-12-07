@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Ghost : MonoBehaviour
 {
-    private float speedLimit = 50f;
+    private float speedLimit = 30f;
     public bool CanPlace = true;
-    private float distanciaGhost = 5f;
+    private float distanciaGhost = 4f;
     private int counter = 0;
     private Component copyCollider = null;
     private Component copyTrigger = null;
@@ -67,6 +67,7 @@ public class Ghost : MonoBehaviour
 
     public void SetCollider(GameObject original)
     {
+        GetComponent<SpriteRenderer>().sprite = original.GetComponent<SpriteRenderer>().sprite;
         if (original.GetComponent<Collider2D>() != null)
         {
             CopyComponent(original.GetComponent<Collider2D>(), copyCollider);
@@ -80,7 +81,7 @@ public class Ghost : MonoBehaviour
                 }
             }
         }
-        GetComponent<SpriteRenderer>().sprite = original.GetComponent<SpriteRenderer>().sprite;
+        
         transform.position = original.transform.position;
         float x = original.transform.localScale.x / gameObject.transform.parent.localScale.x;
         float y = original.transform.localScale.y / gameObject.transform.parent.lossyScale.y;

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5394661583292515341}
   - component: {fileID: -4852751765984331548}
   - component: {fileID: 1992293909217236681}
-  m_Layer: 10
+  m_Layer: 9
   m_Name: Crate1
   m_TagString: Floater
   m_Icon: {fileID: 0}
@@ -178,7 +178,7 @@ MonoBehaviour:
   syncInterval: 0.1
   Fjoint: {fileID: 0}
   hasJoint: 0
-  hpMAX: 100
-  HP: 100
+  hpMAX: 200
+  HP: 200
   Break_Force: 50
   Damping_Ratio: 1

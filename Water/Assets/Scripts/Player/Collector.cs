@@ -98,11 +98,11 @@ public class Collector : NetworkBehaviour
 
         if (Input.GetKey(KeyCode.Q))
         {
-            Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z + 4));
+            Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z + 2));
         }
         if (Input.GetKey(KeyCode.E))
         {
-            Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z - 4));
+            Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z - 2));
         }
 
         if (Input.GetMouseButtonDown(1) && has_floater)//Click derecho suelta el objeto
