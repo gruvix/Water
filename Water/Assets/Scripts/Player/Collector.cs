@@ -12,7 +12,9 @@ public class Collector : NetworkBehaviour
     private bool ghostCheck = true;
     public GameObject CarriedObject; //El sprite que le muestra a los demas que tenes agarrado
     private SpriteRenderer pickedRender;
+    [SyncVar]
     public bool has_floater = false; // indica si el personaje tiene agarrado algo
+    [SyncVar]
     public bool has_item = false; //indica si el personaje tiene un objeto
     // Alcance para colocar objetos
     [Range(0.01f, 5f)]
@@ -69,11 +71,11 @@ public class Collector : NetworkBehaviour
                 }
             }
 
-            // Si el jugador no tiene nada agarrado agarra lo que haya clicleado si es que clickeo algo
+            // Si el jugador no tiene nada agarrado agarra lo que haya cliqueado si es que clickeo algo y no tiene dueño
             else
             {
 
-                if (hit.collider != null && (hit.collider.tag == "Floater" || hit.collider.tag == "FloaterPlatform"))//Hit = Floater
+                if ((hit.collider != null && (hit.collider.tag == "Floater" || hit.collider.tag == "FloaterPlatform")) && hit.collider.transform.parent.tag != "Player")//Cuando el objeto es un floater
                 {
                     floater = hit.collider.gameObject;
                     CmdTransicion(ClientScene.localPlayer.gameObject, floater);
@@ -82,7 +84,7 @@ public class Collector : NetworkBehaviour
                     Ghost.GetComponent<Ghost>().SetCollider(floater);
                 }
 
-                if (hit.collider != null && hit.collider.tag == "Item" && !has_item)//Hit = Objeto
+                if (hit.collider != null && hit.collider.tag == "Item" && !has_item)//Cuando el objeto es un arma/herramienta
                 {
                     item = hit.collider.gameObject;
 

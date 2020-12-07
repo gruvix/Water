@@ -16,7 +16,7 @@ public class AreaEfecto : MonoBehaviour
     private void Start()
     {
         // Elijo el radio como el alcance dividido la escala del sprite
-        xradius = gameObject.transform.GetComponentInParent<TrashCollector>().alcance / gameObject.transform.parent.transform.localScale.x;
+        xradius = gameObject.transform.GetComponentInParent<Collector>().alcance / gameObject.transform.parent.transform.localScale.x;
         yradius = xradius;
         line = gameObject.GetComponent<LineRenderer>();
         #pragma warning disable 0618
