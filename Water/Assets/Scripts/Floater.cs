@@ -81,6 +81,10 @@ public class Floater : NetworkBehaviour
     [ClientRpc]
     public void Transicion(GameObject owner)
 	{
+        if (line != null)
+        {
+            Destroy(line.gameObject);
+        }
         Destroy(Fjoint);
         gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         if (line != null)
@@ -129,7 +133,11 @@ public class Floater : NetworkBehaviour
     [Client]
     public void MakeLine()//Aca se crea la linea magica
     {
-
+        line = Instantiate(LinePrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        line.widthMultiplier = 1f;
+        line.transform.SetParent(GameObject.Find("EffectHolder").transform);
+        var renderer = line.GetComponent<Renderer>();
+        renderer.sortingOrder = -1;
     }
 
     public void MakeJoint()//Se fija q haya un joint, si no lo hay lo crea
@@ -143,6 +151,10 @@ public class Floater : NetworkBehaviour
     public void DestroyObject()//Cuando el objeto se destruye
     {
         Destroy(gameObject);
+        if (line != null)
+        {
+            Destroy(line.gameObject);
+        }
     }
 
 
@@ -165,9 +177,7 @@ public class Floater : NetworkBehaviour
         if (line != null)
         {
             line.SetPosition(0, Nucleo.transform.position);
-            line.SetPosition(1, Vector3.Lerp(Nucleo.transform.position, gameObject.transform.position, 0.33f));
-            line.SetPosition(2, Vector3.Lerp(Nucleo.transform.position, gameObject.transform.position, 0.66f));
-            line.SetPosition(3, gameObject.transform.position);
+            line.SetPosition(1, gameObject.transform.position);
         }
         if (HP < 1 && hasAuthority)//Se destruye el objeto
         {

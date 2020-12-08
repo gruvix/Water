@@ -49,7 +49,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 28b0d711f2a0a42479f9aefa59896123, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -73,57 +73,28 @@ LineRenderer:
   m_Positions:
   - {x: 0, y: 0, z: 0}
   - {x: 1, y: 1, z: 0}
-  - {x: 2, y: 2, z: 0}
-  - {x: 3, y: 3, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 1.4889611
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.17143244
-        inSlope: 7.714236
-        outSlope: 7.714236
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0.09506083
-      - serializedVersion: 3
-        time: 0.23966192
-        value: 1
-        inSlope: 0.78104275
-        outSlope: 0.78104275
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.81818956
-        value: 0.114284515
-        inSlope: -0.26559094
-        outSlope: -0.26559094
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.47386232
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 4.1879096
-        outSlope: 4.1879096
+        time: 0.42777634
+        value: 0.3571434
+        inSlope: 0.13075069
+        outSlope: 0.13075069
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.38576445
-        outWeight: 0.33333334
+        outWeight: 0.67951
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.6792453, g: 0, b: 0, a: 0.93333334}
-      key1: {r: 0.6749605, g: 0, b: 0.6886792, a: 0.7921569}
+      key0: {r: 0.6792453, g: 0, b: 0, a: 1}
+      key1: {r: 0.6749605, g: 0, b: 0.6886792, a: 1}
       key2: {r: 0.9791529, g: 0.0141509175, b: 1, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
