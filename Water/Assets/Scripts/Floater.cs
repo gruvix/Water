@@ -138,42 +138,40 @@ public class Floater : NetworkBehaviour
         Fjoint.connectedBody = Nucleo.GetComponent<Rigidbody2D>();
     }
 
-    [Client]
-    public void DestroyJoint()
-    {
 
-    }
-
-
-    [Client]
+    [ClientRpc]
     public void DestroyObject()//Cuando el objeto se destruye
     {
-
+        Destroy(gameObject);
     }
 
 
-    [Client]
+    [Command]
     public void Damage(float DMG)
     {
         HP -= DMG;
         Mathf.Clamp(HP, 0, hpMAX);
+        RpcDamage();
+    }
+
+    [ClientRpc]
+    private void RpcDamage()
+	{
         gameObject.GetComponent<Renderer>().material.SetFloat("_Health", HP / hpMAX * 100);
     }
 
-    [Client]
     void Update()//Mueve la linea de acuerdo al objeto
     {
-        if (HP < 1)//Se destruye el objeto
-        {
-            DestroyObject();
-        }
-
         if (line != null)
         {
             line.SetPosition(0, Nucleo.transform.position);
             line.SetPosition(1, Vector3.Lerp(Nucleo.transform.position, gameObject.transform.position, 0.33f));
             line.SetPosition(2, Vector3.Lerp(Nucleo.transform.position, gameObject.transform.position, 0.66f));
             line.SetPosition(3, gameObject.transform.position);
+        }
+        if (HP < 1 && hasAuthority)//Se destruye el objeto
+        {
+            DestroyObject();//No funciona
         }
     }
 

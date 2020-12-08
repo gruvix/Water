@@ -6,13 +6,15 @@ public class Ghost : MonoBehaviour
 {
     private float speedLimit = 30f;
     public bool CanPlace = true;
-    private float distanciaGhost = 4f;
+    private float distanciaGhost = 3f;
     private int counter = 0;
     private Component copyCollider = null;
     private Component copyTrigger = null;
     private System.Type type = null;
     private Vector2 m_puntero;
-    // Update is called once per frame
+    public float alcance = 0;
+    private bool colliding;
+    
     void OnCollisionEnter2D(Collision2D collider)
     {
         if (Mathf.Abs(collider.relativeVelocity.magnitude) <= speedLimit && CanPlace)
@@ -25,9 +27,15 @@ public class Ghost : MonoBehaviour
             CanPlace = false;
             gameObject.GetComponent<Collider2D>().enabled = false;
         }
+        colliding = true;
     }
 
-    void OnTriggerEnter2D()
+	private void OnCollisionExit2D(Collision2D collision)
+	{
+		if(counter == 0){ colliding = false; }
+	}
+
+	void OnTriggerEnter2D()
     {
         counter++;
     }
@@ -40,13 +48,17 @@ public class Ghost : MonoBehaviour
     void Update()
     {
         m_puntero = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        gameObject.GetComponent<TargetJoint2D>().target = m_puntero;
+        Transform owner = transform.parent.transform;
+        Vector2 ownVec = new Vector2(owner.position.x, owner.position.y);
+        Vector2 vector = m_puntero - ownVec;
+        var tar = Vector2.ClampMagnitude(vector, alcance) + ownVec;
+        gameObject.GetComponent<TargetJoint2D>().target = tar;
     }
 
     void FixedUpdate()
     {
-        var dist = Vector2.Distance(m_puntero, gameObject.transform.position);
-        if (dist >= distanciaGhost)
+        var dist = Vector2.Distance(m_puntero, transform.position);
+        if (dist >= distanciaGhost && colliding)
         {
             gameObject.GetComponent<Renderer>().material.SetInt("_CanPlace", 0);
             CanPlace = false;
@@ -55,7 +67,8 @@ public class Ghost : MonoBehaviour
 
         if (counter == 0)
         {
-            if (dist < distanciaGhost)
+            var dist2 = Vector2.Distance(transform.position, transform.parent.position);
+            if (dist2 <= alcance)
 			{
                 gameObject.GetComponent<Renderer>().material.SetInt("_CanPlace", 1);
                 CanPlace = true;
