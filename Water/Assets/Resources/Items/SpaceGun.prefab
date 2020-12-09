@@ -60,7 +60,7 @@ Transform:
   m_GameObject: {fileID: 1783570057928782235}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.932, y: -4.534, z: 0}
-  m_LocalScale: {x: 0.067138165, y: 0.07418963, z: 1}
+  m_LocalScale: {x: 0.4, y: 0.35, z: 1}
   m_Children:
   - {fileID: 4632417302293570381}
   - {fileID: 863128105}
@@ -129,7 +129,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 1
-  m_Mass: 0.005422861
+  m_Mass: 0.15242065
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -279,7 +279,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8824cbb2663908048b31279379c0c76b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wepAudio: {fileID: 0}
+  wepAudio: {fileID: 499967129}
   bulletPrefab: {fileID: 2938248984651951936, guid: 0017e2b06261af34cb557ce9b8dba33e,
     type: 3}
   playerHeight: 0.1

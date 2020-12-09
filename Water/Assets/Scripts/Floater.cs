@@ -52,7 +52,7 @@ public class Floater : NetworkBehaviour
             MakeLine();
         }
     }
-    
+
     [Client]
     public void OnJointBreak2D()//Mucha Violencia -> huerfanizado
     {
@@ -178,6 +178,10 @@ public class Floater : NetworkBehaviour
         {
             line.SetPosition(0, Nucleo.transform.position);
             line.SetPosition(1, gameObject.transform.position);
+            var shape = line.gameObject.transform.GetChild(0).GetComponent<ParticleSystem>().shape;
+            var z = Vector2.Angle(Nucleo.transform.position, gameObject.transform.position);
+            Debug.Log("Angulo de linea " + z);
+            shape.rotation.Set(0, 0, z);
         }
         if (HP < 1 && hasAuthority)//Se destruye el objeto
         {
@@ -192,6 +196,22 @@ public class Floater : NetworkBehaviour
             fixedCheck = false;
             MakeJoint();
             
+        }
+    }
+
+	private void OnDisable()
+	{
+        if (line != null)
+        {
+            Destroy(line.gameObject);
+        }
+    }
+
+	private void OnDestroy()
+	{
+        if (line != null)
+        {
+            Destroy(line.gameObject);
         }
     }
 }
