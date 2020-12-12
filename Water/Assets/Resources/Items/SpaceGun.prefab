@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 1783570057928782234}
   - component: {fileID: 499967129}
   - component: {fileID: 499967130}
+  - component: {fileID: 143196378}
   m_Layer: 12
   m_Name: SpaceGun
   m_TagString: Item
@@ -279,12 +280,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8824cbb2663908048b31279379c0c76b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   wepAudio: {fileID: 499967129}
   bulletPrefab: {fileID: 2938248984651951936, guid: 0017e2b06261af34cb557ce9b8dba33e,
     type: 3}
   playerHeight: 0.1
   offset: 0.05
   compensation: -38
+--- !u!114 &143196378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1783570057928782235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &2449999484438256259
 GameObject:
   m_ObjectHideFlags: 0

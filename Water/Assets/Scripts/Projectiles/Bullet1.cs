@@ -6,6 +6,7 @@ public class Bullet1 : MonoBehaviour
 {
 	public float speed = 20f;
 	private Rigidbody2D rb;
+    public bool doDamage = false;
     
 
     void Start()
@@ -16,7 +17,7 @@ public class Bullet1 : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D hitInfo)
     {
-    	if (hitInfo.tag == "Floater" || hitInfo.tag == "FloaterPlatform")
+        if(hitInfo.gameObject.GetComponent<Floater>() != null && doDamage)
     	{
     		hitInfo.gameObject.GetComponent<Floater>().Damage(20f);
     	}

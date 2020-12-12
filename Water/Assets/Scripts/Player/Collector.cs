@@ -8,10 +8,7 @@ using Mirror;
 public class Collector : NetworkBehaviour
 {
     public GameObject Ghost;//Ghost es el fantasma verde guia de construccion
-    private SpriteRenderer ghostRender;
     private bool ghostCheck = true;
-    public GameObject CarriedObject; //El sprite que le muestra a los demas que tenes agarrado
-    private SpriteRenderer pickedRender;
     [SyncVar]
     public bool has_floater = false; // indica si el personaje tiene agarrado algo
     [SyncVar]
@@ -31,13 +28,8 @@ public class Collector : NetworkBehaviour
     {
         _areaefecto = gameObject.transform.Find("Areadeefecto");
         _line = _areaefecto.gameObject.GetComponent<LineRenderer>();
-        ghostRender = Ghost.GetComponent<SpriteRenderer>();
         Ghost.GetComponent<Ghost>().alcance = alcance;
         Ghost.SetActive(false);
-
-        CarriedObject = gameObject.transform.Find("CarriedObject").gameObject;
-        CarriedObject.SetActive(false);
-        pickedRender = CarriedObject.GetComponent<SpriteRenderer>();
     }
     [Client]
     private void Update()
@@ -79,11 +71,8 @@ public class Collector : NetworkBehaviour
                     else if (hit.collider.tag == "Item" && !has_item)//Cuando el objeto es un arma/herramienta
                     {
                         item = hit.collider.gameObject;
-
-                        item.GetComponent<SpaceGun>().enabled = true;
-                        item.GetComponent<SpaceGun>().SetItem(gameObject.transform);
-
                         has_item = true;
+                        CmdItemPickup(ClientScene.localPlayer.gameObject, item);
                     }
 				}
             }
@@ -103,7 +92,7 @@ public class Collector : NetworkBehaviour
         if (Input.GetMouseButtonDown(1) && has_floater)
         {
             Ghost.SetActive(false);
-            if (gameObject.transform.localScale.x > 0)
+            if (gameObject.GetComponent<CharacterController2D>().m_FacingRight)
             {
                 dir = 1;
             }
@@ -139,5 +128,21 @@ public class Collector : NetworkBehaviour
     private void CmdHuerfano(int dir, Transform playerTran, GameObject floater)
 	{
         floater.GetComponent<Floater>().Huerfano(dir, playerTran);
+    }
+
+    [Command]
+    private void CmdItemPickup(GameObject player, GameObject item)//Todo lo que continua debería hacerse en otro script que maneja todos los items... por ahora va directo a el unica arma "SpaceGun"
+    {
+        item.GetComponent<NetworkIdentity>().AssignClientAuthority(player.GetComponent<NetworkIdentity>().connectionToClient);
+        RpcItemPickup(player, item);
+    }
+
+    [ClientRpc]
+    private void RpcItemPickup(GameObject player, GameObject item)
+	{
+
+        item.transform.SetParent(player.transform);
+        item.GetComponent<SpaceGun>().enabled = true;
+        item.GetComponent<SpaceGun>().SetItem(gameObject.transform);
     }
 }

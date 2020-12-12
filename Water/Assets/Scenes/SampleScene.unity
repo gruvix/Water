@@ -541,6 +541,30 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 141357453}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &143196377 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1783570057928782235, guid: 3fc49d23a378cbc44af02120e36ebe23,
+    type: 3}
+  m_PrefabInstance: {fileID: 2556603896080458357}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &143196378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 143196377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 1
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
 --- !u!1 &157242851
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,7 +746,6 @@ GameObject:
   - component: {fileID: 250935180}
   - component: {fileID: 250935181}
   - component: {fileID: 250935183}
-  - component: {fileID: 250935182}
   - component: {fileID: 250935184}
   m_Layer: 10
   m_Name: Bote
@@ -795,24 +818,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   guid: 1f6275a038d96fa1-1602c7ea525d7259
---- !u!114 &250935182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 250935178}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncMode: 0
-  syncInterval: 0.1
-  clientAuthority: 1
-  localPositionSensitivity: 0.01
-  localRotationSensitivity: 0.01
-  localScaleSensitivity: 0.01
 --- !u!114 &250935183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4612,6 +4617,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 143196378, guid: 3fc49d23a378cbc44af02120e36ebe23, type: 3}
+      propertyPath: sceneId
+      value: 2264620714
+      objectReference: {fileID: 0}
+    - target: {fileID: 143196378, guid: 3fc49d23a378cbc44af02120e36ebe23, type: 3}
+      propertyPath: m_AssetId
+      value: 3fc49d23a378cbc44af02120e36ebe23
+      objectReference: {fileID: 0}
+    - target: {fileID: 499967130, guid: 3fc49d23a378cbc44af02120e36ebe23, type: 3}
+      propertyPath: playerHeight
+      value: 0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 1783570057928782235, guid: 3fc49d23a378cbc44af02120e36ebe23,
         type: 3}
       propertyPath: m_Name

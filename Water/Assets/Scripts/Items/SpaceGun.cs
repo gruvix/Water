@@ -2,20 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Mirror;
 
-public class SpaceGun : MonoBehaviour
+public class SpaceGun : NetworkBehaviour
 {
-	public AudioSource wepAudio;
+    public AudioSource wepAudio;
     Transform firePointNormal, firePointFlip, firePoint;
-	Vector3 mouse_pos;
-	Vector3 object_pos;
-	Transform target; //Desde quien apunta
-	float angle;
-	float radians;
+    Vector3 mouse_pos;
+    Vector3 object_pos;
+    Transform target; //Desde quien apunta
+    float angle;
+    float radians;
     public GameObject bulletPrefab;
-	public float playerHeight = 0.1f;//Altura a la q va el arma
-	public float offset = 0.05f; //Que tan lejos está el arma del personaje
-	public float compensation = -38f;//compensa que la punta del arma no está en la base del sprite
+    public float playerHeight = 0.1f;//Altura a la q va el arma
+    public float offset = 0.05f; //Que tan lejos está el arma del personaje
+    public float compensation = -38f;//compensa que la punta del arma no está en la base del sprite
 
 
     void Start()
@@ -25,24 +26,41 @@ public class SpaceGun : MonoBehaviour
         wepAudio = GetComponent<AudioSource>();
     }
 
+
     public void SetItem(Transform owner)
     {
-    	target = owner;
-    	gameObject.GetComponent<Rigidbody2D>().simulated = false;
+        target = owner;
+        gameObject.GetComponent<Rigidbody2D>().simulated = false;
         gameObject.GetComponent<PolygonCollider2D>().enabled = false;
+        Debug.Log($"Authority? {hasAuthority}");
     }
 
-    void Shoot()
+    [Command]
+    void CmdShoot()
+	{
+        RpcShoot();
+	}
+
+    [ClientRpc]
+    void RpcShoot()
+	{
+		if (hasAuthority) { return; }
+        wepAudio.Play();
+        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation * Quaternion.Euler(0, 0, 270));
+    }
+
+    void AuthorityShoot()
     {
         wepAudio.Play();
-
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation * Quaternion.Euler(0,0,270));
+        var bul = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation * Quaternion.Euler(0,0,270));
+		if (hasAuthority) { bul.GetComponent<Bullet1>().doDamage = true; }
 
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (!hasAuthority) { return; }
+        Debug.Log($"Authority? {hasAuthority}");
         if (target != null)
         {
      		mouse_pos = Input.mousePosition;
@@ -70,7 +88,8 @@ public class SpaceGun : MonoBehaviour
         }
             if (Input.GetMouseButton(2))
         {
-                Shoot();
+                CmdShoot();
+                AuthorityShoot();
         }
     }
 }

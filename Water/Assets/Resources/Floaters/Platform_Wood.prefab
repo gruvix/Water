@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 4458015460816865224}
   - component: {fileID: 4458015460816865225}
   - component: {fileID: -5684779356194161634}
+  - component: {fileID: -7894783274539834192}
   m_Layer: 9
   m_Name: Platform_Wood
   m_TagString: FloaterPlatform
@@ -202,3 +203,43 @@ MonoBehaviour:
   HP: 100
   Break_Force: 50
   Damping_Ratio: 1
+--- !u!114 &-7894783274539834192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4458015460816865219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 741bbe11f5357b44593b15c0d11b16bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  clientAuthority: 0
+  excludeOwnerUpdate: 1
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 1
+  interpolatePosition: 1
+  interpolateRotation: 1
+  interpolateScale: 1
+  localPositionSensitivity: 0.01
+  localRotationSensitivity: 0.01
+  localScaleSensitivity: 0.01
+  lastPosition: {x: 0, y: 0, z: 0}
+  lastRotation: {x: 0, y: 0, z: 0, w: 0}
+  lastScale: {x: 0, y: 0, z: 0}
+  start:
+    timeStamp: 0
+    localPosition: {x: 0, y: 0, z: 0}
+    localRotation: {x: 0, y: 0, z: 0, w: 0}
+    localScale: {x: 0, y: 0, z: 0}
+    movementSpeed: 0
+  goal:
+    timeStamp: 0
+    localPosition: {x: 0, y: 0, z: 0}
+    localRotation: {x: 0, y: 0, z: 0, w: 0}
+    localScale: {x: 0, y: 0, z: 0}
+    movementSpeed: 0
