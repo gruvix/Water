@@ -7,6 +7,7 @@ public class Bullet1 : MonoBehaviour
 	public float speed = 20f;
 	private Rigidbody2D rb;
     public bool doDamage = false;
+    public GameObject daddy;
     
 
     void Start()
@@ -19,9 +20,14 @@ public class Bullet1 : MonoBehaviour
     {
         if(hitInfo.gameObject.GetComponent<Floater>() != null && doDamage)
     	{
-    		hitInfo.gameObject.GetComponent<Floater>().Damage(20f);
+            daddy.GetComponent<SpaceGun>().DoDamage(hitInfo.gameObject, 20f);
+    		//hitInfo.gameObject.GetComponent<Floater>().Damage(20f);
     	}
     	Destroy(gameObject);
     }
 
+	private void OnTriggerExit2D(Collider2D collision)
+	{
+        if (collision.name == "KillBox") { Destroy(gameObject); }
+    }
 }

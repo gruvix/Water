@@ -146,10 +146,18 @@ public class Floater : NetworkBehaviour
         Fjoint.connectedBody = Nucleo.GetComponent<Rigidbody2D>();
     }
 
+    [Command(ignoreAuthority = true)]
+    public void CmdDestroy()
+	{
+        Debug.Log("CMD destroy");
+        RpcDestroyObject();
+	}
+
 
     [ClientRpc]
-    public void DestroyObject()//Cuando el objeto se destruye
+    public void RpcDestroyObject()//Cuando el objeto se destruye
     {
+        Debug.Log("rpc destroy");
         Destroy(gameObject);
         if (line != null)
         {
@@ -157,13 +165,17 @@ public class Floater : NetworkBehaviour
         }
     }
 
-
-    [Command]
     public void Damage(float DMG)
     {
         HP -= DMG;
-        Mathf.Clamp(HP, 0, hpMAX);
+        HP = Mathf.Clamp(HP, 0, hpMAX);
+        GetComponent<NetworkIdentity>().RemoveClientAuthority();
         RpcDamage();
+        if (HP == 0)//Se destruye el objeto
+        {
+            Debug.Log("0 hp detected");
+            CmdDestroy();//No funciona
+        }
     }
 
     [ClientRpc]
@@ -181,10 +193,6 @@ public class Floater : NetworkBehaviour
             var shape = line.gameObject.transform.GetChild(0).GetComponent<ParticleSystem>().shape;
             var z = Vector2.Angle(Nucleo.transform.position, gameObject.transform.position);
             shape.rotation.Set(0, 0, z);
-        }
-        if (HP < 1 && hasAuthority)//Se destruye el objeto
-        {
-            DestroyObject();//No funciona
         }
     }
 

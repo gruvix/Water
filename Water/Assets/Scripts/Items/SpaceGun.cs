@@ -32,7 +32,6 @@ public class SpaceGun : NetworkBehaviour
         target = owner;
         gameObject.GetComponent<Rigidbody2D>().simulated = false;
         gameObject.GetComponent<PolygonCollider2D>().enabled = false;
-        Debug.Log($"Authority? {hasAuthority}");
     }
 
     [Command]
@@ -53,14 +52,17 @@ public class SpaceGun : NetworkBehaviour
     {
         wepAudio.Play();
         var bul = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation * Quaternion.Euler(0,0,270));
-		if (hasAuthority) { bul.GetComponent<Bullet1>().doDamage = true; }
+        if (hasAuthority)
+        { 
+            bul.GetComponent<Bullet1>().doDamage = true;
+            bul.GetComponent<Bullet1>().daddy = gameObject;
+        }
 
     }
 
     void Update()
     {
         if (!hasAuthority) { return; }
-        Debug.Log($"Authority? {hasAuthority}");
         if (target != null)
         {
      		mouse_pos = Input.mousePosition;
@@ -92,4 +94,10 @@ public class SpaceGun : NetworkBehaviour
                 AuthorityShoot();
         }
     }
+
+    [Command]
+    public void DoDamage(GameObject victim, float damage)
+	{
+        victim.GetComponent<Floater>().Damage(damage);
+	}
 }
