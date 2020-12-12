@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5394661583292515341}
   - component: {fileID: -4852751765984331548}
   - component: {fileID: 1992293909217236681}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: Crate1
   m_TagString: Floater
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dac335a8ff223244c82bbe31758d0193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Densidad: 0.38
+  Densidad: 0.18
 --- !u!114 &1992293909217236681
 MonoBehaviour:
   m_ObjectHideFlags: 0

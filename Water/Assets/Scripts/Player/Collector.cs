@@ -21,24 +21,19 @@ public class Collector : NetworkBehaviour
     public float alcance = 0.4f;
     LineRenderer _line; // Linea que indica el rango
     private GameObject floater;
-    private GameObject floateronclient;
     private GameObject item;
     private int dir = 1;
     // Variables de objetos del mundo
-    private GameObject Bote;
     private Transform _areaefecto;
-    private GameObject Gema;
 
     [Client]
     public override void OnStartClient()
     {
-        Bote = GameObject.Find("Bote");
         _areaefecto = gameObject.transform.Find("Areadeefecto");
         _line = _areaefecto.gameObject.GetComponent<LineRenderer>();
         ghostRender = Ghost.GetComponent<SpriteRenderer>();
         Ghost.GetComponent<Ghost>().alcance = alcance;
         Ghost.SetActive(false);
-        Gema = GameObject.Find("SoulFragment");
 
         CarriedObject = gameObject.transform.Find("CarriedObject").gameObject;
         CarriedObject.SetActive(false);

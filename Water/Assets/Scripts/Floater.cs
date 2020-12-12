@@ -180,7 +180,6 @@ public class Floater : NetworkBehaviour
             line.SetPosition(1, gameObject.transform.position);
             var shape = line.gameObject.transform.GetChild(0).GetComponent<ParticleSystem>().shape;
             var z = Vector2.Angle(Nucleo.transform.position, gameObject.transform.position);
-            Debug.Log("Angulo de linea " + z);
             shape.rotation.Set(0, 0, z);
         }
         if (HP < 1 && hasAuthority)//Se destruye el objeto

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
-public class PlayerMovement : NetworkBehaviour
+public class PlayerInput : NetworkBehaviour
 {
 	public CharacterController2D controller;
 	public float runSpeed = 50f;
@@ -19,11 +19,12 @@ public class PlayerMovement : NetworkBehaviour
     {
         animator = GetComponent<Animator>();
         body = GetComponent<Rigidbody2D>();
+
+        if (!hasAuthority) { return; }//Area camara
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         cam.GetComponent<CameraManager>().target = gameObject.transform;
         cam.enabled = true;
     }
-
 
   	[Client]
     void Update()
