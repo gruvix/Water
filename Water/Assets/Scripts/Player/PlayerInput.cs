@@ -30,7 +30,7 @@ public class PlayerInput : NetworkBehaviour
     void Update()
     {
 
-    	if (!hasAuthority){return;}
+    	if (!hasAuthority || Pause_Main.singleton.paused){return;}
     	horizontalMove = Input.GetAxisRaw("Horizontal") * runSpeed;
 
         if (Input.GetButtonDown("Jump"))
