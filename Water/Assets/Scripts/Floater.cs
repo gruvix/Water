@@ -150,7 +150,8 @@ public class Floater : NetworkBehaviour
     public void CmdDestroy()
 	{
         Debug.Log("CMD destroy");
-        RpcDestroyObject();
+        //RpcDestroyObject();
+        Destroy(gameObject);
 	}
 
 
@@ -167,9 +168,14 @@ public class Floater : NetworkBehaviour
 
     public void Damage(float DMG)
     {
+        CmdDamage(DMG);
+    }
+
+    [Command(ignoreAuthority = true)]
+    private void CmdDamage(float DMG)
+	{
         HP -= DMG;
         HP = Mathf.Clamp(HP, 0, hpMAX);
-        GetComponent<NetworkIdentity>().RemoveClientAuthority();
         RpcDamage();
         if (HP == 0)//Se destruye el objeto
         {

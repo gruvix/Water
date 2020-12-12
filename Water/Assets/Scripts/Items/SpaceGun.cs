@@ -17,6 +17,8 @@ public class SpaceGun : NetworkBehaviour
     public float playerHeight = 0.1f;//Altura a la q va el arma
     public float offset = 0.05f; //Que tan lejos está el arma del personaje
     public float compensation = -38f;//compensa que la punta del arma no está en la base del sprite
+    private float fireRate = 0.05f;
+    private int counter = 0;
 
 
     void Start()
@@ -37,11 +39,11 @@ public class SpaceGun : NetworkBehaviour
     [Command]
     void CmdShoot()
 	{
-        RpcShoot();
+        RpcSpriteShoot();
 	}
 
     [ClientRpc]
-    void RpcShoot()
+    void RpcSpriteShoot()
 	{
 		if (hasAuthority) { return; }
         wepAudio.Play();
@@ -50,13 +52,10 @@ public class SpaceGun : NetworkBehaviour
 
     void AuthorityShoot()
     {
+		if (!hasAuthority) { return; }
         wepAudio.Play();
         var bul = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation * Quaternion.Euler(0,0,270));
-        if (hasAuthority)
-        { 
-            bul.GetComponent<Bullet1>().doDamage = true;
-            bul.GetComponent<Bullet1>().daddy = gameObject;
-        }
+        bul.GetComponent<Bullet1>().doDamage = true;
 
     }
 
@@ -88,16 +87,15 @@ public class SpaceGun : NetworkBehaviour
         	gameObject.transform.position = target.position + new Vector3(Mathf.Cos(radians) * offset, Mathf.Sin(radians) * offset + playerHeight, 0) ;
 
         }
-            if (Input.GetMouseButton(2))
+        if (Input.GetMouseButton(2))
         {
+            if(counter < 1 / fireRate) { counter++; }
+            else
+			{
                 CmdShoot();
                 AuthorityShoot();
+                counter = 0;
+			}
         }
     }
-
-    [Command]
-    public void DoDamage(GameObject victim, float damage)
-	{
-        victim.GetComponent<Floater>().Damage(damage);
-	}
 }
