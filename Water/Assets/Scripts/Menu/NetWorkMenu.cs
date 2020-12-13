@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.UI;
-using Telepathy;
-
+using TMPro;
 
 public class NetWorkMenu : NetworkBehaviour
 {
-    public TMPro.TMP_InputField ipField;
+    public TMP_InputField ipField;
     public Button bnHost;
     public Button bnConnect;
     public Button bnCancel;
@@ -16,8 +15,9 @@ public class NetWorkMenu : NetworkBehaviour
     public GameObject MenuConnecting;
     public GameObject MenuMain;
     public Animator ErrorText;
-    public TMPro.TextMeshProUGUI RetryStatus;
+    public TextMeshProUGUI RetryStatus;
     public GameObject playermenuPrefab;
+    public TMP_InputField nameField;
     private bool connecting = false;
     private int retryMax = 4;
     private int retry;
@@ -38,15 +38,23 @@ public class NetWorkMenu : NetworkBehaviour
         bnConnect.onClick.AddListener(ConnectClick);
         bnCancel.onClick.AddListener(CancelClick);
         NetworkManager.singleton.playerPrefab = playermenuPrefab;
+        nameField.text = NetworkManager.singleton.userName;
+    }
+
+    public void NameField()
+    {
+        NetworkManager.singleton.userName = nameField.text;
     }
 
     private void HostClick()
 	{
+        if (NetworkManager.singleton.userName == "" || NetworkManager.singleton.userName == null) { Debug.Log("Cant play without a name!"); return; }//Error nombre vacio
         NetworkManager.singleton.StartHost();
     }
 
     private void ConnectClick()
     {
+        if (NetworkManager.singleton.userName == "" || NetworkManager.singleton.userName == null) { Debug.Log("Cant play without a name!"); return; }//Error nombre vacio
         NetworkManager.singleton.StartClient();
         connecting = true;
         ErrorText.SetBool("Show", false);

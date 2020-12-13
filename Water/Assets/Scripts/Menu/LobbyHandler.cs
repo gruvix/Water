@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
-using kcp2k;
 using UnityEngine.UI;
 
 public class LobbyHandler : NetworkBehaviour
@@ -19,7 +18,6 @@ public class LobbyHandler : NetworkBehaviour
 	public string hostName;
 	[Scene]
 	public string gameScene;
-	public TMPro.TMP_InputField nameField;
 	public string htmlColor = null;
 	public Chat chat;
 	private bool started = false;
@@ -37,7 +35,6 @@ public class LobbyHandler : NetworkBehaviour
 			bnStart.gameObject.SetActive(true);
 		}
 		bnDisconnect.onClick.AddListener(DisconnectClick);
-		nameField.text = "No_Name";//ACA IRIA EL NOMBRE DESDE ANTES
 	}
 
 	private void PlayerStart()
@@ -48,6 +45,7 @@ public class LobbyHandler : NetworkBehaviour
 			ClientScene.localPlayer.gameObject.transform.GetChild(1).gameObject.SetActive(true);
 			readyUsers = 1;
 			IsReady = true;
+			if (!isClientOnly) { hostName = NetworkManager.singleton.userName; }
 		}
 		else
 		{
@@ -56,21 +54,15 @@ public class LobbyHandler : NetworkBehaviour
 		}
 		var rgb = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
 		htmlColor = ColorUtility.ToHtmlStringRGB(rgb);
-		NameField();
 		chat.ChatWelcome();
-	}
-
-	public void NameField()
-	{
-		NetworkManager.singleton.userName = nameField.text;
-		CmdUpdateName(ClientScene.localPlayer.gameObject, $"<#{htmlColor}>{nameField.text}</color>");
-		if (!isClientOnly) { hostName = nameField.text; }
-	}
+		CmdUpdateName(ClientScene.localPlayer.gameObject, $"<#{htmlColor}>{NetworkManager.singleton.userName}</color>");
+	}	
+	
 
 	[ClientRpc]
 	public void NameFieldRpc()
 	{
-		string name = $"<#{htmlColor}>{nameField.text}</color>";
+		string name = $"<#{htmlColor}>{NetworkManager.singleton.userName}</color>";
 		CmdUpdateName(ClientScene.localPlayer.gameObject, name);
 	}
 
