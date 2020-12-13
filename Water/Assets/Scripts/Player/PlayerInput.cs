@@ -24,6 +24,7 @@ public class PlayerInput : NetworkBehaviour
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         cam.GetComponent<CameraManager>().target = gameObject.transform;
         cam.enabled = true;
+        CmdSetName(NetworkManager.singleton.userName);
     }
 
   	[Client]
@@ -87,6 +88,17 @@ public class PlayerInput : NetworkBehaviour
     private void RcpMove(float horizontalMove_,bool jump_,bool antijump_)
     {
         controller.Move(horizontalMove_ * Time.fixedDeltaTime, false, jump_, antijump_);
-        //transform.Translate(posicion);
     }
+
+    [Command]
+    private void CmdSetName(string name)
+	{
+        RpcSetName(name);
+	}
+
+    [ClientRpc]
+    private void RpcSetName(string name)
+	{
+        transform.GetChild(4).GetComponent<TMPro.TMP_Text>().text = name;
+	}
 }

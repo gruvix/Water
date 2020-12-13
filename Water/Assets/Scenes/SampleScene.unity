@@ -2131,7 +2131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isStarted: 0
-  userName: 
+  userName: SampleName
   dontDestroyOnLoad: 1
   runInBackground: 1
   autoStartServerBuild: 1
@@ -2806,7 +2806,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 32535
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 8400000, guid: 21919a5a7519dd34889c01d990d13902, type: 2}
   m_TargetDisplay: 0

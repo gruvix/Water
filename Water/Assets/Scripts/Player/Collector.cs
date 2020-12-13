@@ -30,6 +30,7 @@ public class Collector : NetworkBehaviour
         _line = _areaefecto.gameObject.GetComponent<LineRenderer>();
         Ghost.GetComponent<Ghost>().alcance = alcance;
         Ghost.SetActive(false);
+        _areaefecto.gameObject.SetActive(true);
     }
     [Client]
     private void Update()
