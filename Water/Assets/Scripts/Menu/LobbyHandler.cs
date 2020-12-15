@@ -39,6 +39,10 @@ public class LobbyHandler : NetworkBehaviour
 
 	private void PlayerStart()
 	{
+		var rgb = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
+		htmlColor = ColorUtility.ToHtmlStringRGB(rgb);
+		NetworkManager.singleton.htmlColor = htmlColor;
+
 		if (!isClientOnly)
 		{
 			ClientScene.localPlayer.gameObject.transform.GetChild(0).gameObject.SetActive(false);
@@ -51,14 +55,12 @@ public class LobbyHandler : NetworkBehaviour
 		{
 			bnReady.gameObject.SetActive(true);
 			bnStart.gameObject.SetActive(false);
+			chat.ChatWelcome();
 		}
-		var rgb = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
-		htmlColor = ColorUtility.ToHtmlStringRGB(rgb);
-		NetworkManager.singleton.htmlColor = htmlColor;
-		chat.ChatWelcome();
 		CmdUpdateName(ClientScene.localPlayer.gameObject, $"<#{htmlColor}>{NetworkManager.singleton.userName}</color>");
 	}	
 	
+
 
 	[ClientRpc]
 	public void NameFieldRpc()
@@ -80,6 +82,7 @@ public class LobbyHandler : NetworkBehaviour
 	{
 		player.transform.GetComponent<TMPro.TextMeshProUGUI>().text = name;
 		player.transform.SetParent(transform);
+		player.GetComponent<PlayerData>().userName = name;
 	}
 
 
@@ -93,7 +96,7 @@ public class LobbyHandler : NetworkBehaviour
 	[TargetRpc]
 	public void Kick(NetworkConnection conn)
 	{
-		string msg = $"<#D7CF93>{NetworkManager.singleton.userName} was kicked from the lobby</color>\n";
+		string msg = ClientScene.localPlayer.GetComponent<PlayerData>().userName + "<#D7CF93> was kicked from the lobby</color>\n";
 		chat.CmdSendMessage(msg);
 		NetworkManager.singleton.StopClient();
 	}

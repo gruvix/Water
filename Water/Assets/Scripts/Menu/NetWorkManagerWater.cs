@@ -18,8 +18,10 @@ public class NetWorkManagerWater : NetworkManager
 		}
 	}
 
+	[Server]
 	public override void OnServerDisconnect(NetworkConnection conn)
 	{
+
 		if (SceneManager.GetActiveScene().name == "Lobby" && conn != NetworkServer.localConnection)
 		{
 			string Msg = null;
@@ -27,7 +29,7 @@ public class NetWorkManagerWater : NetworkManager
 			{
 				if (player.GetComponent<NetworkIdentity>().connectionToClient == conn)
 				{
-					Msg = $"<#D7CF93>{player.GetComponent<PlayerData>().userName} has disconnected</color>\n";
+					Msg = player.GetComponent<PlayerData>().userName + "<#D7CF93> has disconnected</color>\n";
 				}
 			}
 			serverMan.lobby.chat.CmdSendMessage(Msg);

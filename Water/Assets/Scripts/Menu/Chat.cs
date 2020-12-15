@@ -22,9 +22,9 @@ public class Chat : NetworkBehaviour
 
 	public void ChatWelcome()
 	{
-        string message = "A wild <#" + lobby.htmlColor + ">" + NetworkManager.singleton.userName + ":</color> joins the room!\n";
+        string message = "<#D7CF93> A wild </color><#" + lobby.htmlColor + ">" + NetworkManager.singleton.userName + "</color> <#D7CF93>joins the room!</color>\n";
         CmdSendMessage(message);
-        TMP_ChatOutput.text += $"Welcome to {lobby.hostName}'s Server!\n";
+        TMP_ChatOutput.text += $"Welcome to {lobby.hostName}'s lobby!\n";
     }
 
 	void AddToChatOutput(string newText)

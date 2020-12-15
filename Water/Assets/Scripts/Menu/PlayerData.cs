@@ -6,9 +6,4 @@ using Mirror;
 public class PlayerData : NetworkBehaviour
 {
 	public string userName = "Error_No_Name";
-
-	private void Start()
-	{
-		userName = NetworkManager.singleton.userName;
-	}
 }
