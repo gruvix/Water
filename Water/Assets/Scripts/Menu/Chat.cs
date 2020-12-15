@@ -42,7 +42,7 @@ public class Chat : NetworkBehaviour
     }
 
     [Command(ignoreAuthority = true)]
-    private void CmdSendMessage(string message)
+    public void CmdSendMessage(string message)
 	{
         RpcHandleMessage(message);
 	}

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using Mirror;
 
 public class ServerManager : NetworkBehaviour
@@ -11,6 +12,7 @@ public class ServerManager : NetworkBehaviour
     [Scene]
     public string gameScene;
     public LobbyHandler lobby;
+    public Button kickPrefab;
 
     void Start()
     {
@@ -23,7 +25,7 @@ public class ServerManager : NetworkBehaviour
         NetworkManager.singleton.ServerChangeScene(gameScene);
     }
 
-	private void Update()
+    private void Update()
 	{
         if (lobby.totalUsers != NetworkManager.singleton.numPlayers) 
         {
@@ -43,6 +45,7 @@ public class ServerManager : NetworkBehaviour
                 lobby.ReadyUpdate(Player, ready);
             }
             UpdateLobby();
+            
         }
 
         if (lobby.readyUsers != lobby.totalUsers)
@@ -72,5 +75,14 @@ public class ServerManager : NetworkBehaviour
     public void ChangePlayerPrefab()
     {
         NetworkManager.singleton.playerPrefab = playergamePrefab;
+    }
+
+    [Server]
+    public void AddKickBn(GameObject player, NetworkConnection conn)
+    {
+        var go = Instantiate(kickPrefab, Vector3.zero, Quaternion.identity);
+        go.transform.SetParent(player.transform);
+        go.transform.position = new Vector3(0.2f, 1.02f, 0f);
+        go.onClick.AddListener(() => lobby.Kick(conn));
     }
 }

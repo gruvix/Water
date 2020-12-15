@@ -79,8 +79,8 @@ public class LobbyHandler : NetworkBehaviour
 	private void UpdateForAll(GameObject player, string name)
 	{
 		player.transform.GetComponent<TMPro.TextMeshProUGUI>().text = name;
+		player.transform.SetParent(transform);
 	}
-
 
 
 	[TargetRpc]
@@ -90,18 +90,20 @@ public class LobbyHandler : NetworkBehaviour
 	}
 
 
-
-	[Command(ignoreAuthority = true)]//ACA SE AGREGA EL BOTON DE KICK
-	private void AddKickBn(GameObject newPlayer)
+	[TargetRpc]
+	public void Kick(NetworkConnection conn)
 	{
-		//Instantiate
+		string msg = $"<#D7CF93>{NetworkManager.singleton.userName} was kicked from the lobby</color>\n";
+		chat.CmdSendMessage(msg);
+		NetworkManager.singleton.StopClient();
 	}
+
 
 	private void DisconnectClick()
 	{
         if(isClientOnly)
 		{
-            NetworkManager.singleton.StopClient();
+			NetworkManager.singleton.StopClient();
         }
         else
 		{

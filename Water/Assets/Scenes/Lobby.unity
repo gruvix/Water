@@ -1057,6 +1057,7 @@ GameObject:
   - component: {fileID: 1056011839}
   - component: {fileID: 1056011838}
   - component: {fileID: 1056011837}
+  - component: {fileID: 1056011840}
   m_Layer: 0
   m_Name: Server
   m_TagString: Untagged
@@ -1099,6 +1100,8 @@ MonoBehaviour:
     type: 3}
   gameScene: Assets/Scenes/SampleScene.unity
   lobby: {fileID: 1943337900}
+  kickPrefab: {fileID: 8129492454091380232, guid: 220dc8ed30d082748ab3951883c07a23,
+    type: 3}
 --- !u!224 &1056011839
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1108,16 +1111,60 @@ RectTransform:
   m_GameObject: {fileID: 1056011836}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.02037037, y: 0.02037037, z: 0.0018518518}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 54.481094, y: 9.602182}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1056011840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1056011836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnClientConnected:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientDataReceived:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientError:
+    m_PersistentCalls:
+      m_Calls: []
+  OnClientDisconnected:
+    m_PersistentCalls:
+      m_Calls: []
+  OnServerConnected:
+    m_PersistentCalls:
+      m_Calls: []
+  OnServerDataReceived:
+    m_PersistentCalls:
+      m_Calls: []
+  OnServerError:
+    m_PersistentCalls:
+      m_Calls: []
+  OnServerDisconnected:
+    m_PersistentCalls:
+      m_Calls: []
+  Port: 7777
+  NoDelay: 1
+  Interval: 10
+  FastResend: 0
+  CongestionWindow: 1
+  SendWindowSize: 128
+  ReceiveWindowSize: 128
+  debugGUI: 0
 --- !u!1 &1184085968
 GameObject:
   m_ObjectHideFlags: 0
@@ -2477,7 +2524,6 @@ MonoBehaviour:
   totalUsers: 0
   hostName: 
   gameScene: Assets/Scenes/SampleScene.unity
-  nameField: {fileID: 0}
   htmlColor: 
   chat: {fileID: 232877057}
 --- !u!114 &1943337901
