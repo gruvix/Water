@@ -24,7 +24,7 @@ public class PlayerInput : NetworkBehaviour
         cam = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         cam.GetComponent<CameraManager>().target = gameObject.transform;
         cam.enabled = true;
-        CmdSetName(NetworkManager.singleton.userName);
+        CmdSetName($"<#{NetworkManager.singleton.htmlColor}>{NetworkManager.singleton.userName}</color>");
     }
 
   	[Client]

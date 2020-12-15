@@ -54,6 +54,7 @@ public class LobbyHandler : NetworkBehaviour
 		}
 		var rgb = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
 		htmlColor = ColorUtility.ToHtmlStringRGB(rgb);
+		NetworkManager.singleton.htmlColor = htmlColor;
 		chat.ChatWelcome();
 		CmdUpdateName(ClientScene.localPlayer.gameObject, $"<#{htmlColor}>{NetworkManager.singleton.userName}</color>");
 	}	

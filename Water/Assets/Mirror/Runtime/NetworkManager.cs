@@ -25,6 +25,7 @@ namespace Mirror
     {
         public bool isStarted = false;
         public string userName = "No_Name";
+        public string htmlColor = null;
         static readonly ILogger logger = LogFactory.GetLogger<NetworkManager>();
 
         /// <summary>
