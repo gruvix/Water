@@ -11,5 +11,6 @@ public class Starter : MonoBehaviour
         {
             FindObjectOfType<NetworkManager>().spawnPrefabs.Add(i);
         }
+
     }
 }

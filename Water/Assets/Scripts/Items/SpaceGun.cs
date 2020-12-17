@@ -59,6 +59,19 @@ public class SpaceGun : NetworkBehaviour
 
     }
 
+    [Command]
+    private void CmdUpdateWeapon(bool bul, Transform fp)
+	{
+        RpcUpdateWeapon(bul, fp);
+	}
+
+    [ClientRpc]
+    private void RpcUpdateWeapon(bool bul, Transform fp)
+	{
+        gameObject.GetComponent<SpriteRenderer>().flipY = bul;
+        firePoint = fp;
+    }
+
     void Update()
     {
         if (!hasAuthority) { return; }
@@ -75,13 +88,14 @@ public class SpaceGun : NetworkBehaviour
     		{
     			gameObject.GetComponent<SpriteRenderer>().flipY = true;
                 firePoint = firePointFlip;
-
+                CmdUpdateWeapon(true, firePointFlip);
     		}
     		else
     		{
     			gameObject.GetComponent<SpriteRenderer>().flipY = false;
                 firePoint = firePointNormal;
-    		}
+                CmdUpdateWeapon(false, firePointNormal);
+            }
 
             transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
         	gameObject.transform.position = target.position + new Vector3(Mathf.Cos(radians) * offset, Mathf.Sin(radians) * offset + playerHeight, 0) ;
