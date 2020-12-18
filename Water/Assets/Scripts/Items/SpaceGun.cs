@@ -17,9 +17,8 @@ public class SpaceGun : NetworkBehaviour
     public float playerHeight = 0.1f;//Altura a la q va el arma
     public float offset = 0.05f; //Que tan lejos está el arma del personaje
     public float compensation = -38f;//compensa que la punta del arma no está en la base del sprite
-    private float fireRate = 0.05f;
-    private int counter = 0;
-
+    private bool canshoot=true;
+    public float cooldowntime=1f;
 
     void Start()
     {
@@ -94,12 +93,21 @@ public class SpaceGun : NetworkBehaviour
         }
         if (Input.GetMouseButton(2))
         {
-            if(counter < 1 / fireRate) { counter++; }
-            else
-			{
+            //hacer que las balas se sincronicen con un ienumerator
+            if (canshoot)
+            {
                 CmdShoot(firePoint.position, firePoint.rotation);
-                counter = 0;
-			}
+                canshoot = false;
+                StartCoroutine(Cooldown(cooldowntime));
+            }
         }
+    }
+
+    IEnumerator Cooldown(float cooltime)
+    {
+
+        yield return new WaitForSeconds(cooltime);
+        canshoot = true;
+        Debug.Log("Can shoot");
     }
 }
