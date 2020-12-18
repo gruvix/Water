@@ -39,9 +39,9 @@ public class SpaceGun : NetworkBehaviour
     [Command]
     void CmdShoot(Transform fireP)
 	{
-        RpcSpriteShoot();
-        GameObject bullet = Instantiate(bulletPrefab, fireP.position, fireP.rotation * Quaternion.Euler(0,0, 270));
+        GameObject bullet = Instantiate(bulletPrefab, fireP.position, fireP.rotation * Quaternion.Euler(0, 0, 270));
         NetworkServer.Spawn(bullet);
+        RpcSpriteShoot();
     }
 
     [ClientRpc]
@@ -98,7 +98,6 @@ public class SpaceGun : NetworkBehaviour
             else
 			{
                 CmdShoot(firePoint);
-
                 counter = 0;
 			}
         }
