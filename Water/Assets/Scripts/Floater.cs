@@ -6,12 +6,7 @@ using Mirror;
 
 public class Floater : NetworkBehaviour
 {
-    //ESTE SCRIPT VA EN UN OBJETO
-    //1) Cuando es clickeado EL PERSONAJE llama a esta funcion; el objeto se va a la cabeza y desactiva el brillo
-    //2) Desde la cabeza click IZ se une a la balza, cambia el parent y activa el brillo
-    //2.5) Click derecho lo devuelve al agua y desactiva el brillo
-    //3) cuando se rompe el fixedjoint se cae al agua, cambia el parent y desactiva el brillo
-    //#pragma warning disable 0649// <- evita el warning de "null" en unity
+
     LineRenderer line;
     private GameObject Floaters;
     private GameObject Bote;
@@ -38,8 +33,11 @@ public class Floater : NetworkBehaviour
         Nucleo = GameObject.Find("Nucleo");
         LinePrefab = Resources.Load<LineRenderer>("Effects/MagicConnector");
         deathEffect = Resources.Load<ParticleSystem>("Effects/DestroyExplosion");
+
+
         if (gameObject.transform.parent.name == "Bote")//Hace una adopcion como personalizada
         {
+            GetComponent<Rigidbody2D>().simulated = false;
             gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
             gameObject.layer = 10;
 
@@ -47,16 +45,9 @@ public class Floater : NetworkBehaviour
             {
                 gameObject.GetComponent<PlatformEffector2D>().enabled = true;
             }
-            gameObject.transform.SetPositionAndRotation(transform.position, transform.rotation);
-            
+            StartCoroutine(HammerTime());
             MakeLine();
         }
-    }
-
-	public override void OnStartServer()
-	{
-		base.OnStartServer();
-        StartCoroutine(HammerTime());
     }
 
 	[Client]
@@ -66,11 +57,12 @@ public class Floater : NetworkBehaviour
         Debug.Log("Se rompio union por exeso de fuerza");
     }
 
-    //no estoy seguro de como implementar esto en red. Tal ves trabajar sobre la destruccion y el spawn
     [ClientRpc]
     public void Huerfano(int dir, Transform player)//Se va pa'l agua
     {
-        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        gameObject.GetComponent<Rigidbody2D>().simulated = true;
+        //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+
         gameObject.GetComponent<SetDensity>().Set();
         if (line != null)
         {
@@ -78,6 +70,8 @@ public class Floater : NetworkBehaviour
         }
 
         Destroy(Fjoint);
+        //Fjoint.enabled = false;
+
         gameObject.transform.SetParent(Floaters.transform);
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 0);//Cambia parámetro del material
         gameObject.layer = 9;
@@ -92,8 +86,13 @@ public class Floater : NetworkBehaviour
         {
             Destroy(line.gameObject);
         }
-        Destroy(Fjoint);
-        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+
+		Destroy(Fjoint);
+		//Fjoint.enabled = false;
+
+        //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+        gameObject.GetComponent<Rigidbody2D>().simulated = false;
+
         if (line != null)
         {
             Destroy(line.gameObject);
@@ -116,7 +115,9 @@ public class Floater : NetworkBehaviour
     [ClientRpc]
     public void Adopcion(Vector3 targetPos, Quaternion targetRot)//Ahora es del bote
     {
+
         Destroy(Fjoint);
+        //Fjoint.enabled = false;
 
         gameObject.transform.SetParent(Bote.transform);
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
@@ -126,7 +127,10 @@ public class Floater : NetworkBehaviour
         {
             gameObject.GetComponent<PlatformEffector2D>().enabled = true;
         }
+        
         gameObject.transform.SetPositionAndRotation(targetPos, targetRot);
+
+
         MakeLine();
         StartCoroutine(HammerTime());
     }
@@ -149,9 +153,12 @@ public class Floater : NetworkBehaviour
 
     public void MakeJoint()//Hace el joint
     {
-        Fjoint = gameObject.AddComponent<FixedJoint2D>();
-        Fjoint.connectedBody = Nucleo.GetComponent<Rigidbody2D>();
-        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        //Fjoint.enabled = true;
+        Fjoint = Nucleo.AddComponent<FixedJoint2D>();
+        Fjoint.connectedBody = GetComponent<Rigidbody2D>();
+        gameObject.GetComponent<Rigidbody2D>().simulated = true;
+        //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+
         gameObject.GetComponent<SetDensity>().Set();
     }
 
