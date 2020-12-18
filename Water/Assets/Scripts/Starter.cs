@@ -11,6 +11,9 @@ public class Starter : MonoBehaviour
         {
             FindObjectOfType<NetworkManager>().spawnPrefabs.Add(i);
         }
-
+        foreach (GameObject i in Resources.LoadAll("Projectiles", typeof(GameObject)))//Agrega los prefabs iniciales al NWM
+        {
+            FindObjectOfType<NetworkManager>().spawnPrefabs.Add(i);
+        }
     }
 }

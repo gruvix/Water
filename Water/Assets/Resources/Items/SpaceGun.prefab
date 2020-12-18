@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 863128105}
+  - component: {fileID: 843490517}
   m_Layer: 12
   m_Name: FirePointFlip
   m_TagString: Untagged
@@ -30,6 +31,22 @@ Transform:
   m_Father: {fileID: 1783570057928782239}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+--- !u!114 &843490517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 863128104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0
 --- !u!1 &1783570057928782235
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,8 +302,8 @@ MonoBehaviour:
   wepAudio: {fileID: 499967129}
   bulletPrefab: {fileID: 2938248984651951936, guid: 0017e2b06261af34cb557ce9b8dba33e,
     type: 3}
-  playerHeight: 0.1
-  offset: 0.05
+  playerHeight: 0.67
+  offset: 0.1
   compensation: -38
 --- !u!114 &143196378
 MonoBehaviour:
@@ -313,6 +330,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4632417302293570381}
+  - component: {fileID: 1222482412}
   m_Layer: 12
   m_Name: FirePoint
   m_TagString: Untagged
@@ -334,3 +352,19 @@ Transform:
   m_Father: {fileID: 1783570057928782239}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1222482412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2449999484438256259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
+  hasSpawned: 0

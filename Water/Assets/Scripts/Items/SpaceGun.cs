@@ -37,26 +37,17 @@ public class SpaceGun : NetworkBehaviour
     }
 
     [Command]
-    void CmdShoot()
+    void CmdShoot(Transform fireP)
 	{
         RpcSpriteShoot();
-	}
+        GameObject bullet = Instantiate(bulletPrefab, fireP.position, fireP.rotation * Quaternion.Euler(0,0, 270));
+        NetworkServer.Spawn(bullet);
+    }
 
     [ClientRpc]
     void RpcSpriteShoot()
 	{
-		if (hasAuthority) { return; }
         wepAudio.Play();
-        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation * Quaternion.Euler(0, 0, 270));
-    }
-
-    void AuthorityShoot()
-    {
-		if (!hasAuthority) { return; }
-        wepAudio.Play();
-        var bul = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation * Quaternion.Euler(0,0,270));
-        bul.GetComponent<Bullet1>().doDamage = true;
-
     }
 
     [Command]
@@ -106,8 +97,8 @@ public class SpaceGun : NetworkBehaviour
             if(counter < 1 / fireRate) { counter++; }
             else
 			{
-                CmdShoot();
-                AuthorityShoot();
+                CmdShoot(firePoint);
+
                 counter = 0;
 			}
         }

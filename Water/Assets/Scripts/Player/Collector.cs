@@ -145,5 +145,7 @@ public class Collector : NetworkBehaviour
         item.transform.SetParent(player.transform);
         item.GetComponent<SpaceGun>().enabled = true;
         item.GetComponent<SpaceGun>().SetItem(gameObject.transform);
+        player.GetComponent<NetworkTransformChild>().enabled = true;
+        player.GetComponent<NetworkTransformChild>().target = item.transform;
     }
 }
