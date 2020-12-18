@@ -141,7 +141,6 @@ public class Collector : NetworkBehaviour
     [ClientRpc]
     private void RpcItemPickup(GameObject player, GameObject item)
 	{
-
         item.transform.SetParent(player.transform);
         item.GetComponent<SpaceGun>().enabled = true;
         item.GetComponent<SpaceGun>().SetItem(gameObject.transform);

@@ -3499,15 +3499,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6149812672535719173, guid: cd104dc95d956474abfe10f731087055,
-        type: 3}
-      propertyPath: m_Mass
-      value: 0.64000005
-      objectReference: {fileID: 0}
     - target: {fileID: 7372254676621389141, guid: cd104dc95d956474abfe10f731087055,
         type: 3}
       propertyPath: sceneId
       value: 1954397990
+      objectReference: {fileID: 0}
+    - target: {fileID: 7372254676621389141, guid: cd104dc95d956474abfe10f731087055,
+        type: 3}
+      propertyPath: m_AssetId
+      value: cd104dc95d956474abfe10f731087055
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd104dc95d956474abfe10f731087055, type: 3}
@@ -4616,6 +4616,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2913417566134159169, guid: 3fc49d23a378cbc44af02120e36ebe23,
+        type: 3}
+      propertyPath: clientAuthority
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fc49d23a378cbc44af02120e36ebe23, type: 3}
 --- !u!4 &1957920137 stripped
@@ -4747,6 +4752,11 @@ PrefabInstance:
       propertyPath: sceneId
       value: 3816866903
       objectReference: {fileID: 0}
+    - target: {fileID: 3541220542863405163, guid: 12b79ee44ec0fba498da2249063ad8cd,
+        type: 3}
+      propertyPath: m_AssetId
+      value: 12b79ee44ec0fba498da2249063ad8cd
+      objectReference: {fileID: 0}
     - target: {fileID: 4458015460816865218, guid: 12b79ee44ec0fba498da2249063ad8cd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4806,16 +4816,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Platform1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4458015460816865219, guid: 12b79ee44ec0fba498da2249063ad8cd,
-        type: 3}
-      propertyPath: m_Layer
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4458015460816865224, guid: 12b79ee44ec0fba498da2249063ad8cd,
-        type: 3}
-      propertyPath: m_Mass
-      value: 0.39570948
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12b79ee44ec0fba498da2249063ad8cd, type: 3}
