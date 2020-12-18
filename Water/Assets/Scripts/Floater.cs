@@ -48,12 +48,18 @@ public class Floater : NetworkBehaviour
                 gameObject.GetComponent<PlatformEffector2D>().enabled = true;
             }
             gameObject.transform.SetPositionAndRotation(transform.position, transform.rotation);
-            StartCoroutine(HammerTime(Bote));
+            
             MakeLine();
         }
     }
 
-    [Client]
+	public override void OnStartServer()
+	{
+		base.OnStartServer();
+        StartCoroutine(HammerTime());
+    }
+
+	[Client]
     public void OnJointBreak2D()//Mucha Violencia -> huerfanizado
     {
         Huerfano(0, transform);
@@ -65,6 +71,7 @@ public class Floater : NetworkBehaviour
     public void Huerfano(int dir, Transform player)//Se va pa'l agua
     {
         gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        gameObject.GetComponent<SetDensity>().Set();
         if (line != null)
         {
             Destroy(line.gameObject);
@@ -110,7 +117,7 @@ public class Floater : NetworkBehaviour
     public void Adopcion(Vector3 targetPos, Quaternion targetRot)//Ahora es del bote
     {
         Destroy(Fjoint);
-        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+
         gameObject.transform.SetParent(Bote.transform);
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
         gameObject.layer = 10;
@@ -120,13 +127,13 @@ public class Floater : NetworkBehaviour
             gameObject.GetComponent<PlatformEffector2D>().enabled = true;
         }
         gameObject.transform.SetPositionAndRotation(targetPos, targetRot);
-        StartCoroutine(HammerTime(Bote));
         MakeLine();
+        StartCoroutine(HammerTime());
     }
 
-    IEnumerator HammerTime(GameObject bote)
+    IEnumerator HammerTime()
     {
-        yield return new WaitForSeconds(0.01f);
+        yield return new WaitForSecondsRealtime(0.01f);
         fixedCheck = true;
     }
 
@@ -140,31 +147,20 @@ public class Floater : NetworkBehaviour
         renderer.sortingOrder = -1;
     }
 
-    public void MakeJoint()//Se fija q haya un joint, si no lo hay lo crea
+    public void MakeJoint()//Hace el joint
     {
         Fjoint = gameObject.AddComponent<FixedJoint2D>();
         Fjoint.connectedBody = Nucleo.GetComponent<Rigidbody2D>();
+        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
+        gameObject.GetComponent<SetDensity>().Set();
     }
+
 
     [Command(ignoreAuthority = true)]
     public void CmdDestroy()
 	{
-        Debug.Log("CMD destroy");
-        //RpcDestroyObject();
-        Destroy(gameObject);
+        NetworkServer.Destroy(gameObject);
 	}
-
-
-    [ClientRpc]
-    public void RpcDestroyObject()//Cuando el objeto se destruye
-    {
-        Debug.Log("rpc destroy");
-        Destroy(gameObject);
-        if (line != null)
-        {
-            Destroy(line.gameObject);
-        }
-    }
 
     public void Damage(float DMG)
     {
@@ -179,7 +175,6 @@ public class Floater : NetworkBehaviour
         RpcDamage();
         if (HP == 0)//Se destruye el objeto
         {
-            Debug.Log("0 hp detected");
             CmdDestroy();//No funciona
         }
     }
@@ -208,7 +203,6 @@ public class Floater : NetworkBehaviour
         {
             fixedCheck = false;
             MakeJoint();
-            
         }
     }
 
