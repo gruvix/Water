@@ -46,7 +46,7 @@ public class Collector : NetworkBehaviour
                 ghostCheck = Ghost.GetComponent<Ghost>().CanPlace;
                 if (ghostCheck)
                 {
-                    CmdAdopcion(Ghost.transform.position, Ghost.transform.rotation, floater);
+                    CmdAdopcion(Ghost.transform.position, Ghost.transform.rotation, floater, gameObject);
                     Ghost.GetComponent<Ghost>().DestroyCollider();
                     has_floater = false;
                     floater = null;
@@ -63,10 +63,11 @@ public class Collector : NetworkBehaviour
                     if ((hit.collider.tag == "Floater" || hit.collider.tag == "FloaterPlatform") && hit.collider.transform.parent.tag != "Player")//Cuando el objeto es un floater
                     {
                         floater = hit.collider.gameObject;
-                        CmdTransicion(ClientScene.localPlayer.gameObject, floater);
+                        
                         has_floater = true;
                         Ghost.SetActive(true);
                         Ghost.GetComponent<Ghost>().SetCollider(floater);
+                        CmdTransicion(ClientScene.localPlayer.gameObject, floater);
                     }
 
                     else if (hit.collider.tag == "Item" && !has_item)//Cuando el objeto es un arma/herramienta
@@ -79,17 +80,7 @@ public class Collector : NetworkBehaviour
             }
         }
 
-        //Rotacion del Ghost
-        if (Input.GetKey(KeyCode.Q))
-        {
-            Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z + 2));
-            floater.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z + 2));
-        }
-        if (Input.GetKey(KeyCode.E))
-        {
-            Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z - 2));
-            floater.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z - 2));
-        }
+
 
         //Soltar Objeto (Huerfano)
         if (Input.GetMouseButtonDown(1) && has_floater)
@@ -113,24 +104,43 @@ public class Collector : NetworkBehaviour
         {
             _areaefecto.transform.Rotate(0, 0, 1f, Space.Self);
         }
+        else { return; }
+
+        //Rotacion del Ghost, va ultimo por el return
+        if (Input.GetKey(KeyCode.Q))
+        {
+            Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z + 2));
+            floater.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z + 2));
+        }
+        if (Input.GetKey(KeyCode.E))
+        {
+            Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z - 2));
+            floater.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z - 2));
+        }
+
     }
 
     [Command]
     private void CmdTransicion(GameObject player, GameObject floater)
     {
-        floater.GetComponent<Floater>().Transicion(player);
+        floater.GetComponent<NetworkIdentity>().AssignClientAuthority(player.GetComponent<NetworkIdentity>().connectionToClient);
+        floater.GetComponent<Floater>().RpcTransicion(player);
     }
 
     [Command]
-    private void CmdAdopcion(Vector3 ghostPos, Quaternion ghostRot, GameObject floater)
+    private void CmdAdopcion(Vector3 ghostPos, Quaternion ghostRot, GameObject floater, GameObject player)
     {
+        floater.GetComponent<NetworkIdentity>().AssignClientAuthority(player.GetComponent<NetworkIdentity>().connectionToClient);
+
+        NetworkServer.UnSpawn(floater);
         floater.GetComponent<Floater>().Adopcion(ghostPos, ghostRot);
     }
 
     [Command]
     private void CmdHuerfano(int dir, Transform playerTran, GameObject floater)
 	{
-        floater.GetComponent<Floater>().Huerfano(dir, playerTran);
+        floater.GetComponent<NetworkIdentity>().AssignClientAuthority(playerTran.GetComponent<NetworkIdentity>().connectionToClient);
+        floater.GetComponent<Floater>().CmdHuerfano(dir, playerTran);
     }
 
     [Command]

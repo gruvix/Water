@@ -177,6 +177,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  Prefab: {fileID: 3312129807768472582}
+  line: {fileID: 0}
   Fjoint: {fileID: 0}
   hasJoint: 0
   hpMAX: 80
