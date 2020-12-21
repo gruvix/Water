@@ -200,9 +200,13 @@ public class Floater : NetworkBehaviour
         {
             line.SetPosition(0, Nucleo.transform.position);
             line.SetPosition(1, gameObject.transform.position);
-            var shape = line.gameObject.transform.GetChild(0).GetComponent<ParticleSystem>().shape;
-            var z = Vector2.Angle(Nucleo.transform.position, gameObject.transform.position);
-            shape.rotation.Set(0, 0, z);
+            Transform emitter = line.gameObject.transform.GetChild(0);
+            emitter.rotation = Quaternion.Euler(new Vector3(0f, 0f, Vector2.SignedAngle(Nucleo.transform.position, gameObject.transform.position)+90));
+            emitter.position = Nucleo.transform.position;
+            var shape = emitter.GetComponent<ParticleSystem>().shape;
+            float med = Vector2.Distance(Nucleo.transform.position, gameObject.transform.position)/2;
+            shape.radius = med;
+            shape.position = new Vector3(med, 0f, 0f);
         }
     }
 
