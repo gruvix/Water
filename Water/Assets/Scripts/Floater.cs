@@ -34,10 +34,8 @@ public class Floater : NetworkBehaviour
         LinePrefab = Resources.Load<LineRenderer>("Effects/MagicConnector");
         deathEffect = Resources.Load<ParticleSystem>("Effects/DestroyExplosion");
 
-
         if (gameObject.transform.parent.name == "Bote")//Hace una adopcion como personalizada
         {
-            GetComponent<Rigidbody2D>().simulated = false;
             gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
             gameObject.layer = 10;
 
@@ -48,6 +46,18 @@ public class Floater : NetworkBehaviour
             StartCoroutine(HammerTime());
             MakeLine();
         }
+    }
+
+
+	private void Start()
+	{
+        if (isServer)
+        { 
+            GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic; 
+            gameObject.GetComponent<SetDensity>().Set(); 
+        }
+        
+        
     }
 
 	[Client]
@@ -61,16 +71,14 @@ public class Floater : NetworkBehaviour
     public void Huerfano(int dir, Transform player)//Se va pa'l agua
     {
         gameObject.GetComponent<Rigidbody2D>().simulated = true;
-        //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 
-        gameObject.GetComponent<SetDensity>().Set();
+        
         if (line != null)
         {
             Destroy(line.gameObject);
         }
-
-        Destroy(Fjoint);
-        //Fjoint.enabled = false;
+        if (isServer) { Destroy(Fjoint); }
+            
 
         gameObject.transform.SetParent(Floaters.transform);
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 0);//Cambia parámetro del material
@@ -87,10 +95,8 @@ public class Floater : NetworkBehaviour
             Destroy(line.gameObject);
         }
 
-		Destroy(Fjoint);
-		//Fjoint.enabled = false;
+        if (isServer) { Destroy(Fjoint); }
 
-        //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         gameObject.GetComponent<Rigidbody2D>().simulated = false;
 
         if (line != null)
@@ -116,8 +122,7 @@ public class Floater : NetworkBehaviour
     public void Adopcion(Vector3 targetPos, Quaternion targetRot)//Ahora es del bote
     {
 
-        Destroy(Fjoint);
-        //Fjoint.enabled = false;
+        if (isServer) { Destroy(Fjoint); }
 
         gameObject.transform.SetParent(Bote.transform);
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
@@ -132,7 +137,8 @@ public class Floater : NetworkBehaviour
 
 
         MakeLine();
-        StartCoroutine(HammerTime());
+        if (isServer) { StartCoroutine(HammerTime()); }
+        else { gameObject.GetComponent<Rigidbody2D>().simulated = true; }
     }
 
     IEnumerator HammerTime()
@@ -151,15 +157,12 @@ public class Floater : NetworkBehaviour
         renderer.sortingOrder = -1;
     }
 
+    [Server]
     public void MakeJoint()//Hace el joint
     {
-        //Fjoint.enabled = true;
-        Fjoint = Nucleo.AddComponent<FixedJoint2D>();
-        Fjoint.connectedBody = GetComponent<Rigidbody2D>();
+        Fjoint = gameObject.AddComponent<FixedJoint2D>();
+        Fjoint.connectedBody = Nucleo.GetComponent<Rigidbody2D>();
         gameObject.GetComponent<Rigidbody2D>().simulated = true;
-        //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-
-        gameObject.GetComponent<SetDensity>().Set();
     }
 
 
