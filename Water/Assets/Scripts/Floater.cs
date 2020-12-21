@@ -71,14 +71,12 @@ public class Floater : NetworkBehaviour
     public void Huerfano(int dir, Transform player)//Se va pa'l agua
     {
         gameObject.GetComponent<Rigidbody2D>().simulated = true;
-
         
         if (line != null)
         {
             Destroy(line.gameObject);
         }
         if (isServer) { Destroy(Fjoint); }
-            
 
         gameObject.transform.SetParent(Floaters.transform);
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 0);//Cambia parámetro del material
@@ -106,6 +104,7 @@ public class Floater : NetworkBehaviour
 
         gameObject.transform.SetParent(owner.transform);
         gameObject.transform.position = owner.transform.position + new Vector3(0, 2f, 0);
+        gameObject.transform.rotation = Quaternion.identity;
 
 
         if (gameObject.GetComponent<PlatformEffector2D>() != null)//Esto es para las plataformas

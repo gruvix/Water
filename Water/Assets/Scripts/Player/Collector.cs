@@ -22,6 +22,8 @@ public class Collector : NetworkBehaviour
     private int dir = 1;
     // Variables de objetos del mundo
     private Transform _areaefecto;
+    private float rotationCounter = 0;
+    private float rotationAmount = 30f;
 
     [Client]
     public override void OnStartClient()
@@ -67,6 +69,7 @@ public class Collector : NetworkBehaviour
                         has_floater = true;
                         Ghost.SetActive(true);
                         Ghost.GetComponent<Ghost>().SetCollider(floater);
+                        Ghost.transform.rotation = Quaternion.identity;
                     }
 
                     else if (hit.collider.tag == "Item" && !has_item)//Cuando el objeto es un arma/herramienta
@@ -79,17 +82,37 @@ public class Collector : NetworkBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Q))
+		{
+            Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z + rotationAmount));
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z - rotationAmount));
+        }
+
         //Rotacion del Ghost
         if (Input.GetKey(KeyCode.Q))
         {
-            Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z + 2));
-            floater.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z + 2));
+            rotationCounter -= 0.015f;
         }
-        if (Input.GetKey(KeyCode.E))
+        else if (Input.GetKey(KeyCode.E))
         {
-            Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z - 2));
-            floater.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z - 2));
+            rotationCounter += 0.015f;
         }
+		else
+		{
+            rotationCounter = 0;
+		}
+
+        rotationCounter = Mathf.Clamp(rotationCounter, -1, 1);
+        if (Mathf.Abs(rotationCounter) == 1) 
+        { 
+            Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z - rotationCounter*rotationAmount));
+            rotationCounter = 0;
+        }
+
 
         //Soltar Objeto (Huerfano)
         if (Input.GetMouseButtonDown(1) && has_floater)
