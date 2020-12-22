@@ -81,8 +81,8 @@ public class Floater : NetworkBehaviour
         gameObject.transform.SetParent(Floaters.transform);
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 0);//Cambia parámetro del material
         gameObject.layer = 9;
-
-        GetComponent<Rigidbody2D>().velocity =  player.right * 6f * dir + transform.up * 3f;
+        Vector2 speed = Mathf.Abs(dir) * (player.right * 6f * dir + transform.up * 3f);
+        GetComponent<Rigidbody2D>().velocity = speed + player.GetComponent<Rigidbody2D>().velocity;
     }
 
     [ClientRpc]

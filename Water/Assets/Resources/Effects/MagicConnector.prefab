@@ -244,8 +244,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.5
-      minScalar: 1
+      scalar: 1
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -413,7 +413,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.08
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -994,7 +994,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 50
+      scalar: 30
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -1104,28 +1104,37 @@ ParticleSystem:
     curve:
       serializedVersion: 2
       minMaxState: 1
-      scalar: 1
+      scalar: 2
       minScalar: 1
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 1
-          inSlope: 0
-          outSlope: 0
+          value: 0.11666692
+          inSlope: 1.2849982
+          outSlope: 1.2849982
           tangentMode: 0
           weightedMode: 0
           inWeight: 0.33333334
-          outWeight: 0.33333334
+          outWeight: 0.30962247
+        - serializedVersion: 3
+          time: 0.31922707
+          value: 1
+          inSlope: -0.6274623
+          outSlope: -0.6274623
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.23410472
         - serializedVersion: 3
           time: 1
           value: 0.012295604
-          inSlope: -2.827863
-          outSlope: -2.827863
+          inSlope: -0.83630055
+          outSlope: -0.83630055
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0.100000024
+          inWeight: 0.28578186
           outWeight: 0.33333334
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -1433,7 +1442,7 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 0.5686275, g: 0.23529413, b: 0.43529415, a: 1}
-        key1: {r: 0.8018868, g: 0.03404235, b: 0.48839024, a: 0.72156864}
+        key1: {r: 0.8, g: 0.035294104, b: 0.08063894, a: 0.72156864}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
@@ -1616,8 +1625,8 @@ ParticleSystem:
     enabled: 1
     x:
       serializedVersion: 2
-      minMaxState: 3
-      scalar: 0
+      minMaxState: 2
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -1669,15 +1678,15 @@ ParticleSystem:
         m_RotationOrder: 4
     y:
       serializedVersion: 2
-      minMaxState: 3
-      scalar: 0.7
+      minMaxState: 2
+      scalar: 5
       minScalar: -0.7
       maxCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
-          time: 0
-          value: -0.8688507
+          time: 0.0038909912
+          value: -0.30218506
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -1685,8 +1694,8 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 1
-          value: -1
+          time: 0.9727478
+          value: -0.033325195
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -1701,7 +1710,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.7622986
+          value: 0.28729656
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -1709,8 +1718,8 @@ ParticleSystem:
           inWeight: 0.33333334
           outWeight: 0.33333334
         - serializedVersion: 3
-          time: 0.9857178
-          value: 0.7213135
+          time: 0.9779358
+          value: 0.021312714
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -1722,8 +1731,8 @@ ParticleSystem:
         m_RotationOrder: 4
     z:
       serializedVersion: 2
-      minMaxState: 3
-      scalar: 0
+      minMaxState: 2
+      scalar: 1
       minScalar: 0
       maxCurve:
         serializedVersion: 2
