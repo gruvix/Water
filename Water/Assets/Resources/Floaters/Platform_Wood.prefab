@@ -11,13 +11,14 @@ GameObject:
   - component: {fileID: 4458015460816865218}
   - component: {fileID: 3541220542863405163}
   - component: {fileID: 4458015460816865230}
-  - component: {fileID: 4458015460816865228}
   - component: {fileID: 4458015460816865229}
   - component: {fileID: 4458015460816865224}
+  - component: {fileID: 4458015460816865228}
   - component: {fileID: 4458015460816865225}
   - component: {fileID: -5684779356194161634}
-  - component: {fileID: -1757844713045424160}
-  m_Layer: 10
+  - component: {fileID: 3096936624481015907}
+  - component: {fileID: -4230300247120215073}
+  m_Layer: 9
   m_Name: Platform_Wood
   m_TagString: FloaterPlatform
   m_Icon: {fileID: 0}
@@ -104,25 +105,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!251 &4458015460816865228
-PlatformEffector2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4458015460816865219}
-  m_Enabled: 1
-  m_UseColliderMask: 1
-  m_ColliderMask:
-    serializedVersion: 2
-    m_Bits: 4368
-  m_RotationalOffset: 0
-  m_UseOneWay: 1
-  m_UseOneWayGrouping: 0
-  m_SurfaceArc: 120
-  m_UseSideFriction: 0
-  m_UseSideBounce: 0
-  m_SideArc: 0
 --- !u!61 &4458015460816865229
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -170,6 +152,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!251 &4458015460816865228
+PlatformEffector2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4458015460816865219}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 4368
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 120
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 0
 --- !u!114 &4458015460816865225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +204,29 @@ MonoBehaviour:
   HP: 100
   Break_Force: 50
   Damping_Ratio: 1
---- !u!114 &-1757844713045424160
+--- !u!114 &3096936624481015907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4458015460816865219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab2cbc52526ea384ba280d13cd1a57b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
+  target: {fileID: 5394661583292515342, guid: 4cae7efc644ae254c91f3dc45c28e1fe, type: 3}
+  clientAuthority: 0
+  syncVelocity: 1
+  clearVelocity: 0
+  velocitySensitivity: 0.1
+  syncAngularVelocity: 0
+  clearAngularVelocity: 1
+  angularVelocitySensitivity: 0.1
+--- !u!114 &-4230300247120215073
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -216,18 +239,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncMode: 0
-  syncInterval: 0.1
+  syncInterval: 0.05
   clientAuthority: 0
   excludeOwnerUpdate: 1
   syncPosition: 1
   syncRotation: 1
   syncScale: 1
   interpolatePosition: 1
-  interpolateRotation: 1
-  interpolateScale: 1
+  interpolateRotation: 0
+  interpolateScale: 0
   localPositionSensitivity: 0.01
   localRotationSensitivity: 0.01
-  localScaleSensitivity: 0.01
+  localScaleSensitivity: 0
   lastPosition: {x: 0, y: 0, z: 0}
   lastRotation: {x: 0, y: 0, z: 0, w: 0}
   lastScale: {x: 0, y: 0, z: 0}

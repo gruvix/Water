@@ -10,7 +10,7 @@ public class Floater : NetworkBehaviour
     LineRenderer line;
     private GameObject Floaters;
     private GameObject Bote;
-    private GameObject Nucleo;
+    public GameObject Nucleo;
     private ParticleSystem deathEffect;
     private LineRenderer LinePrefab;
     private bool fixedCheck = false;
@@ -22,7 +22,7 @@ public class Floater : NetworkBehaviour
 
     //Variables que definen el joint del cuerpo (ajustables en el PREFAB)
     public float Break_Force = 50;
-    public float Damping_Ratio = 1;
+    public float Damping_Ratio = 10;
 
     [Client]
     public override void OnStartClient()
@@ -35,21 +35,21 @@ public class Floater : NetworkBehaviour
         deathEffect = Resources.Load<ParticleSystem>("Effects/DestroyExplosion");
 
         if (gameObject.transform.parent.name == "Bote")//Hace una adopcion como personalizada
-        {
-            gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
-            gameObject.layer = 10;
+         {
+             gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
+             gameObject.layer = 10;
 
-            if (gameObject.GetComponent<PlatformEffector2D>() != null)//Esto es para las plataformas
-            {
-                gameObject.GetComponent<PlatformEffector2D>().enabled = true;
-            }
-            StartCoroutine(HammerTime());
-            MakeLine();
-        }
+             if (gameObject.GetComponent<PlatformEffector2D>() != null)//Esto es para las plataformas
+             {
+                 gameObject.GetComponent<PlatformEffector2D>().enabled = true;
+             }
+             StartCoroutine(HammerTime());
+             MakeLine();
+         }
     }
 
 
-	private void Start()
+    private void Start()
 	{
         if (isServer)
         { 
@@ -161,6 +161,8 @@ public class Floater : NetworkBehaviour
     {
         Fjoint = gameObject.AddComponent<FixedJoint2D>();
         Fjoint.connectedBody = Nucleo.GetComponent<Rigidbody2D>();
+        Fjoint.dampingRatio = 100;
+        Fjoint.frequency = 10000;
         gameObject.GetComponent<Rigidbody2D>().simulated = true;
     }
 
