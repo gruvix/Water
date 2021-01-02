@@ -168,9 +168,6 @@ public class Collector : NetworkBehaviour
 	{
         item.transform.SetParent(player.transform);
         item.GetComponent<ItemHandler>().owner = transform;
-        item.GetComponent<ItemHandler>().itemCall.Invoke();
-        
-        //item.GetComponent<SpaceGun>().enabled = true;
-        //item.GetComponent<SpaceGun>().SetItem(gameObject.transform);
+        item.GetComponent<ItemHandler>().itemEnable.Invoke();
     }
 }

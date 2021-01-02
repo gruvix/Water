@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 using Mirror;
 
 public class SpaceGun : NetworkBehaviour
@@ -23,8 +20,8 @@ public class SpaceGun : NetworkBehaviour
 
 	void Start()
     {
-        firePointNormal = this.gameObject.transform.GetChild(0);
-        firePointFlip = this.gameObject.transform.GetChild(1);
+        firePointNormal = gameObject.transform.GetChild(0);
+        firePointFlip = gameObject.transform.GetChild(1);
         wepAudio = GetComponent<AudioSource>();
     }
 
@@ -34,6 +31,13 @@ public class SpaceGun : NetworkBehaviour
         target = GetComponent<ItemHandler>().owner;
         gameObject.GetComponent<Rigidbody2D>().simulated = false;
         gameObject.GetComponent<PolygonCollider2D>().enabled = false;
+    }
+
+    public void UnSetItem()
+	{
+        target = null;
+        gameObject.GetComponent<Rigidbody2D>().simulated = true;
+        gameObject.GetComponent<PolygonCollider2D>().enabled = true;
     }
 
     [Command]
@@ -77,7 +81,7 @@ public class SpaceGun : NetworkBehaviour
     		angle = radians * Mathf.Rad2Deg;
     		if (angle > 90 || angle < -90)
     		{
-    			gameObject.GetComponent<SpriteRenderer>().flipY = true;
+    			gameObject.GetComponent<SpriteRenderer>().flipY = true;//Esta llamada es un poco redundante dado que la vuelve a recibir en el Rpc pero permite que el cliente reciba respuesta rápida a la accion
                 firePoint = firePointFlip;
                 CmdUpdateWeapon(true, firePointFlip);
     		}

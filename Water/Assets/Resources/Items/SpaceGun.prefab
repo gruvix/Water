@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 863128105}
   - component: {fileID: 843490517}
-  m_Layer: 12
+  m_Layer: 2
   m_Name: FirePointFlip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4536596adbdf1344caa24ef06c849caf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemCall:
+  itemEnable:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 499967130}
@@ -122,8 +122,11 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
+  itemDisable:
+    m_PersistentCalls:
+      m_Calls: []
   owner: {fileID: 0}
 --- !u!114 &499967130
 MonoBehaviour:
@@ -145,7 +148,7 @@ MonoBehaviour:
   playerHeight: 0.67
   offset: 0.1
   compensation: -38
-  cooldowntime: 1
+  cooldowntime: 0.5
 --- !u!212 &1783570057928782232
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -390,7 +393,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4632417302293570381}
   - component: {fileID: 1222482412}
-  m_Layer: 12
+  m_Layer: 2
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
