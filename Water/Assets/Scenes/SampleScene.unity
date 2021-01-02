@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1206,7 +1206,7 @@ MonoBehaviour:
   syncInterval: 0.1
   SpawnPoint: {x: -3.69, y: 0.51}
   MaxFloater: 10
-  spawnpointNucelo: {fileID: 0}
+  spawnpointNucleo: {fileID: 0}
 --- !u!68 &497902675
 EdgeCollider2D:
   m_ObjectHideFlags: 0
@@ -1525,7 +1525,7 @@ MonoBehaviour:
   syncInterval: 0.1
   SpawnPoint: {x: -15, y: 3}
   MaxFloater: 24
-  spawnpointNucelo: {fileID: 1705485538}
+  spawnpointNucleo: {fileID: 0}
 --- !u!114 &586270309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4538,11 +4538,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2913417566134159169, guid: 3fc49d23a378cbc44af02120e36ebe23,
-        type: 3}
-      propertyPath: clientAuthority
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3fc49d23a378cbc44af02120e36ebe23, type: 3}

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Mirror;
 
 public class SpaceGun : NetworkBehaviour
@@ -20,7 +21,7 @@ public class SpaceGun : NetworkBehaviour
     private bool canshoot=true;
     public float cooldowntime=1f;
 
-    void Start()
+	void Start()
     {
         firePointNormal = this.gameObject.transform.GetChild(0);
         firePointFlip = this.gameObject.transform.GetChild(1);
@@ -28,9 +29,9 @@ public class SpaceGun : NetworkBehaviour
     }
 
 
-    public void SetItem(Transform owner)
+    public void SetItem()
     {
-        target = owner;
+        target = GetComponent<ItemHandler>().owner;
         gameObject.GetComponent<Rigidbody2D>().simulated = false;
         gameObject.GetComponent<PolygonCollider2D>().enabled = false;
     }
