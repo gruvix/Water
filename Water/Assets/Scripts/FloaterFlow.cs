@@ -31,6 +31,7 @@ public class FloaterFlow : NetworkBehaviour
 
         //Spawn del bote inicial
         GameObject nucleo = Instantiate(Resources.Load("Other/nucleo") as GameObject, spawnpointNucleo.position, Quaternion.identity, Bote.transform);
+        nucleo.name = "Nucleo";
         NetworkServer.Spawn(nucleo);
 
         int j = -4;

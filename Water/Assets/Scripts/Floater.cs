@@ -34,6 +34,7 @@ public class Floater : NetworkBehaviour
         LinePrefab = Resources.Load<LineRenderer>("Effects/MagicConnector");
         deathEffect = Resources.Load<ParticleSystem>("Effects/DestroyExplosion");
 
+        
         if (gameObject.transform.parent.name == "Bote")//Hace una adopcion como personalizada
          {
              gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
@@ -46,6 +47,7 @@ public class Floater : NetworkBehaviour
              StartCoroutine(HammerTime());
              MakeLine();
          }
+
     }
 
 

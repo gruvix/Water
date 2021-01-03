@@ -256,7 +256,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   wepAudio: {fileID: -763985816122853342}
-  bulletPrefab: {fileID: 0}
+  bulletPrefab: {fileID: 6334013679208820891, guid: e31687c8abbd8284384e78210b66145b,
+    type: 3}
   playerHeight: 0.1
   offset: 0.05
   compensation: -38

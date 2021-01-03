@@ -97,7 +97,7 @@ public class Cannon : NetworkBehaviour
             }
 
 
-            transform.GetChild(0).transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Clamp(angle, -30, 70)));
+            transform.GetChild(0).transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Clamp(angle, -30, 70)+180));
             gameObject.transform.position = target.position + new Vector3(Mathf.Cos(radians) * offset, Mathf.Sin(radians) * offset + playerHeight, 0);
 
         }
