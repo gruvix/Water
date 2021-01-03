@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using UnityEngine.UI;
+using TMPro;
 
 public class LobbyHandler : NetworkBehaviour
 {
@@ -22,6 +23,9 @@ public class LobbyHandler : NetworkBehaviour
 	public Chat chat;
 	private bool started = false;
 	private int delay = 0;
+	[SyncVar]
+	private float boatValue = 100;
+	public TextMeshPro boatValueText;
 
 	[Client]
 	private void Start()
@@ -29,6 +33,7 @@ public class LobbyHandler : NetworkBehaviour
 		if (isClientOnly)//IS CLIENT
 		{
 			bnReady.gameObject.SetActive(true);
+			boatValueText.text = $"Boat Points:{boatValue}/100";
 		}
 		else//IS HOST
 		{
