@@ -182,7 +182,7 @@ MonoBehaviour:
   hpMAX: 200
   HP: 200
   Break_Force: 50
-  Damping_Ratio: 1
+  Damping_Ratio: 0.92
 --- !u!114 &-6928418106096004472
 MonoBehaviour:
   m_ObjectHideFlags: 0
