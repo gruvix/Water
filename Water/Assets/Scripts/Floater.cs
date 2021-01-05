@@ -6,14 +6,14 @@ using Mirror;
 
 public class Floater : NetworkBehaviour
 {
-
-    LineRenderer line;
+    public LineRenderer line;
     private GameObject Floaters;
     private GameObject Bote;
     private GameObject Nucleo;
     private ParticleSystem deathEffect;
     private LineRenderer LinePrefab;
     private bool fixedCheck = false;
+    private bool makeLine = false;
     public FixedJoint2D Fjoint;
     public bool hasJoint = false;
     public float hpMAX = 100;
@@ -46,20 +46,21 @@ public class Floater : NetworkBehaviour
                 gameObject.GetComponent<PlatformEffector2D>().enabled = true;
             }
             StartCoroutine(HammerTime());
-            MakeLine();
+
         }
     }
 
 	[Client]
     public void OnJointBreak2D()//Mucha Violencia -> huerfanizado
     {
-        Huerfano(0, transform);
+        CmdHuerfano(0, transform);
         Debug.Log("Se rompio union por exeso de fuerza");
     }
 
-    [ClientRpc]
-    public void Huerfano(int dir, Transform player)//Se va pa'l agua
+    [Command]
+    public void CmdHuerfano(int dir, Transform player)//Se va pa'l agua
     {
+        NetworkServer.UnSpawn(gameObject);
         gameObject.GetComponent<Rigidbody2D>().simulated = true;
         //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 
@@ -77,20 +78,14 @@ public class Floater : NetworkBehaviour
         gameObject.layer = 9;
 
         GetComponent<Rigidbody2D>().velocity =  player.right * 6f * dir + transform.up * 3f;
+        NetworkServer.Spawn(gameObject);
     }
 
     [ClientRpc]
-    public void Transicion(GameObject owner)
+    public void RpcTransicion(GameObject owner)
 	{
-        if (line != null)
-        {
-            Destroy(line.gameObject);
-        }
 
 		Destroy(Fjoint);
-		//Fjoint.enabled = false;
-
-        //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         gameObject.GetComponent<Rigidbody2D>().simulated = false;
 
         if (line != null)
@@ -112,10 +107,10 @@ public class Floater : NetworkBehaviour
     }
 
 
-    [ClientRpc]
+    [Server]
     public void Adopcion(Vector3 targetPos, Quaternion targetRot)//Ahora es del bote
     {
-
+        //NetworkServer.UnSpawn(gameObject);
         Destroy(Fjoint);
         //Fjoint.enabled = false;
 
@@ -129,9 +124,6 @@ public class Floater : NetworkBehaviour
         }
         
         gameObject.transform.SetPositionAndRotation(targetPos, targetRot);
-
-
-        MakeLine();
         StartCoroutine(HammerTime());
     }
 
@@ -141,9 +133,9 @@ public class Floater : NetworkBehaviour
         fixedCheck = true;
     }
 
-    [Client]
     public void MakeLine()//Aca se crea la linea magica
     {
+        if (line) { return; }
         line = Instantiate(LinePrefab, new Vector3(0, 0, 0), Quaternion.identity);
         line.widthMultiplier = 1f;
         line.transform.SetParent(GameObject.Find("EffectHolder").transform);
@@ -153,13 +145,15 @@ public class Floater : NetworkBehaviour
 
     public void MakeJoint()//Hace el joint
     {
-        //Fjoint.enabled = true;
-        Fjoint = Nucleo.AddComponent<FixedJoint2D>();
-        Fjoint.connectedBody = GetComponent<Rigidbody2D>();
+        if (!Fjoint) { Fjoint = gameObject.AddComponent<FixedJoint2D>(); }
+        Fjoint.connectedBody = Nucleo.GetComponent<Rigidbody2D>();
         gameObject.GetComponent<Rigidbody2D>().simulated = true;
         //gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
 
         gameObject.GetComponent<SetDensity>().Set();
+        NetworkServer.Spawn(gameObject);
+        makeLine = true;
+        
     }
 
 
@@ -206,10 +200,17 @@ public class Floater : NetworkBehaviour
 
     void FixedUpdate()
     {
+
         if (fixedCheck)
         {
             fixedCheck = false;
             MakeJoint();
+        }
+
+        if(makeLine)
+		{
+            makeLine = false;
+            MakeLine();
         }
     }
 

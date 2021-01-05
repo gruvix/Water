@@ -7,7 +7,7 @@ public class Ghost : MonoBehaviour
     private float speedLimit = 30f;
     public bool CanPlace = true;
     private float distanciaGhost = 3f;
-    private int counter = 0;
+    private int counter = 1;
     private Component copyCollider = null;
     private Component copyTrigger = null;
     private System.Type type = null;
@@ -80,6 +80,7 @@ public class Ghost : MonoBehaviour
 
     public void SetCollider(GameObject original)
     {
+        counter = 0;
         GetComponent<SpriteRenderer>().sprite = original.GetComponent<SpriteRenderer>().sprite;
         if (original.GetComponent<Collider2D>() != null)
         {
