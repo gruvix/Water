@@ -15,7 +15,7 @@ public class LobbyBuilder : NetworkBehaviour
 
     void Start()
     {
-        
+        Ghost.GetComponent<Ghost>().isImage = true;
     }
 
 
@@ -49,7 +49,7 @@ public class LobbyBuilder : NetworkBehaviour
 
                     if ((hit.collider.tag == "Floater" || hit.collider.tag == "FloaterPlatform") && hit.collider.transform.parent.tag != "Player")//Cuando el objeto es un floater
                     {
-                        floater = hit.collider.gameObject;
+                        floater = hit.collider.gameObject.GetComponent<Buyables_Floater_Data>().prefab;
                         CmdTransicion(ClientScene.localPlayer.gameObject, floater);
                         has_floater = true;
                         Ghost.SetActive(true);
