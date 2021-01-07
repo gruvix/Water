@@ -78,12 +78,12 @@ public class LobbyHandler : NetworkBehaviour
 	[Command(ignoreAuthority = true)]
 	public void CmdUpdateName(GameObject player, string name)
 	{
-		UpdateForAll(player, name);
+		RpcUpdateForAll(player, name);
 	}
 
 
 	[ClientRpc]
-	private void UpdateForAll(GameObject player, string name)
+	private void RpcUpdateForAll(GameObject player, string name)
 	{
 		player.transform.GetComponent<TMPro.TextMeshProUGUI>().text = name;
 		player.transform.SetParent(transform);
@@ -92,14 +92,14 @@ public class LobbyHandler : NetworkBehaviour
 
 
 	[TargetRpc]
-	public void MoveLobbyPlayer(NetworkConnection target, float yOffset)
+	public void RpcMoveLobbyPlayer(NetworkConnection target, float yOffset)
 	{
 		ClientScene.localPlayer.transform.position = new Vector3(ClientScene.localPlayer.transform.position.x, yOffset, ClientScene.localPlayer.transform.position.z);
 	}
 
 
 	[TargetRpc]
-	public void Kick(NetworkConnection conn)
+	public void RpcKick(NetworkConnection conn)
 	{
 		string msg = ClientScene.localPlayer.GetComponent<PlayerData>().userName + "<#D7CF93> was kicked from the lobby</color>\n";
 		chat.CmdSendMessage(msg);
@@ -139,11 +139,11 @@ public class LobbyHandler : NetworkBehaviour
 		{
 			readyUsers -= 1;
 		}
-		ReadyUpdate(player, readyState);
+		RpcReadyUpdate(player, readyState);
     }
 
 	[ClientRpc]
-	public void ReadyUpdate(GameObject player, bool readyState)
+	public void RpcReadyUpdate(GameObject player, bool readyState)
 	{
 		player.transform.GetChild(0).gameObject.SetActive(!readyState);
 		player.transform.GetChild(1).gameObject.SetActive(readyState);

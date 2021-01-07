@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Events;
 using Mirror;
 
 public class ServerManager : NetworkBehaviour
@@ -42,7 +39,7 @@ public class ServerManager : NetworkBehaviour
                     lobby.readyUsers++;
                     ready = true;
                 }
-                lobby.ReadyUpdate(Player, ready);
+                lobby.RpcReadyUpdate(Player, ready);
             }
             UpdateLobby();
             
@@ -64,7 +61,7 @@ public class ServerManager : NetworkBehaviour
         float yOffset = 0.6f;
         foreach (GameObject Player in GameObject.FindGameObjectsWithTag("Player"))
         {
-            lobby.MoveLobbyPlayer(Player.GetComponent<NetworkIdentity>().connectionToClient, yOffset);
+            lobby.RpcMoveLobbyPlayer(Player.GetComponent<NetworkIdentity>().connectionToClient, yOffset);
             yOffset -= 0.3f;
         }
         lobby.totalUsers = NetworkManager.singleton.numPlayers;
@@ -83,6 +80,6 @@ public class ServerManager : NetworkBehaviour
         var go = Instantiate(kickPrefab, Vector3.zero, Quaternion.identity);
         go.transform.SetParent(player.transform);
         go.transform.position = new Vector3(0.2f, 1.02f, 0f);
-        go.onClick.AddListener(() => lobby.Kick(conn));
+        go.onClick.AddListener(() => lobby.RpcKick(conn));
     }
 }

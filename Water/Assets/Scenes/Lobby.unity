@@ -843,9 +843,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '10 pts
+  m_text: '2 pts
 
-    25 pts'
+    3 pts'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
@@ -1147,7 +1147,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Boat points: 100/100'
+  m_text: 'Boat points: 20
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3188,7 +3190,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneId: 1853856339
   serverOnly: 0
-  m_AssetId: 4cae7efc644ae254c91f3dc45c28e1fe
+  m_AssetId: 
   hasSpawned: 0
 --- !u!1 &7975625714561190202
 GameObject:
