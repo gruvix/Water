@@ -90,19 +90,19 @@ public class Cannon : NetworkBehaviour
             {
                 min = -20; max = 70;
                 transform.GetChild(0).GetComponent<SpriteRenderer>().flipY = true;
-                CmdUpdateWeapon(false, firePoint);
+                CmdUpdateWeapon(true, firePoint);
                 angle = Mathf.Clamp(radians * Mathf.Rad2Deg, -20, 70);
 
             }
             else
 			{
 
-                min = 110; max = -160;
+                min = 110; max = 200;
                 transform.GetChild(0).GetComponent<SpriteRenderer>().flipY = false;
                 CmdUpdateWeapon(false, firePoint);
                 angle = radians * Mathf.Rad2Deg;
 
-                angle = Mathf.Clamp(Quaternion.Euler(0, 0, angle).eulerAngles.z, 110, 200);
+                angle = Mathf.Clamp(Quaternion.Euler(0, 0, angle).eulerAngles.z, min, max);
             }
 
 
