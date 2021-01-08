@@ -24,7 +24,7 @@ public class LobbyHandler : NetworkBehaviour
 	private bool started = false;
 	private int delay = 0;
 	[SyncVar]
-	private float boatValue = 100;
+	public float boatPoints = 100;
 	public TextMeshPro boatValueText;
 
 	[Client]
@@ -33,7 +33,7 @@ public class LobbyHandler : NetworkBehaviour
 		if (isClientOnly)//IS CLIENT
 		{
 			bnReady.gameObject.SetActive(true);
-			boatValueText.text = $"Boat Points:{boatValue}/100";
+			boatValueText.text = $"Boat Points:{boatPoints}/100";
 		}
 		else//IS HOST
 		{

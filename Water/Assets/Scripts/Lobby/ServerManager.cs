@@ -10,6 +10,7 @@ public class ServerManager : NetworkBehaviour
     public string gameScene;
     public LobbyHandler lobby;
     public Button kickPrefab;
+    public Transform bote;
 
     void Start()
     {
@@ -19,8 +20,22 @@ public class ServerManager : NetworkBehaviour
 
     private void Startgame()
     {
+        for (int i = 0; i < bote.childCount; i++)
+		{
+            if (bote.GetChild(i).GetComponent<Buyables_Floater_Data>())
+			{
+                RpcRemoveDataComp(bote.GetChild(i).gameObject);
+			}
+
+		}
         NetworkManager.singleton.ServerChangeScene(gameScene);
     }
+
+    [ClientRpc]
+    private void RpcRemoveDataComp(GameObject floater)
+	{
+        Destroy(floater.GetComponent<Buyables_Floater_Data>());
+	}
 
     private void Update()
 	{
