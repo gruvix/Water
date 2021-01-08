@@ -470,7 +470,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  bote: {fileID: 0}
   Ghost: {fileID: 4775892263158586298}
+  floater: {fileID: 0}
+  floaterName: 
 --- !u!1 &4775892263158586298
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,8 +485,8 @@ GameObject:
   - component: {fileID: 6060423891576812024}
   - component: {fileID: 324949883221375059}
   - component: {fileID: 8373560003443868986}
-  - component: {fileID: 5873831060666618937}
   - component: {fileID: 4842817716424061255}
+  - component: {fileID: 8688753678717949470}
   m_Layer: 11
   m_Name: Ghost
   m_TagString: Ghost
@@ -545,21 +548,6 @@ TargetJoint2D:
   m_MaxForce: 0.016
   m_DampingRatio: 1
   m_Frequency: 1000000
---- !u!114 &5873831060666618937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4775892263158586298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f30a736ef274b642b67f1bd22f6688b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CanPlace: 1
-  alcance: 0
-  isImage: 0
 --- !u!212 &4842817716424061255
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -610,3 +598,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8688753678717949470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4775892263158586298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b149846ca1ac1744b3366f454a68c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanPlace: 1
+  alcance: 0

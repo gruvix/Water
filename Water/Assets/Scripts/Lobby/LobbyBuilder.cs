@@ -9,7 +9,7 @@ public class LobbyBuilder : NetworkBehaviour
     public GameObject Ghost;//Ghost es el fantasma verde guia de construccion
     private bool ghostCheck = true;
     private bool has_floater = false;
-    [SerializeField]
+    [SerializeField][SyncVar]
     private GameObject floater;
     [SerializeField]
     private string floaterName;
@@ -21,7 +21,6 @@ public class LobbyBuilder : NetworkBehaviour
 
     void Start()
     {
-        Ghost.GetComponent<Ghost>().isImage = true;
         bote = GameObject.Find("Bote").transform;
         lobbyHandler = GameObject.Find("LobbyCanvas");
     }
@@ -38,11 +37,11 @@ public class LobbyBuilder : NetworkBehaviour
             if (has_floater)
             {
                 // Si tiene algo agarrado y haces click lo deja donde hiciste click y se lo da al bote
-                ghostCheck = Ghost.GetComponent<Ghost>().CanPlace;
+                ghostCheck = Ghost.GetComponent<LobbyGhost>().CanPlace;
                 if (ghostCheck)
                 {
-                    CmdAdopcion(Ghost.transform.position, Ghost.transform.rotation, floater);
-                    Ghost.GetComponent<Ghost>().DestroyCollider();
+                    CmdMoveFloater(Ghost.transform.position, Ghost.transform.rotation, floater);
+                    Ghost.GetComponent<LobbyGhost>().DestroyCollider();
                     has_floater = false;
                     floater = null;
                     Ghost.SetActive(false);
@@ -58,12 +57,17 @@ public class LobbyBuilder : NetworkBehaviour
                     if ((hit.collider.tag == "Floater" || hit.collider.tag == "FloaterPlatform") && hit.collider.transform.parent.tag != "Player")//Cuando el objeto es un floater
                     {
                         floaterName = hit.collider.gameObject.GetComponent<Buyables_Floater_Data>().nameString;
-                        floater = hit.collider.gameObject.GetComponent<Buyables_Floater_Data>().prefab;
                         cost = hit.collider.gameObject.GetComponent<Buyables_Floater_Data>().cost;
 
                         if (hit.collider.gameObject.GetComponent<Buyables_Floater_Data>().isFloater)
 						{
-                            //CmdTransicion(ClientScene.localPlayer.gameObject, floater);
+                            //CmdMoveFloater(ClientScene.localPlayer.gameObject, floater);
+                            floater = hit.collider.gameObject;
+                            has_floater = true;
+                            Ghost.SetActive(true);
+                            Ghost.GetComponent<LobbyGhost>().SetCollider(floater);
+                            Ghost.transform.rotation = Quaternion.identity;
+                            Ghost.transform.position = new Vector3(m_puntero[0], m_puntero[1], Ghost.transform.position.z);
                         }
 
                         else 
@@ -76,56 +80,56 @@ public class LobbyBuilder : NetworkBehaviour
 							{
                                 CmdBuyFloater(floaterName, cost, gameObject);
                                 has_floater = true;
-                                Ghost.SetActive(true);
-                                Ghost.GetComponent<Ghost>().SetCollider(floater);
                                 Ghost.transform.rotation = Quaternion.identity;
-                                Ghost.transform.position = hit.collider.transform.position;
+                                Ghost.SetActive(true);
+                                Ghost.GetComponent<LobbyGhost>().SetCollider(floater);
+                                Ghost.transform.position = new Vector3(m_puntero[0], m_puntero[1], Ghost.transform.position.z);
                             }
                         }
-
-                        
-
                     }
                 }
             }
 
         }
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (has_floater)
         {
-            Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z + rotationAmount));
-        }
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z + rotationAmount));
+            }
 
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z - rotationAmount));
-        }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z - rotationAmount));
+            }
 
-        //Rotacion del Ghost
-        if (Input.GetKey(KeyCode.Q))
-        {
-            rotationCounter -= 0.015f;
-        }
-        else if (Input.GetKey(KeyCode.E))
-        {
-            rotationCounter += 0.015f;
-        }
-        else
-        {
-            rotationCounter = 0;
-        }
+            //Rotacion del Ghost
+            if (Input.GetKey(KeyCode.Q))
+            {
+                rotationCounter -= 0.015f;
+            }
+            else if (Input.GetKey(KeyCode.E))
+            {
+                rotationCounter += 0.015f;
+            }
+            else
+            {
+                rotationCounter = 0;
+            }
 
-        rotationCounter = Mathf.Clamp(rotationCounter, -1, 1);
-        if (Mathf.Abs(rotationCounter) == 1)
-        {
-            Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z - rotationCounter * rotationAmount));
-            rotationCounter = 0;
+            rotationCounter = Mathf.Clamp(rotationCounter, -1, 1);
+            if (Mathf.Abs(rotationCounter) == 1)
+            {
+                Ghost.transform.rotation = Quaternion.Euler(new Vector3(0, 0, Ghost.transform.rotation.eulerAngles.z - rotationCounter * rotationAmount));
+                rotationCounter = 0;
+            }
         }
 
 
         //Soltar Objeto (Huerfano)
         if (Input.GetMouseButtonDown(1) && has_floater)
         {
-            Ghost.GetComponent<Ghost>().DestroyCollider();
+            Ghost.GetComponent<LobbyGhost>().DestroyCollider();
             Ghost.SetActive(false);
             has_floater = false;
 			if (floater) { CmdSellFloater(floater); }
@@ -146,53 +150,24 @@ public class LobbyBuilder : NetworkBehaviour
         newFlot.layer = 10;
 
 
+
         newFlot.AddComponent<Buyables_Floater_Data>();
         newFlot.GetComponent<Buyables_Floater_Data>().nameString = floaterString;
-        newFlot.GetComponent<Buyables_Floater_Data>().prefab = floater;
+        newFlot.GetComponent<Buyables_Floater_Data>().prefab = newFlot;
         newFlot.GetComponent<Buyables_Floater_Data>().isFloater = true;
         newFlot.GetComponent<Buyables_Floater_Data>().cost = cost;
         NetworkServer.Spawn(newFlot);
 
-        NetworkConnection conn = player.GetComponent<NetworkIdentity>().connectionToClient;
-        RpcBuyFloater(conn, newFlot);
+        player.GetComponent<LobbyBuilder>().floater = newFlot;
     }
 
-    [TargetRpc]
-    private void RpcBuyFloater(NetworkConnection conn, GameObject newFlot)
-	{
-        floater = newFlot;
-	}
-
-
-    [ClientRpc]
-    private void RpcTransicion()
-	{
-        Debug.Log("Comprable clickeado");
-	}
 
     [Command]
-    private void CmdAdopcion(Vector3 ghostPos, Quaternion ghostRot, GameObject adoptedFloater)
+    private void CmdMoveFloater(Vector3 ghostPos, Quaternion ghostRot, GameObject adoptedFloater)
     {
         NetworkServer.UnSpawn(adoptedFloater);
         adoptedFloater.transform.SetPositionAndRotation(ghostPos, ghostRot);
         NetworkServer.Spawn(adoptedFloater);
-
-    }
-
-    [ClientRpc]
-    private void RpcAdopcion(Vector3 ghostPos, Quaternion ghostRot, string floaterString)
-    {
-        GameObject newFlot = Instantiate(Resources.Load($"Floaters/{floaterString}") as GameObject, ghostPos, ghostRot, bote);
-        newFlot.GetComponent<Renderer>().material.SetInt("_Shine", 1);
-        newFlot.layer = 10;
-
-        if (newFlot.GetComponent<PlatformEffector2D>() != null)//Esto es para las plataformas
-        {
-            newFlot.GetComponent<PlatformEffector2D>().enabled = true;
-        }
-
-        newFlot.GetComponent<Rigidbody2D>().simulated = true;
-        newFlot.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
 
     }
 

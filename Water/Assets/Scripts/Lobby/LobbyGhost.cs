@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Ghost : MonoBehaviour
+public class LobbyGhost : MonoBehaviour
 {
     private float speedLimit = 30f;
     public bool CanPlace = true;
@@ -10,11 +10,11 @@ public class Ghost : MonoBehaviour
     private Component copyTrigger = null;
     private System.Type type = null;
     private Vector2 m_puntero;
-    public float alcance = 0;
+    private float alcance = 10f;
     private bool colliding;
 
 
-	void OnCollisionEnter2D(Collision2D collider)
+    void OnCollisionEnter2D(Collision2D collider)
     {
         if (Mathf.Abs(collider.relativeVelocity.magnitude) <= speedLimit && CanPlace)
         {
@@ -29,12 +29,12 @@ public class Ghost : MonoBehaviour
         colliding = true;
     }
 
-	private void OnCollisionExit2D(Collision2D collision)
-	{
-		if(counter == 0){ colliding = false; }
-	}
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (counter == 0) { colliding = false; }
+    }
 
-	void OnTriggerEnter2D()
+    void OnTriggerEnter2D()
     {
         counter++;
     }
@@ -47,11 +47,7 @@ public class Ghost : MonoBehaviour
     void Update()
     {
         m_puntero = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Transform owner = transform.parent.transform;
-        Vector2 ownVec = new Vector2(owner.position.x, owner.position.y);
-        Vector2 vector = m_puntero - ownVec;
-        var tar = Vector2.ClampMagnitude(vector, alcance) + ownVec;
-        gameObject.GetComponent<TargetJoint2D>().target = tar;
+        gameObject.GetComponent<TargetJoint2D>().target = m_puntero;
     }
 
     void FixedUpdate()
@@ -68,7 +64,7 @@ public class Ghost : MonoBehaviour
         {
             var dist2 = Vector2.Distance(transform.position, transform.parent.position);
             if (dist2 <= alcance)
-			{
+            {
                 gameObject.GetComponent<Renderer>().material.SetInt("_CanPlace", 1);
                 CanPlace = true;
                 gameObject.GetComponent<Collider2D>().enabled = true;
@@ -93,12 +89,12 @@ public class Ghost : MonoBehaviour
                 }
             }
         }
-        
+
         transform.position = original.transform.position;
         float x = original.transform.localScale.x / gameObject.transform.parent.lossyScale.x;
         float y = original.transform.localScale.y / gameObject.transform.parent.lossyScale.y;
         float z = original.transform.localScale.z / gameObject.transform.parent.lossyScale.z;
-        transform.localScale = new Vector3(x, y, z);
+        transform.localScale = new Vector3(x * 0.186f, y * 0.186f, z);
         transform.rotation = original.transform.rotation;
     }
 
