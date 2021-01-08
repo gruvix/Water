@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1024377586523965595}
   - component: {fileID: 6451222738679066441}
-  m_Layer: 2
+  m_Layer: 12
   m_Name: FirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -390,7 +390,7 @@ GameObject:
   - component: {fileID: 1024377586631144659}
   - component: {fileID: 1024377586631144656}
   - component: {fileID: 3064437427192817341}
-  m_Layer: 2
+  m_Layer: 12
   m_Name: Cannon_Tube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -532,7 +532,7 @@ HingeJoint2D:
   m_BreakTorque: Infinity
   m_AutoConfigureConnectedAnchor: 1
   m_Anchor: {x: 0, y: 0}
-  m_ConnectedAnchor: {x: 0.016999997, y: 0.19900009}
+  m_ConnectedAnchor: {x: 0.017000047, y: 0.19899999}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0

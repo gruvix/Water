@@ -24,8 +24,8 @@ public class LobbyHandler : NetworkBehaviour
 	private bool started = false;
 	private int delay = 0;
 	[SyncVar]
-	public float boatPoints = 100;
-	public TextMeshPro boatValueText;
+	public float boatPoints = 20;
+	public TextMeshProUGUI boatValueText;
 
 	[Client]
 	private void Start()
@@ -65,7 +65,11 @@ public class LobbyHandler : NetworkBehaviour
 		CmdUpdateName(ClientScene.localPlayer.gameObject, $"<#{htmlColor}>{NetworkManager.singleton.userName}</color>");
 	}	
 	
-
+	[ClientRpc]
+	public void RpcUpdateBoatPoints()
+	{
+		boatValueText.text = $"Boat Points:{boatPoints}";
+	}
 
 	[ClientRpc]
 	public void NameFieldRpc()

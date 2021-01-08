@@ -68,7 +68,7 @@ public class Cannon : NetworkBehaviour
     [ClientRpc]
     private void RpcUpdateWeapon(bool bul, Transform fp)
     {
-        gameObject.GetComponent<SpriteRenderer>().flipX = bul;
+        transform.GetChild(0).GetComponent<SpriteRenderer>().flipY = bul;
         firePoint = fp;
     }
 
@@ -77,6 +77,7 @@ public class Cannon : NetworkBehaviour
         if (!hasAuthority) { return; }
         if (target != null)
         {
+
             var prevAngle = angle;
             mouse_pos = Input.mousePosition;
             mouse_pos.z = 10; //The distance between the camera and object
@@ -84,20 +85,39 @@ public class Cannon : NetworkBehaviour
             mouse_pos.x = mouse_pos.x - object_pos.x;
             mouse_pos.y = mouse_pos.y - object_pos.y + compensation;
             radians = Mathf.Atan2(mouse_pos.y, mouse_pos.x);
-            angle = Mathf.Clamp(radians * Mathf.Rad2Deg, -20, 70);
-            if (angle > prevAngle + 1)
+            float min; float max;
+            if (target.GetComponent<CharacterController2D>().m_FacingRight)
             {
-                angle = prevAngle + 1;
-            }
-            else if (angle < prevAngle - 1)
-            {
-                angle = prevAngle - 1;
-                gameObject.GetComponent<SpriteRenderer>().flipY = false;
+                min = -20; max = 70;
+                transform.GetChild(0).GetComponent<SpriteRenderer>().flipY = true;
                 CmdUpdateWeapon(false, firePoint);
+                angle = Mathf.Clamp(radians * Mathf.Rad2Deg, -20, 70);
+
+            }
+            else
+			{
+
+                min = 110; max = -160;
+                transform.GetChild(0).GetComponent<SpriteRenderer>().flipY = false;
+                CmdUpdateWeapon(false, firePoint);
+                angle = radians * Mathf.Rad2Deg;
+
+                angle = Mathf.Clamp(Quaternion.Euler(0, 0, angle).eulerAngles.z, 110, 200);
             }
 
 
-            transform.GetChild(0).transform.rotation = Quaternion.Euler(new Vector3(0, 0, Mathf.Clamp(angle, -30, 70)+180));
+            if (angle > prevAngle + 2)
+            {
+                angle = prevAngle + 2;
+            }
+            else if (angle < prevAngle - 2)
+            {
+                angle = prevAngle - 2;
+                
+            }
+
+
+            transform.GetChild(0).transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle+180));
             gameObject.transform.position = target.position + new Vector3(Mathf.Cos(radians) * offset, Mathf.Sin(radians) * offset + playerHeight, 0);
 
         }

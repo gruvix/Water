@@ -29,6 +29,7 @@ public class Floater : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
+		if (SceneManager.GetActiveScene().name == "Lobby") { return; }
         Floaters = GameObject.Find("Floaters");
         Bote = GameObject.Find("Bote");
         Nucleo = GameObject.Find("Nucleo");
@@ -54,7 +55,7 @@ public class Floater : NetworkBehaviour
 
     private void Start()
 	{
-        if (isServer)
+        if (isServer && SceneManager.GetActiveScene().name != "Lobby")
         { 
             GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic; 
             gameObject.GetComponent<SetDensity>().Set(); 

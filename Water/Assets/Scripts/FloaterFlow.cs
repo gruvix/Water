@@ -37,9 +37,9 @@ public class FloaterFlow : NetworkBehaviour
         int j = -4;
         while (j < 4)
         {
-            GameObject floater = Instantiate(Resources.Load("Floaters/Crate1") as GameObject, spawnpointNucleo.position + new Vector3(j, -1, 0), Quaternion.identity, Bote.transform);
-            floater.GetComponent<Floater>().Nucleo = nucleo;
-            NetworkServer.Spawn(floater);
+            GameObject boteFloater = Instantiate(Resources.Load("Floaters/Crate1") as GameObject, spawnpointNucleo.position + new Vector3(j, -1, 0), Quaternion.identity, Bote.transform);
+            boteFloater.GetComponent<Floater>().Nucleo = nucleo;
+            NetworkServer.Spawn(boteFloater);
             j++;
         }
     }
@@ -54,11 +54,11 @@ public class FloaterFlow : NetworkBehaviour
             count_time=0;
             if(gameObject.transform.childCount < MaxFloater){
                 prefabIndex = Random.Range(0,prefabList.Count);
-                GameObject NewFloater = Instantiate(prefabList[prefabIndex]) as GameObject;
-                NewFloater.transform.position = SpawnPoint;
-                NewFloater.transform.parent = Floaters.transform;
-                NewFloater.layer = 9;
-                NetworkServer.Spawn(NewFloater);
+                GameObject newFloater = Instantiate(prefabList[prefabIndex]) as GameObject;
+                newFloater.transform.position = SpawnPoint;
+                newFloater.transform.parent = Floaters.transform;
+                newFloater.layer = 9;
+                NetworkServer.Spawn(newFloater);
             }
         }
         else{

@@ -41,7 +41,7 @@ public class LobbyBuilder : NetworkBehaviour
                 ghostCheck = Ghost.GetComponent<Ghost>().CanPlace;
                 if (ghostCheck)
                 {
-                    CmdAdopcion(Ghost.transform.position, Ghost.transform.rotation, floaterName);
+                    CmdAdopcion(Ghost.transform.position, Ghost.transform.rotation, floater);
                     Ghost.GetComponent<Ghost>().DestroyCollider();
                     has_floater = false;
                     floater = null;
@@ -59,11 +59,11 @@ public class LobbyBuilder : NetworkBehaviour
                     {
                         floaterName = hit.collider.gameObject.GetComponent<Buyables_Floater_Data>().nameString;
                         floater = hit.collider.gameObject.GetComponent<Buyables_Floater_Data>().prefab;
-                        cost = hit.collider.gameObject.GetComponent<Buyables_Floater_Data>().cost
+                        cost = hit.collider.gameObject.GetComponent<Buyables_Floater_Data>().cost;
 
                         if (hit.collider.gameObject.GetComponent<Buyables_Floater_Data>().isFloater)
 						{
-                            CmdTransicion(ClientScene.localPlayer.gameObject, floater);
+                            //CmdTransicion(ClientScene.localPlayer.gameObject, floater);
                         }
 
                         else 
@@ -74,7 +74,7 @@ public class LobbyBuilder : NetworkBehaviour
 							}
                             else
 							{
-                                CmdBuyFloater(floaterName, cost);
+                                CmdBuyFloater(floaterName, cost, gameObject);
                                 has_floater = true;
                                 Ghost.SetActive(true);
                                 Ghost.GetComponent<Ghost>().SetCollider(floater);
@@ -131,11 +131,15 @@ public class LobbyBuilder : NetworkBehaviour
     }
 
     [Command]
-    private void CmdBuyFloater(string floaterString, float cost)
+    private void CmdBuyFloater(string floaterString, float cost, GameObject player)
     {
+
         lobbyHandler.GetComponent<LobbyHandler>().boatPoints -= cost;
-        GameObject newFlot = Instantiate(Resources.Load($"Floaters/{floaterString}") as GameObject, ghostPos, ghostRot, bote);
-        newFlot.GetComponent<Floater>().enabled = false;
+        lobbyHandler.GetComponent<LobbyHandler>().RpcUpdateBoatPoints();
+
+        GameObject newFlot = Instantiate(Resources.Load($"Floaters/{floaterString}") as GameObject, new Vector3(-100, -100, 0), Quaternion.identity, bote);
+        //newFlot.GetComponent<Floater>().enabled = false;
+        newFlot.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         newFlot.GetComponent<Renderer>().material.SetInt("_Shine", 1);
         newFlot.layer = 10;
 
@@ -145,7 +149,18 @@ public class LobbyBuilder : NetworkBehaviour
         newFlot.GetComponent<Buyables_Floater_Data>().prefab = floater;
         newFlot.GetComponent<Buyables_Floater_Data>().isFloater = true;
         newFlot.GetComponent<Buyables_Floater_Data>().cost = cost;
+        NetworkServer.Spawn(newFlot);
+
+        NetworkConnection conn = player.GetComponent<NetworkIdentity>().connectionToClient;
+        RpcBuyFloater(conn, newFlot);
     }
+
+    [TargetRpc]
+    private void RpcBuyFloater(NetworkConnection conn, GameObject newFlot)
+	{
+        floater = newFlot;
+	}
+
 
     [ClientRpc]
     private void RpcTransicion()
@@ -154,28 +169,11 @@ public class LobbyBuilder : NetworkBehaviour
 	}
 
     [Command]
-    private void CmdAdopcion(Vector3 ghostPos, Quaternion ghostRot, string floaterString)
+    private void CmdAdopcion(Vector3 ghostPos, Quaternion ghostRot, GameObject adoptedFloater)
     {
-        GameObject newFlot = Instantiate(Resources.Load($"Floaters/{floaterString}") as GameObject, ghostPos, ghostRot, bote);
-        newFlot.GetComponent<Floater>().enabled = false;
-        newFlot.GetComponent<Renderer>().material.SetInt("_Shine", 1);
-        newFlot.layer = 10;
-
-
-        newFlot.AddComponent<Buyables_Floater_Data>();
-        newFlot.GetComponent<Buyables_Floater_Data>().nameString = floaterString;
-        newFlot.GetComponent<Buyables_Floater_Data>().prefab = floater;
-        newFlot.GetComponent<Buyables_Floater_Data>().isFloater = true;
-
-        if (newFlot.GetComponent<PlatformEffector2D>() != null)//Esto es para las plataformas
-        {
-            newFlot.GetComponent<PlatformEffector2D>().enabled = true;
-        }
-
-        newFlot.GetComponent<Rigidbody2D>().simulated = true;
-        newFlot.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-        newFlot.GetComponent<Rigidbody2D>().gravityScale = 0;
-        NetworkServer.Spawn(newFlot);
+        NetworkServer.UnSpawn(adoptedFloater);
+        adoptedFloater.transform.SetPositionAndRotation(ghostPos, ghostRot);
+        NetworkServer.Spawn(adoptedFloater);
 
     }
 
