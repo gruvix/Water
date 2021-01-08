@@ -79,6 +79,7 @@ public class LobbyBuilder : NetworkBehaviour
                                 Ghost.SetActive(true);
                                 Ghost.GetComponent<Ghost>().SetCollider(floater);
                                 Ghost.transform.rotation = Quaternion.identity;
+                                Ghost.transform.position = hit.collider.transform.position;
                             }
                         }
 
@@ -125,8 +126,9 @@ public class LobbyBuilder : NetworkBehaviour
         if (Input.GetMouseButtonDown(1) && has_floater)
         {
             Ghost.GetComponent<Ghost>().DestroyCollider();
-            CmdHuerfano(0, transform, floater);
+            Ghost.SetActive(false);
             has_floater = false;
+			if (floater) { CmdSellFloater(floater); }
         }
     }
 
@@ -195,15 +197,14 @@ public class LobbyBuilder : NetworkBehaviour
     }
 
     [Command]
-    private void CmdHuerfano(int dir, Transform playerTran, GameObject floater)
+    private void CmdSellFloater(GameObject soldFloater)
     {
-        RpcHuerfano();
+        cost = soldFloater.GetComponent<Buyables_Floater_Data>().cost;
+        lobbyHandler.GetComponent<LobbyHandler>().boatPoints += cost;
+        lobbyHandler.GetComponent<LobbyHandler>().RpcUpdateBoatPoints();
+        NetworkServer.Destroy(floater);
+        
     }
 
-    [ClientRpc]
-    private void RpcHuerfano()
-    {
-        Debug.Log("Comprable cancelado");
-    }
 
 }

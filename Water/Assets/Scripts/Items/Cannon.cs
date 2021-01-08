@@ -85,6 +85,7 @@ public class Cannon : NetworkBehaviour
             mouse_pos.x = mouse_pos.x - object_pos.x;
             mouse_pos.y = mouse_pos.y - object_pos.y + compensation;
             radians = Mathf.Atan2(mouse_pos.y, mouse_pos.x);
+
             float min; float max;
             if (target.GetComponent<CharacterController2D>().m_FacingRight)
             {
@@ -96,12 +97,10 @@ public class Cannon : NetworkBehaviour
             }
             else
 			{
-
                 min = 110; max = 200;
                 transform.GetChild(0).GetComponent<SpriteRenderer>().flipY = false;
                 CmdUpdateWeapon(false, firePoint);
                 angle = radians * Mathf.Rad2Deg;
-
                 angle = Mathf.Clamp(Quaternion.Euler(0, 0, angle).eulerAngles.z, min, max);
             }
 
@@ -135,9 +134,7 @@ public class Cannon : NetworkBehaviour
 
     IEnumerator Cooldown(float cooltime)
     {
-
         yield return new WaitForSeconds(cooltime);
         canshoot = true;
-        Debug.Log("Can shoot");
     }
 }
