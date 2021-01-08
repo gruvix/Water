@@ -78,6 +78,7 @@ public class LobbyBuilder : NetworkBehaviour
 							}
                             else
 							{
+                                //floater = hit.collider.gameObject.GetComponent<Buyables_Floater_Data>().prefab;
                                 CmdBuyFloater(floaterName, cost, gameObject);
                                 has_floater = true;
                                 Ghost.transform.rotation = Quaternion.identity;
@@ -142,8 +143,8 @@ public class LobbyBuilder : NetworkBehaviour
 
         lobbyHandler.GetComponent<LobbyHandler>().boatPoints -= cost;
         lobbyHandler.GetComponent<LobbyHandler>().RpcUpdateBoatPoints();
-
-        GameObject newFlot = Instantiate(Resources.Load($"Floaters/{floaterString}") as GameObject, new Vector3(-100, -100, 0), Quaternion.identity, bote);
+        //Resources.Load($"Floaters/{floaterString}") as GameObject
+        GameObject newFlot = Instantiate(NetworkManager.singleton.spawnPrefabs.Find((X) => X.name == floaterString), new Vector3(-100, -100, 0), Quaternion.identity, bote);
         //newFlot.GetComponent<Floater>().enabled = false;
         newFlot.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         newFlot.GetComponent<Renderer>().material.SetInt("_Shine", 1);
