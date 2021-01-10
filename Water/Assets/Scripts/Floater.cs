@@ -221,6 +221,10 @@ public class Floater : NetworkBehaviour
 
     void Update()//Mueve la linea de acuerdo al objeto
     {
+        if (Nucleo = null) {
+            Nucleo = GameObject.Find("Nucleo");
+            return;    
+        }
         if (line != null)
         {
             line.SetPosition(0, Nucleo.transform.position);
