@@ -58,8 +58,9 @@ public class Floater : NetworkBehaviour
     void SyncParent(Transform olddaddy, Transform newdaddy)
 	{
         if(!newdaddy.gameObject) { return; }
-        if (gameObject.transform.parent.name == "Bote")//Hace una adopcion como personalizada
+        if (newdaddy.name == "Bote")//Hace una adopcion como personalizada
         {
+            transform.parent.SetParent(daddy);
             gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
             gameObject.layer = 10;
 
