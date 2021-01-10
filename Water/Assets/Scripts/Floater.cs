@@ -20,6 +20,8 @@ public class Floater : NetworkBehaviour
     public float hpMAX = 100;
     [SyncVar]
     public float HP = 100;
+    [SyncVar]
+    public Transform daddy;
 
     //Variables que definen el joint del cuerpo (ajustables en el PREFAB)
     public float Break_Force = 50;
@@ -29,6 +31,7 @@ public class Floater : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
+        transform.parent.SetParent(daddy);
 		if (SceneManager.GetActiveScene().name == "Lobby") { return; }
         Floaters = GameObject.Find("Floaters");
         Bote = GameObject.Find("Bote");
@@ -37,7 +40,7 @@ public class Floater : NetworkBehaviour
         deathEffect = Resources.Load<ParticleSystem>("Effects/DestroyExplosion");
 
         
-        /*if (gameObject.transform.parent.name == "Bote")//Hace una adopcion como personalizada
+        if (gameObject.transform.parent.name == "Bote")//Hace una adopcion como personalizada
          {
              gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
              gameObject.layer = 10;
@@ -48,7 +51,7 @@ public class Floater : NetworkBehaviour
              }
              StartCoroutine(HammerTime());
              MakeLine();
-         }*/
+         }
 
     }
 

@@ -31,7 +31,7 @@ public class FloaterFlow : NetworkBehaviour
         }
 
         //Spawn del bote inicial
-        GameObject nucleo = Instantiate(Resources.Load("Other/nucleo") as GameObject, spawnpointNucleo.position, Quaternion.identity);
+        GameObject nucleo = Instantiate(Resources.Load("Other/nucleo") as GameObject, spawnpointNucleo.position, Quaternion.identity, Bote.transform);
         nucleo.name = "Nucleo";
         NetworkServer.Spawn(nucleo);
         NucleoParent(nucleo, Bote.transform);
@@ -39,10 +39,10 @@ public class FloaterFlow : NetworkBehaviour
         int j = -4;
         while (j < 4)
         {
-            GameObject boteFloater = Instantiate(Resources.Load("Floaters/Crate1") as GameObject, spawnpointNucleo.position + new Vector3(j, -1, 0), Quaternion.identity);
+            GameObject boteFloater = Instantiate(Resources.Load("Floaters/Crate1") as GameObject, spawnpointNucleo.position + new Vector3(j, -1, 0), Quaternion.identity, Bote.transform);
             boteFloater.GetComponent<Floater>().Nucleo = nucleo;
+            boteFloater.GetComponent<Floater>().daddy = Bote.transform;
             NetworkServer.Spawn(boteFloater);
-            boteFloater.GetComponent<Floater>().Adopcion(boteFloater.transform.position, boteFloater.transform.rotation);
             j++;
         }
     }
@@ -57,13 +57,14 @@ public class FloaterFlow : NetworkBehaviour
     private void Update()
     {
         int prefabIndex;
-        if(count_time>=1000){
+        if(count_time>=2000){
             count_time=0;
             if(gameObject.transform.childCount < MaxFloater){
                 prefabIndex = Random.Range(0,prefabList.Count);
                 GameObject newFloater = Instantiate(prefabList[prefabIndex]) as GameObject;
                 newFloater.transform.position = SpawnPoint;
                 newFloater.transform.parent = Floaters.transform;
+                newFloater.GetComponent<Floater>().daddy = Floaters.transform;
                 newFloater.layer = 9;
                 NetworkServer.Spawn(newFloater);
             }
