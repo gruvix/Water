@@ -31,14 +31,13 @@ public class Floater : NetworkBehaviour
     public override void OnStartClient()
     {
         base.OnStartClient();
-        transform.parent.SetParent(daddy);
 		if (SceneManager.GetActiveScene().name == "Lobby") { return; }
         Floaters = GameObject.Find("Floaters");
         Bote = GameObject.Find("Bote");
         Nucleo = GameObject.Find("Nucleo");
         LinePrefab = Resources.Load<LineRenderer>("Effects/MagicConnector");
         deathEffect = Resources.Load<ParticleSystem>("Effects/DestroyExplosion");
-
+        SyncParent(daddy, daddy);
         
         /*if (gameObject.transform.parent.name == "Bote")//Hace una adopcion como personalizada
          {
@@ -57,7 +56,7 @@ public class Floater : NetworkBehaviour
 
     void SyncParent(Transform olddaddy, Transform newdaddy)
 	{
-        if(!newdaddy.gameObject) { return; }
+        if(!newdaddy.gameObject || !LinePrefab) { return; }
         if (newdaddy.name == "Bote")//Hace una adopcion como personalizada
         {
             transform.SetParent(newdaddy);
