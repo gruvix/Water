@@ -46,7 +46,7 @@ public class LobbyHandler : NetworkBehaviour
 	private void PlayerStart()
 	{
 		StartCoroutine(HammerTime());
-		while (!ClientScene.localPlayer.gameObject)
+		while (!ClientScene.localPlayer)
 		{
 			if (timeout)
 			{
