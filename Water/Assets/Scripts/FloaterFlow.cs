@@ -34,7 +34,6 @@ public class FloaterFlow : NetworkBehaviour
         GameObject nucleo = Instantiate(Resources.Load("Other/nucleo") as GameObject, spawnpointNucleo.position, Quaternion.identity, Bote.transform);
         nucleo.name = "Nucleo";
         NetworkServer.Spawn(nucleo);
-        NucleoParent(nucleo, Bote.transform);
 
         int j = -4;
         while (j < 4)
@@ -47,11 +46,7 @@ public class FloaterFlow : NetworkBehaviour
         }
     }
 
-    [ClientRpc]
-    private void NucleoParent(GameObject nucleo, Transform boteT)
-	{
-        nucleo.transform.SetParent(boteT);
-	}
+
 
     // Update is called once per frame
     private void Update()
