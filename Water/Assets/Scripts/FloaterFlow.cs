@@ -31,6 +31,7 @@ public class FloaterFlow : NetworkBehaviour
 
         //Spawn del bote inicial
         GameObject nucleo = Instantiate(Resources.Load("Other/nucleo") as GameObject, spawnpointNucleo.position, Quaternion.identity, Bote.transform);
+        nucleo.transform.parent = Bote.transform;
         nucleo.name = "Nucleo";
         NetworkServer.Spawn(nucleo);
 
@@ -39,6 +40,7 @@ public class FloaterFlow : NetworkBehaviour
         {
             GameObject boteFloater = Instantiate(Resources.Load("Floaters/Crate1") as GameObject, spawnpointNucleo.position + new Vector3(j, -1, 0), Quaternion.identity, Bote.transform);
             boteFloater.GetComponent<Floater>().Nucleo = nucleo;
+            boteFloater.transform.parent = Bote.transform;
             NetworkServer.Spawn(boteFloater);
             j++;
         }
