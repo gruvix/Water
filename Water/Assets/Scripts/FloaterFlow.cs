@@ -39,7 +39,7 @@ public class FloaterFlow : NetworkBehaviour
         int j = -4;
         while (j < 4)
         {
-            GameObject boteFloater = Instantiate(Resources.Load("Floaters/Crate1") as GameObject, spawnpointNucleo.position + new Vector3(j, -1, 0), Quaternion.identity, Bote.transform);
+            GameObject boteFloater = Instantiate(Resources.Load("Floaters/Crate1") as GameObject, spawnpointNucleo.position + new Vector3(j, -1, 0), Quaternion.identity);
             boteFloater.GetComponent<Floater>().Nucleo = nucleo;
             boteFloater.GetComponent<Floater>().daddy = Bote.transform;
             NetworkServer.Spawn(boteFloater);
