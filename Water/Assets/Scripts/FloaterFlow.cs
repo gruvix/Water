@@ -18,10 +18,11 @@ public class FloaterFlow : NetworkBehaviour
     private int count_time=0;
 
     public Transform spawnpointNucleo;
-    
-    // Start is called before the first frame update
-    private void Start()
-    {
+
+	// Start is called before the first frame update
+	public override void OnStartServer()
+	{
+		base.OnStartServer();
         Floaters = GameObject.Find("Floaters");
         Bote = GameObject.Find("Bote");
         // Levanta todos los prefab de la carpeta Resources/Floaters
