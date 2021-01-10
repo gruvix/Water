@@ -20,7 +20,7 @@ public class Floater : NetworkBehaviour
     public float hpMAX = 100;
     [SyncVar]
     public float HP = 100;
-    [SyncVar]
+    [SyncVar(hook = nameof(SyncParent))]
     public Transform daddy;
 
     //Variables que definen el joint del cuerpo (ajustables en el PREFAB)
@@ -40,7 +40,7 @@ public class Floater : NetworkBehaviour
         deathEffect = Resources.Load<ParticleSystem>("Effects/DestroyExplosion");
 
         
-        if (gameObject.transform.parent.name == "Bote")//Hace una adopcion como personalizada
+        /*if (gameObject.transform.parent.name == "Bote")//Hace una adopcion como personalizada
          {
              gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
              gameObject.layer = 10;
@@ -51,10 +51,26 @@ public class Floater : NetworkBehaviour
              }
              StartCoroutine(HammerTime());
              MakeLine();
-         }
+         }*/
 
     }
 
+    void SyncParent(Transform olddaddy, Transform newdaddy)
+	{
+        if(!newdaddy.gameObject) { return; }
+        if (gameObject.transform.parent.name == "Bote")//Hace una adopcion como personalizada
+        {
+            gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
+            gameObject.layer = 10;
+
+            if (gameObject.GetComponent<PlatformEffector2D>() != null)//Esto es para las plataformas
+            {
+                gameObject.GetComponent<PlatformEffector2D>().enabled = true;
+            }
+            StartCoroutine(HammerTime());
+            MakeLine();
+        }
+    }
 
     private void Start()
 	{
