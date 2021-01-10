@@ -20,9 +20,9 @@ public class FloaterFlow : NetworkBehaviour
     public Transform spawnpointNucleo;
 
 	// Start is called before the first frame update
-	public override void OnStartServer()
+	public void Start()
 	{
-		base.OnStartServer();
+
         Floaters = GameObject.Find("Floaters");
         Bote = GameObject.Find("Bote");
         // Levanta todos los prefab de la carpeta Resources/Floaters
@@ -31,23 +31,27 @@ public class FloaterFlow : NetworkBehaviour
         }
 
         //Spawn del bote inicial
-        GameObject nucleo = Instantiate(Resources.Load("Other/nucleo") as GameObject, spawnpointNucleo.position, Quaternion.identity, Bote.transform);
-        nucleo.transform.parent = Bote.transform;
+        GameObject nucleo = Instantiate(Resources.Load("Other/nucleo") as GameObject, spawnpointNucleo.position, Quaternion.identity);
         nucleo.name = "Nucleo";
         NetworkServer.Spawn(nucleo);
+        NucleoParent(nucleo, Bote.transform);
 
         int j = -4;
         while (j < 4)
         {
-            GameObject boteFloater = Instantiate(Resources.Load("Floaters/Crate1") as GameObject, spawnpointNucleo.position + new Vector3(j, -1, 0), Quaternion.identity, Bote.transform);
+            GameObject boteFloater = Instantiate(Resources.Load("Floaters/Crate1") as GameObject, spawnpointNucleo.position + new Vector3(j, -1, 0), Quaternion.identity);
             boteFloater.GetComponent<Floater>().Nucleo = nucleo;
-            boteFloater.transform.parent = Bote.transform;
             NetworkServer.Spawn(boteFloater);
+            boteFloater.GetComponent<Floater>().Adopcion(boteFloater.transform.position, boteFloater.transform.rotation);
             j++;
         }
     }
 
-
+    [ClientRpc]
+    private void NucleoParent(GameObject nucleo, Transform boteT)
+	{
+        nucleo.transform.SetParent(boteT);
+	}
 
     // Update is called once per frame
     private void Update()

@@ -37,7 +37,7 @@ public class Floater : NetworkBehaviour
         deathEffect = Resources.Load<ParticleSystem>("Effects/DestroyExplosion");
 
         
-        if (gameObject.transform.parent.name == "Bote")//Hace una adopcion como personalizada
+        /*if (gameObject.transform.parent.name == "Bote")//Hace una adopcion como personalizada
          {
              gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
              gameObject.layer = 10;
@@ -48,7 +48,7 @@ public class Floater : NetworkBehaviour
              }
              StartCoroutine(HammerTime());
              MakeLine();
-         }
+         }*/
 
     }
 
