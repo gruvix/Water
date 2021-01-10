@@ -50,6 +50,7 @@ public class LobbyHandler : NetworkBehaviour
 		{
 			if (timeout)
 			{
+				Debug.Log("player start timeout");
 				string msg = ClientScene.localPlayer.GetComponent<PlayerData>().userName + "<#D7CF93> failed to connect</color>\n";
 				chat.CmdSendMessage(msg);
 				NetworkManager.singleton.StopClient();
@@ -82,7 +83,6 @@ public class LobbyHandler : NetworkBehaviour
 	{
 		yield return new WaitForSeconds(1);
 		timeout = true;
-		Debug.Log("player start timeout");
 	}
 
 	[ClientRpc]
