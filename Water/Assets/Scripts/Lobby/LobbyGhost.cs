@@ -52,6 +52,7 @@ public class LobbyGhost : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (!gameObject.GetComponent<Collider2D>()){return;}
         var dist = Vector2.Distance(m_puntero, transform.position);
         if (dist >= distanciaGhost && colliding)
         {
