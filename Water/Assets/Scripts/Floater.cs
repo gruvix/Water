@@ -60,7 +60,7 @@ public class Floater : NetworkBehaviour
         if(!newdaddy.gameObject) { return; }
         if (newdaddy.name == "Bote")//Hace una adopcion como personalizada
         {
-            transform.parent.SetParent(daddy);
+            transform.SetParent(newdaddy);
             gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
             gameObject.layer = 10;
 
