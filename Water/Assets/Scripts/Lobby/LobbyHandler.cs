@@ -26,6 +26,7 @@ public class LobbyHandler : NetworkBehaviour
 	[SyncVar]
 	public float boatPoints = 20;
 	public TextMeshProUGUI boatValueText;
+	private bool timeout = false;
 
 	[Client]
 	private void Start()
@@ -44,6 +45,18 @@ public class LobbyHandler : NetworkBehaviour
 
 	private void PlayerStart()
 	{
+		StartCoroutine(HammerTime());
+		while (!ClientScene.localPlayer.gameObject)
+		{
+			if (timeout)
+			{
+				string msg = ClientScene.localPlayer.GetComponent<PlayerData>().userName + "<#D7CF93> failed to connect</color>\n";
+				chat.CmdSendMessage(msg);
+				NetworkManager.singleton.StopClient();
+				return;
+			}
+		}
+
 		var rgb = Random.ColorHSV(0f, 1f, 1f, 1f, 0.5f, 1f);
 		htmlColor = ColorUtility.ToHtmlStringRGB(rgb);
 		NetworkManager.singleton.htmlColor = htmlColor;
@@ -63,8 +76,15 @@ public class LobbyHandler : NetworkBehaviour
 			chat.ChatWelcome();
 		}
 		CmdUpdateName(ClientScene.localPlayer.gameObject, $"<#{htmlColor}>{NetworkManager.singleton.userName}</color>");
-	}	
-	
+	}
+
+	IEnumerator HammerTime()
+	{
+		yield return new WaitForSeconds(1);
+		timeout = true;
+		Debug.Log("player start timeout");
+	}
+
 	[ClientRpc]
 	public void RpcUpdateBoatPoints()
 	{
