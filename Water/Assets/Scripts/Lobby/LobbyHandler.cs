@@ -48,13 +48,13 @@ public class LobbyHandler : NetworkBehaviour
 		htmlColor = ColorUtility.ToHtmlStringRGB(rgb);
 		NetworkManager.singleton.htmlColor = htmlColor;
 
-		if (!isClientOnly)
+		if (isServer)
 		{
 			ClientScene.localPlayer.gameObject.transform.GetChild(0).gameObject.SetActive(false);
 			ClientScene.localPlayer.gameObject.transform.GetChild(1).gameObject.SetActive(true);
 			readyUsers = 1;
 			IsReady = true;
-			if (!isClientOnly) { hostName = NetworkManager.singleton.userName; }
+			if (isServer) { hostName = NetworkManager.singleton.userName; }
 		}
 		else
 		{
