@@ -77,7 +77,12 @@ public class Floater : NetworkBehaviour
         if (isServer && SceneManager.GetActiveScene().name != "Lobby")
         { 
             GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic; 
-            gameObject.GetComponent<SetDensity>().Set(); 
+            gameObject.GetComponent<SetDensity>().Set();
+            Floaters = GameObject.Find("Floaters");
+            Bote = GameObject.Find("Bote");
+            Nucleo = GameObject.Find("Nucleo");
+            LinePrefab = Resources.Load<LineRenderer>("Effects/MagicConnector");
+            deathEffect = Resources.Load<ParticleSystem>("Effects/DestroyExplosion");
         }
         
         
@@ -221,7 +226,7 @@ public class Floater : NetworkBehaviour
 
     void Update()//Mueve la linea de acuerdo al objeto
     {
-        if (Nucleo = null) {
+        if (!Nucleo) {
             Nucleo = GameObject.Find("Nucleo");
             return;    
         }

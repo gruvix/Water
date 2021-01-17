@@ -30,22 +30,30 @@ public class FloaterFlow : NetworkBehaviour
             prefabList.Add(i);
         }
 
+        if (!isServer) return;
         //Spawn del bote inicial
+        /* El nuclo no se spawnea, es algo que siempre va a estar en el mismo lugar
         GameObject nucleo = Instantiate(Resources.Load("Other/nucleo") as GameObject, spawnpointNucleo.position, Quaternion.identity, Bote.transform);
         nucleo.name = "Nucleo";
         NetworkServer.Spawn(nucleo);
-
+        */
+        GameObject Nucleo = GameObject.Find("Nucleo");
         int j = -4;
         while (j < 4)
         {
             GameObject boteFloater = Instantiate(Resources.Load("Floaters/Crate1") as GameObject, spawnpointNucleo.position + new Vector3(j, -1, 0), Quaternion.identity);
-            boteFloater.GetComponent<Floater>().Nucleo = nucleo;
+            boteFloater.GetComponent<Floater>().Nucleo = Nucleo;
             boteFloater.GetComponent<Floater>().daddy = Bote.transform;
             NetworkServer.Spawn(boteFloater);
             j++;
         }
     }
 
+    [Command]
+    private void CmdSpawfloater(GameObject floater)
+    {
+        return;
+    }
 
 
     // Update is called once per frame
