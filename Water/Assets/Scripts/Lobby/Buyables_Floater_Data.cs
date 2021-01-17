@@ -9,4 +9,10 @@ public class Buyables_Floater_Data : NetworkBehaviour
 	[SyncVar]
 	public bool isFloater = false;
 	public float cost = 2;
+
+	public override void OnStartClient()
+	{
+		base.OnStartClient();
+        transform.SetParent(GameObject.Find("Bote").transform);
+    }
 }
