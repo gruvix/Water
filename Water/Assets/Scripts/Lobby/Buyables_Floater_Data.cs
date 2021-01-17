@@ -10,9 +10,8 @@ public class Buyables_Floater_Data : NetworkBehaviour
 	public bool isFloater = false;
 	public float cost = 2;
 
-	public override void OnStartClient()
+	private void Start()
 	{
-		base.OnStartClient();
 		if(transform.parent.name == "Buyables") { return; }
         transform.SetParent(GameObject.Find("Bote").transform);
     }
