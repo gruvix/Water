@@ -13,6 +13,6 @@ public class Buyables_Floater_Data : NetworkBehaviour
 	public override void OnStartClient()
 	{
 		base.OnStartClient();
-        transform.SetParent(GameObject.Find("Bote").transform);
+        //transform.SetParent(GameObject.Find("Bote").transform);
     }
 }

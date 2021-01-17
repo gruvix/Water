@@ -157,8 +157,7 @@ public class LobbyBuilder : NetworkBehaviour
         newFlot.GetComponent<Buyables_Floater_Data>().prefab = newFlot;
         newFlot.GetComponent<Buyables_Floater_Data>().isFloater = true;
         newFlot.GetComponent<Buyables_Floater_Data>().cost = cost;
-        
-
+        newFlot.transform.parent = bote;
         player.GetComponent<LobbyBuilder>().floater = newFlot;
     }
 
@@ -182,6 +181,4 @@ public class LobbyBuilder : NetworkBehaviour
         lobbyHandler.GetComponent<LobbyHandler>().RpcUpdateBoatPoints();
         NetworkServer.Destroy(floater);
     }
-
-
 }

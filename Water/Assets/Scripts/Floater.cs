@@ -84,8 +84,6 @@ public class Floater : NetworkBehaviour
             LinePrefab = Resources.Load<LineRenderer>("Effects/MagicConnector");
             deathEffect = Resources.Load<ParticleSystem>("Effects/DestroyExplosion");
         }
-        
-        
     }
 
 	[Client]
