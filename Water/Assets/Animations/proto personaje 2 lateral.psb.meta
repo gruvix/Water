@@ -102,7 +102,7 @@ ScriptedImporter:
     internalID: 0
     spriteBone:
     - name: Cabeza
-      position: {x: 22.731262, y: -16.053009, z: 0}
+      position: {x: 22.731262, y: -16.053001, z: 0}
       rotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
       length: 28.762943
       parentId: -1
@@ -484,18 +484,18 @@ ScriptedImporter:
       parentId: -1
     - name: Pierna I
       position: {x: -3.6843793, y: -1.68103, z: 0}
-      rotation: {x: 0, y: 0, z: -1, w: 0.00024411455}
-      length: 26.621286
+      rotation: {x: 0, y: 0, z: -0.9999856, w: 0.0053849765}
+      length: 10.44545
       parentId: 3
     - name: Pierna D
       position: {x: -3.825149, y: -1.567123, z: 0}
-      rotation: {x: 0, y: 0, z: -0.9999686, w: 0.0079354085}
-      length: 26.70865
+      rotation: {x: 0, y: 0, z: -0.9999508, w: 0.009917026}
+      length: 10.217228
       parentId: 3
     - name: Torzo
       position: {x: 14.731264, y: -31.372345, z: 0}
       rotation: {x: 0, y: 0, z: 0.7071069, w: 0.7071067}
-      length: 33.09156
+      length: 33.091568
       parentId: -1
     spriteOutline: []
     vertices:
@@ -887,34 +887,34 @@ ScriptedImporter:
     internalID: 0
     spriteBone:
     - name: AnteBrazo D
-      position: {x: 10.40929, y: -0.00000062266713, z: 0}
+      position: {x: 10.40929, y: -0.0000032732396, z: 0}
       rotation: {x: 0, y: 0, z: 0.4525967, w: 0.8917153}
-      length: 16.391247
+      length: 16.39125
       parentId: 4
     - name: AnteBrazo A
-      position: {x: 10.558797, y: -0.000010460624, z: 0}
-      rotation: {x: 0, y: 0, z: 0.4441606, w: 0.89594716}
+      position: {x: 10.558789, y: -0.0000051179536, z: 0}
+      rotation: {x: 0, y: 0, z: 0.44416034, w: 0.8959474}
       length: 16.291485
       parentId: 3
     - name: Torzo
       position: {x: 5.731262, y: 0.627655, z: 0}
       rotation: {x: 0, y: 0, z: 0.7071069, w: 0.7071067}
-      length: 33.09156
+      length: 33.091568
       parentId: -1
     - name: Brazo I
       position: {x: -7.1770663, y: -1.348782, z: 0}
-      rotation: {x: 0, y: 0, z: 0.9842568, w: 0.17674448}
-      length: 10.558784
+      rotation: {x: 0, y: 0, z: 0.9842569, w: 0.17674407}
+      length: 10.558787
       parentId: 5
     - name: Brazo D
-      position: {x: -7.209018, y: -1.3146023, z: 0}
-      rotation: {x: 0, y: 0, z: 0.9831715, w: 0.18268527}
-      length: 10.409297
+      position: {x: -7.2090106, y: -1.3146023, z: 0}
+      rotation: {x: 0, y: 0, z: 0.98317146, w: 0.18268521}
+      length: 10.409296
       parentId: 5
     - name: Cuello
       position: {x: 33.091568, y: -0.00001432391, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      length: 3.227768
+      length: 3.2277718
       parentId: 2
     spriteOutline: []
     vertices:
@@ -1209,32 +1209,32 @@ ScriptedImporter:
     - name: Torzo
       position: {x: 10.731262, y: 3.627655, z: 0}
       rotation: {x: 0, y: 0, z: 0.7071069, w: 0.7071067}
-      length: 33.09156
+      length: 33.091568
       parentId: -1
     - name: AnteBrazo A
-      position: {x: 10.55879, y: -0.0000023840212, z: 0}
-      rotation: {x: 0, y: 0, z: 0.4441606, w: 0.89594716}
+      position: {x: 10.558791, y: -0.000006637872, z: 0}
+      rotation: {x: 0, y: 0, z: 0.44416034, w: 0.8959474}
       length: 16.291485
       parentId: 3
     - name: AnteBrazo D
-      position: {x: 10.409294, y: -0.0000005928648, z: 0}
+      position: {x: 10.409293, y: 0.0000011375041, z: 0}
       rotation: {x: 0, y: 0, z: 0.4525967, w: 0.8917153}
-      length: 16.391247
+      length: 16.39125
       parentId: 4
     - name: Brazo I
       position: {x: -7.177064, y: -1.348783, z: 0}
-      rotation: {x: 0, y: 0, z: 0.9842568, w: 0.17674448}
-      length: 10.558784
+      rotation: {x: 0, y: 0, z: 0.9842569, w: 0.17674407}
+      length: 10.558787
       parentId: 5
     - name: Brazo D
-      position: {x: -7.209016, y: -1.3146033, z: 0}
-      rotation: {x: 0, y: 0, z: 0.9831715, w: 0.18268527}
-      length: 10.409297
+      position: {x: -7.209008, y: -1.3146033, z: 0}
+      rotation: {x: 0, y: 0, z: 0.98317146, w: 0.18268521}
+      length: 10.409296
       parentId: 5
     - name: Cuello
       position: {x: 33.091568, y: -0.000015396794, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      length: 3.227768
+      length: 3.2277718
       parentId: 0
     spriteOutline: []
     vertices:
@@ -1576,18 +1576,23 @@ ScriptedImporter:
     - name: Torzo
       position: {x: 7.731264, y: 30.627655, z: 0}
       rotation: {x: 0, y: 0, z: 0.7071069, w: 0.7071067}
-      length: 33.09156
+      length: 33.091568
       parentId: -1
     - name: Pierna D
       position: {x: -3.8251543, y: -1.567124, z: 0}
-      rotation: {x: 0, y: 0, z: -0.9999686, w: 0.0079354085}
-      length: 26.70865
+      rotation: {x: 0, y: 0, z: -0.9999509, w: 0.009917027}
+      length: 10.217228
       parentId: 0
     - name: Pierna I
       position: {x: -3.684392, y: -1.681031, z: 0}
-      rotation: {x: 0, y: 0, z: -1, w: 0.00024411455}
-      length: 26.621286
+      rotation: {x: 0, y: 0, z: -0.9999856, w: 0.0053849765}
+      length: 10.44545
       parentId: 0
+    - name: Pierna D_2
+      position: {x: 10.217233, y: -0.0000033244444, z: 0}
+      rotation: {x: 0, y: 0, z: -0.0029966605, w: 0.9999956}
+      length: 16.491522
+      parentId: 1
     spriteOutline: []
     vertices:
     - position: {x: 23.237, y: 4.697998}
@@ -1596,7 +1601,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -1606,7 +1611,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -1686,7 +1691,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -1696,7 +1701,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -1706,7 +1711,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -1716,7 +1721,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -1726,7 +1731,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -1736,7 +1741,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -1746,7 +1751,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -1756,7 +1761,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -1766,7 +1771,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -1781,7 +1786,7 @@ ScriptedImporter:
         boneIndex2: 0
         boneIndex3: 0
     spritePhysicsOutline: []
-    indices: 0c0000000b0000000a00000009000000110000000a000000100000001100000009000000120000000800000007000000050000000700000006000000100000000800000012000000030000001000000012000000120000000700000005000000100000000900000008000000110000000c0000000a0000000d00000011000000010000000c000000110000000d000000000000000f0000000e0000000d000000000000000e000000000000000d00000001000000040000001200000005000000030000001200000004000000030000000200000010000000020000000100000011000000110000001000000002000000
+    indices: 0c0000000b0000000a000000030000000200000010000000030000001200000004000000040000001200000005000000000000000d000000010000000d000000000000000e000000000000000f0000000e0000000c000000110000000d0000000d0000001100000001000000110000000c0000000a00000010000000090000000800000012000000070000000500000003000000100000001200000010000000080000001200000005000000070000000600000012000000080000000700000010000000110000000900000009000000110000000a000000020000000100000011000000110000001000000002000000
     edges:
     - {x: 0, y: 1}
     - {x: 1, y: 2}
@@ -1819,18 +1824,23 @@ ScriptedImporter:
     - name: Torzo
       position: {x: 7.731262, y: 30.627655, z: 0}
       rotation: {x: 0, y: 0, z: 0.7071069, w: 0.7071067}
-      length: 33.09156
+      length: 33.091568
       parentId: -1
     - name: Pierna D
       position: {x: -3.8251514, y: -1.5671268, z: 0}
-      rotation: {x: 0, y: 0, z: -0.9999686, w: 0.0079354085}
-      length: 26.70865
+      rotation: {x: 0, y: 0, z: -0.9999509, w: 0.009917027}
+      length: 10.217228
       parentId: 0
     - name: Pierna I
       position: {x: -3.6843796, y: -1.6810337, z: 0}
-      rotation: {x: 0, y: 0, z: -1, w: 0.00024411455}
-      length: 26.621286
+      rotation: {x: 0, y: 0, z: -0.9999856, w: 0.0053849765}
+      length: 10.44545
       parentId: 0
+    - name: Pierna I_1
+      position: {x: 10.445451, y: -0.000034737957, z: 0}
+      rotation: {x: 0, y: 0, z: -0.008459941, w: 0.9999643}
+      length: 16.176735
+      parentId: 2
     spriteOutline: []
     vertices:
     - position: {x: 10.134998, y: 0.013000488}
@@ -1839,7 +1849,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 2
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -1849,7 +1859,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 2
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -1859,7 +1869,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 2
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -1869,7 +1879,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 2
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -1879,7 +1889,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 2
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -1889,7 +1899,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 2
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -1959,7 +1969,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 2
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -1969,7 +1979,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 2
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -1979,7 +1989,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 2
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -2009,7 +2019,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 2
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -2019,12 +2029,12 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 2
+        boneIndex0: 3
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
     spritePhysicsOutline: []
-    indices: 110000000d0000000c0000000d000000110000000e000000000000000e000000110000000f000000110000000c000000100000000b0000000a000000080000000a000000090000000f0000000b00000010000000060000000f00000010000000100000000a000000080000000f0000000c0000000b0000000f0000001200000011000000120000000f0000000500000001000000000000001200000003000000020000000100000004000000010000001200000003000000010000000400000007000000100000000800000006000000100000000700000006000000050000000f000000050000000400000012000000000000001100000012000000
+    indices: 110000000d0000000c00000006000000050000000f000000060000001000000007000000070000001000000008000000030000000100000004000000040000000100000012000000030000000200000001000000010000000000000012000000120000000f000000050000000500000004000000120000000f0000001200000011000000100000000a00000008000000060000000f000000100000000f0000000b00000010000000080000000a00000009000000100000000b0000000a0000000f000000110000000c000000000000000e000000110000000d000000110000000e0000000f0000000c0000000b000000000000001100000012000000
     edges:
     - {x: 1, y: 0}
     - {x: 2, y: 1}
@@ -2059,37 +2069,37 @@ ScriptedImporter:
     internalID: 0
     spriteBone:
     - name: AnteBrazo A
-      position: {x: 10.558784, y: 0.00000026838552, z: 0}
-      rotation: {x: 0, y: 0, z: 0.4441606, w: 0.89594716}
+      position: {x: 10.5587845, y: -0.000006564383, z: 0}
+      rotation: {x: 0, y: 0, z: 0.44416034, w: 0.8959474}
       length: 16.291485
       parentId: 3
     - name: AnteBrazo D
-      position: {x: 10.409294, y: 0.00000040740258, z: 0}
+      position: {x: 10.409295, y: 0.0000006467758, z: 0}
       rotation: {x: 0, y: 0, z: 0.4525967, w: 0.8917153}
-      length: 16.391247
+      length: 16.39125
       parentId: 4
     - name: Torzo
       position: {x: 16.731264, y: 1.6276569, z: 0}
       rotation: {x: 0, y: 0, z: 0.7071069, w: 0.7071067}
-      length: 33.09156
+      length: 33.091568
       parentId: -1
     - name: Brazo I
       position: {x: -7.177071, y: -1.3487815, z: 0}
-      rotation: {x: 0, y: 0, z: 0.9842568, w: 0.17674448}
-      length: 10.558784
+      rotation: {x: 0, y: 0, z: 0.9842569, w: 0.17674407}
+      length: 10.558787
       parentId: 5
     - name: Brazo D
       position: {x: -7.2090154, y: -1.3146018, z: 0}
-      rotation: {x: 0, y: 0, z: 0.9831715, w: 0.18268527}
-      length: 10.409297
+      rotation: {x: 0, y: 0, z: 0.98317146, w: 0.18268521}
+      length: 10.409296
       parentId: 5
     - name: Cuello
-      position: {x: 33.091568, y: -0.000008125027, z: 0}
+      position: {x: 33.09157, y: -0.000008125029, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      length: 3.227768
+      length: 3.2277718
       parentId: 2
     - name: Cabeza
-      position: {x: 3.2277644, y: -0.0000016499725, z: 0}
+      position: {x: 3.2277682, y: -0.0000016499753, z: 0}
       rotation: {x: 0, y: 0, z: -0.00000012644054, w: 1}
       length: 28.762947
       parentId: 5
@@ -2454,34 +2464,34 @@ ScriptedImporter:
     internalID: 0
     spriteBone:
     - name: AnteBrazo A
-      position: {x: 10.558792, y: -0.0000019032814, z: 0}
-      rotation: {x: 0, y: 0, z: 0.4441606, w: 0.89594716}
+      position: {x: 10.558811, y: -0.0000020442467, z: 0}
+      rotation: {x: 0, y: 0, z: 0.44416034, w: 0.8959474}
       length: 16.291485
       parentId: 3
     - name: AnteBrazo D
-      position: {x: 10.409289, y: -0.0000039891574, z: 0}
+      position: {x: 10.409298, y: -0.000003419645, z: 0}
       rotation: {x: 0, y: 0, z: 0.4525967, w: 0.8917153}
-      length: 16.391247
+      length: 16.39125
       parentId: 4
     - name: Torzo
       position: {x: 5.731262, y: 0.627655, z: 0}
       rotation: {x: 0, y: 0, z: 0.7071069, w: 0.7071067}
-      length: 33.09156
+      length: 33.091568
       parentId: -1
     - name: Brazo I
       position: {x: -7.177062, y: -1.348783, z: 0}
-      rotation: {x: 0, y: 0, z: 0.9842568, w: 0.17674448}
-      length: 10.558784
+      rotation: {x: 0, y: 0, z: 0.9842569, w: 0.17674407}
+      length: 10.558787
       parentId: 5
     - name: Brazo D
-      position: {x: -7.209014, y: -1.3146033, z: 0}
-      rotation: {x: 0, y: 0, z: 0.9831715, w: 0.18268527}
-      length: 10.409297
+      position: {x: -7.2089987, y: -1.3146033, z: 0}
+      rotation: {x: 0, y: 0, z: 0.98317146, w: 0.18268521}
+      length: 10.409296
       parentId: 5
     - name: Cuello
       position: {x: 33.091568, y: -0.000015396794, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
-      length: 3.227768
+      length: 3.2277718
       parentId: 2
     spriteOutline: []
     vertices:
@@ -2755,13 +2765,13 @@ ScriptedImporter:
     spriteBone:
     - name: Pierna D
       position: {x: -3.8251495, y: -1.5671208, z: 0}
-      rotation: {x: 0, y: 0, z: -0.9999686, w: 0.0079354085}
-      length: 26.70865
+      rotation: {x: 0, y: 0, z: -0.9999508, w: 0.009917026}
+      length: 10.217228
       parentId: 4
     - name: Pierna I
       position: {x: -3.6843796, y: -1.6810278, z: 0}
-      rotation: {x: 0, y: 0, z: -1, w: 0.00024411455}
-      length: 26.621286
+      rotation: {x: 0, y: 0, z: -0.9999856, w: 0.0053849765}
+      length: 10.44545
       parentId: 4
     - name: AnteBrazo A
       position: {x: 5.406395, y: 46.64305, z: 0}
@@ -2770,14 +2780,19 @@ ScriptedImporter:
       parentId: -1
     - name: AnteBrazo D
       position: {x: 5.3066254, y: 46.795715, z: 0}
-      rotation: {x: 0, y: 0, z: 0.47893387, w: -0.87785107}
-      length: 16.39125
+      rotation: {x: 0, y: 0, z: 0.47893384, w: -0.87785107}
+      length: 16.391249
       parentId: -1
     - name: Torzo
       position: {x: 7.731262, y: 30.627655, z: 0}
       rotation: {x: 0, y: 0, z: 0.7071069, w: 0.7071067}
-      length: 33.09156
+      length: 33.091568
       parentId: -1
+    - name: Pierna D_2
+      position: {x: 10.21724, y: -0.00000045693764, z: 0}
+      rotation: {x: 0, y: 0, z: -0.00299666, w: 0.9999955}
+      length: 16.491526
+      parentId: 0
     spriteOutline: []
     vertices:
     - position: {x: 15, y: 1}
@@ -2786,7 +2801,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 0
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -2796,7 +2811,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 0
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -2806,7 +2821,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 0
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -2816,7 +2831,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 0
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -2926,7 +2941,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 0
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -2936,7 +2951,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 0
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -2946,7 +2961,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 0
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -2956,7 +2971,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 0
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -2966,7 +2981,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 0
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -2986,7 +3001,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 0
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -3016,12 +3031,12 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 0
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
     spritePhysicsOutline: []
-    indices: 0e0000000d000000160000001300000005000000040000000600000005000000150000000600000015000000080000000700000006000000080000000300000002000000140000001200000001000000000000001700000002000000010000001200000017000000010000001100000017000000120000000f0000001400000017000000170000001400000002000000160000000400000003000000040000001600000013000000080000001500000009000000130000001500000005000000130000000b0000001500000009000000150000000a0000000c0000000b00000013000000150000000b0000000a00000013000000160000000d0000000f0000001700000010000000100000001700000011000000140000000f0000000e0000000e0000001600000014000000130000000d0000000c000000160000000300000014000000
+    indices: 0e0000000d000000160000000e0000001600000014000000140000000f0000000e0000001000000017000000110000000f000000170000001000000013000000160000000d000000150000000b0000000a0000000c0000000b0000001300000009000000150000000a000000130000000b00000015000000130000001500000005000000080000001500000009000000130000000d0000000c0000000400000016000000130000001700000014000000020000000f0000001400000017000000110000001700000012000000120000001700000001000000170000000200000001000000120000000100000000000000030000000200000014000000070000000600000008000000060000001500000008000000060000000500000015000000130000000500000004000000160000000400000003000000160000000300000014000000
     edges:
     - {x: 1, y: 0}
     - {x: 2, y: 1}
@@ -3061,13 +3076,13 @@ ScriptedImporter:
     spriteBone:
     - name: Pierna D
       position: {x: -3.8251495, y: -1.5671209, z: 0}
-      rotation: {x: 0, y: 0, z: -0.9999686, w: 0.0079354085}
-      length: 26.70865
+      rotation: {x: 0, y: 0, z: -0.9999508, w: 0.009917026}
+      length: 10.217228
       parentId: 4
     - name: Pierna I
       position: {x: -3.6843872, y: -1.6810279, z: 0}
-      rotation: {x: 0, y: 0, z: -1, w: 0.00024411455}
-      length: 26.621286
+      rotation: {x: 0, y: 0, z: -0.9999856, w: 0.0053849765}
+      length: 10.44545
       parentId: 4
     - name: AnteBrazo A
       position: {x: 5.406395, y: 46.64305, z: 0}
@@ -3076,14 +3091,19 @@ ScriptedImporter:
       parentId: -1
     - name: AnteBrazo D
       position: {x: 5.3066254, y: 46.795715, z: 0}
-      rotation: {x: 0, y: 0, z: 0.47893387, w: -0.87785107}
-      length: 16.39125
+      rotation: {x: 0, y: 0, z: 0.47893384, w: -0.87785107}
+      length: 16.391249
       parentId: -1
     - name: Torzo
       position: {x: 7.731262, y: 30.627655, z: 0}
       rotation: {x: 0, y: 0, z: 0.7071069, w: 0.7071067}
-      length: 33.09156
+      length: 33.091568
       parentId: -1
+    - name: Pierna I_1
+      position: {x: 10.445428, y: -0.00002377739, z: 0}
+      rotation: {x: 0, y: 0, z: -0.008459941, w: 0.9999643}
+      length: 16.176735
+      parentId: 1
     spriteOutline: []
     vertices:
     - position: {x: 15, y: 1}
@@ -3092,7 +3112,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -3102,7 +3122,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -3112,7 +3132,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -3122,7 +3142,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -3232,7 +3252,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -3242,7 +3262,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -3252,7 +3272,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -3262,7 +3282,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -3272,7 +3292,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -3282,7 +3302,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -3302,7 +3322,7 @@ ScriptedImporter:
         weight1: 0
         weight2: 0
         weight3: 0
-        boneIndex0: 1
+        boneIndex0: 5
         boneIndex1: 0
         boneIndex2: 0
         boneIndex3: 0
@@ -3482,48 +3502,58 @@ ScriptedImporter:
     - name: Torzo
       position: {x: 30.731264, y: 30.627657, z: 0}
       rotation: {x: 0, y: 0, z: 0.7071069, w: 0.7071067}
-      length: 33.09156
+      length: 33.091568
       parentId: -1
     - name: Cuello
-      position: {x: 33.091564, y: -0.0000075289795, z: 0}
+      position: {x: 33.091568, y: -0.000007528981, z: 0}
       rotation: {x: 0, y: 0, z: -0, w: 1}
-      length: 3.227768
+      length: 3.2277718
       parentId: 0
     - name: Cabeza
-      position: {x: 3.2277684, y: -0.0000010539261, z: 0}
+      position: {x: 3.2277722, y: -0.0000010539288, z: 0}
       rotation: {x: 0, y: 0, z: -0.00000012644054, w: 1}
       length: 28.762947
       parentId: 1
     - name: Brazo D
       position: {x: -7.209011, y: -1.3146012, z: 0}
-      rotation: {x: 0, y: -0, z: 0.98317146, w: 0.18268526}
-      length: 10.4093
+      rotation: {x: 0, y: -0, z: 0.98317146, w: 0.18268524}
+      length: 10.409299
       parentId: 1
     - name: AnteBrazo D
-      position: {x: 10.409299, y: 0.0000027157346, z: 0}
+      position: {x: 10.409304, y: 0.0000028124769, z: 0}
       rotation: {x: 0, y: 0, z: 0.45259672, w: 0.89171535}
       length: 16.39125
       parentId: 3
     - name: Pierna D
       position: {x: -3.8251534, y: -1.5671234, z: 0}
-      rotation: {x: 0, y: 0, z: -0.9999686, w: 0.0079354085}
-      length: 26.70865
+      rotation: {x: 0, y: -0, z: -0.9999508, w: 0.009917054}
+      length: 10.217231
       parentId: 0
     - name: Pierna I
       position: {x: -3.6843817, y: -1.6810304, z: 0}
-      rotation: {x: 0, y: 0, z: -1, w: 0.00024411455}
-      length: 26.621286
+      rotation: {x: 0, y: -0, z: -0.9999855, w: 0.0053849714}
+      length: 10.445454
       parentId: 0
     - name: Brazo I
       position: {x: -7.177067, y: -1.3487809, z: 0}
-      rotation: {x: 0, y: -0, z: 0.9842568, w: 0.17674443}
+      rotation: {x: 0, y: -0, z: 0.9842569, w: 0.17674409}
       length: 10.558785
       parentId: 1
     - name: AnteBrazo A
-      position: {x: 10.558788, y: 0.0000014054117, z: 0}
-      rotation: {x: 0, y: 0, z: 0.4441606, w: 0.8959472}
+      position: {x: 10.558788, y: -0.0000058853575, z: 0}
+      rotation: {x: 0, y: 0, z: 0.44416028, w: 0.89594734}
       length: 16.291485
       parentId: 7
+    - name: Pierna I_1
+      position: {x: 10.445455, y: -0.00003245077, z: 0}
+      rotation: {x: 0, y: 0, z: -0.008459936, w: 0.9999643}
+      length: 16.176737
+      parentId: 6
+    - name: Pierna D_2
+      position: {x: 10.217232, y: -0.0000046368477, z: 0}
+      rotation: {x: 0, y: 0, z: -0.0029966878, w: 0.9999956}
+      length: 16.491524
+      parentId: 5
     parts:
     - spritePosition:
         x: 8
@@ -3567,7 +3597,7 @@ ScriptedImporter:
         width: 24
         height: 36
       spriteId: 3c6421fe6a5080b4dbfeab2ee4924df1
-      bones: 000000000500000006000000
+      bones: 0000000005000000060000000a000000
       parentGroup: 0
       order: 0
     - spritePosition:
@@ -3576,7 +3606,7 @@ ScriptedImporter:
         width: 25
         height: 36
       spriteId: bfe899d70d2a3924db9b4973b276ded8
-      bones: 000000000500000006000000
+      bones: 00000000050000000600000009000000
       parentGroup: 0
       order: 0
     - spritePosition:
@@ -3603,7 +3633,7 @@ ScriptedImporter:
         width: 16
         height: 35
       spriteId: f7e7db61dec5bf240b299763805675ef
-      bones: 0500000006000000080000000400000000000000
+      bones: 05000000060000000800000004000000000000000a000000
       parentGroup: 0
       order: 0
     - spritePosition:
@@ -3612,7 +3642,7 @@ ScriptedImporter:
         width: 16
         height: 35
       spriteId: 734e576c2cd56bf4e95f34c8ca6a2fa3
-      bones: 0500000006000000080000000400000000000000
+      bones: 050000000600000008000000040000000000000009000000
       parentGroup: 0
       order: 0
     dimension: {x: 0, y: 0}
