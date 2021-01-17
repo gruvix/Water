@@ -183,6 +183,7 @@ MonoBehaviour:
   hasJoint: 0
   hpMAX: 200
   HP: 200
+  daddy: {fileID: 0}
   Break_Force: 50
   Damping_Ratio: 1
 --- !u!114 &8993324842555596289

@@ -63,6 +63,7 @@ public class LobbyBuilder : NetworkBehaviour
 						{
                             //CmdMoveFloater(ClientScene.localPlayer.gameObject, floater);
                             floater = hit.collider.gameObject;
+                            Debug.Log("hiciste click en el floater: "+ floater);
                             has_floater = true;
                             Ghost.SetActive(true);
                             Ghost.GetComponent<LobbyGhost>().SetCollider(floater);
@@ -137,41 +138,42 @@ public class LobbyBuilder : NetworkBehaviour
         }
     }
 
+    //Crea un objeto nuevo cuando clicleas en la imagen
     [Command]
     private void CmdBuyFloater(string floaterString, float cost, GameObject player)
     {
-
         lobbyHandler.GetComponent<LobbyHandler>().boatPoints -= cost;
         lobbyHandler.GetComponent<LobbyHandler>().RpcUpdateBoatPoints();
         //Resources.Load($"Floaters/{floaterString}") as GameObject
-        GameObject newFlot = Instantiate(NetworkManager.singleton.spawnPrefabs.Find((X) => X.name == floaterString), new Vector3(-100, -100, 0), Quaternion.identity, bote);
+        GameObject newFlot = Instantiate(NetworkManager.singleton.spawnPrefabs.Find((X) => X.name == floaterString), new Vector3(-100, -100, 0), Quaternion.identity);
+        newFlot.transform.parent = bote;
         //newFlot.GetComponent<Floater>().enabled = false;
         newFlot.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         newFlot.GetComponent<Renderer>().material.SetInt("_Shine", 1);
         newFlot.layer = 10;
-
-
-
+        NetworkServer.Spawn(newFlot);
         newFlot.AddComponent<Buyables_Floater_Data>();
         newFlot.GetComponent<Buyables_Floater_Data>().nameString = floaterString;
         newFlot.GetComponent<Buyables_Floater_Data>().prefab = newFlot;
         newFlot.GetComponent<Buyables_Floater_Data>().isFloater = true;
         newFlot.GetComponent<Buyables_Floater_Data>().cost = cost;
-        NetworkServer.Spawn(newFlot);
+        
 
         player.GetComponent<LobbyBuilder>().floater = newFlot;
     }
 
-
+    //Mueve un objeto que ya es parte de la balsa
     [Command]
     private void CmdMoveFloater(Vector3 ghostPos, Quaternion ghostRot, GameObject adoptedFloater)
     {
+        //ver si no se puede mover directamente sin desespawnear
         NetworkServer.UnSpawn(adoptedFloater);
         adoptedFloater.transform.SetPositionAndRotation(ghostPos, ghostRot);
         NetworkServer.Spawn(adoptedFloater);
 
     }
 
+    //Despawnea el objeto
     [Command]
     private void CmdSellFloater(GameObject soldFloater)
     {
@@ -179,7 +181,6 @@ public class LobbyBuilder : NetworkBehaviour
         lobbyHandler.GetComponent<LobbyHandler>().boatPoints += cost;
         lobbyHandler.GetComponent<LobbyHandler>().RpcUpdateBoatPoints();
         NetworkServer.Destroy(floater);
-        
     }
 
 
