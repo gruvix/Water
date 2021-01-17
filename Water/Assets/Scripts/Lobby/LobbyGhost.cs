@@ -95,7 +95,8 @@ public class LobbyGhost : MonoBehaviour
         float x = original.transform.localScale.x / gameObject.transform.parent.lossyScale.x;
         float y = original.transform.localScale.y / gameObject.transform.parent.lossyScale.y;
         float z = original.transform.localScale.z / gameObject.transform.parent.lossyScale.z;
-        transform.localScale = new Vector3(x * 0.186f, y * 0.186f, z);
+        //transform.localScale = new Vector3(x, y, z);
+        transform.localScale = new Vector3(x * 0.58f, y * 0.58f, z);
         transform.rotation = original.transform.rotation;
     }
 

@@ -8,6 +8,7 @@ public class LobbyBuilder : NetworkBehaviour
     public Transform bote;
     public GameObject Ghost;//Ghost es el fantasma verde guia de construccion
     private bool ghostCheck = true;
+    [SerializeField]
     private bool has_floater = false;
     [SerializeField][SyncVar]
     private GameObject floater;
@@ -15,7 +16,7 @@ public class LobbyBuilder : NetworkBehaviour
     private string floaterName;
     private float rotationCounter = 0;
     private float rotationAmount = 30f;
-    private float alcance = 2f;
+    private float alcance = 20f;
     private GameObject lobbyHandler;
     private float cost = 0;
 
@@ -34,6 +35,7 @@ public class LobbyBuilder : NetworkBehaviour
         {
             Vector2 m_puntero = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(m_puntero, Vector2.zero);
+                
             if (has_floater)
             {
                 // Si tiene algo agarrado y haces click lo deja donde hiciste click y se lo da al bote
@@ -61,7 +63,6 @@ public class LobbyBuilder : NetworkBehaviour
 
                         if (hit.collider.gameObject.GetComponent<Buyables_Floater_Data>().isFloater)
 						{
-                            //CmdMoveFloater(ClientScene.localPlayer.gameObject, floater);
                             floater = hit.collider.gameObject;
                             Debug.Log("hiciste click en el floater: "+ floater);
                             has_floater = true;
