@@ -79,11 +79,12 @@ public class Floater : NetworkBehaviour
             GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic; 
             gameObject.GetComponent<SetDensity>().Set();
             Floaters = GameObject.Find("Floaters");
-            Bote = GameObject.Find("Bote");
+            
             Nucleo = GameObject.Find("Nucleo");
             LinePrefab = Resources.Load<LineRenderer>("Effects/MagicConnector");
             deathEffect = Resources.Load<ParticleSystem>("Effects/DestroyExplosion");
         }
+        Bote = GameObject.Find("Bote");
     }
 
 	[Client]
@@ -148,7 +149,14 @@ public class Floater : NetworkBehaviour
     {
 
         if (isServer) { Destroy(Fjoint); }
-
+        if (!Bote)
+        {
+            Bote = GameObject.Find("Bote");
+            
+        }
+        if (Bote) { Debug.Log("se encontro el bote: True"); }
+        else{ Debug.Log("se encontro el bote: False"); }
+        
         gameObject.transform.SetParent(Bote.transform);
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
         gameObject.layer = 10;
@@ -160,10 +168,12 @@ public class Floater : NetworkBehaviour
         
         gameObject.transform.SetPositionAndRotation(targetPos, targetRot);
 
-
-        MakeLine();
-        if (isServer) { StartCoroutine(HammerTime()); }
-        else { gameObject.GetComponent<Rigidbody2D>().simulated = true; }
+        if(SceneManager.GetActiveScene().name != "Lobby")
+        {
+            MakeLine();
+            if (isServer) { StartCoroutine(HammerTime()); }
+            else { gameObject.GetComponent<Rigidbody2D>().simulated = true; }
+        }
     }
 
     IEnumerator HammerTime()
