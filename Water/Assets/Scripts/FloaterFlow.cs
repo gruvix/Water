@@ -25,34 +25,48 @@ public class FloaterFlow : NetworkBehaviour
 
         Floaters = GameObject.Find("Floaters");
         Bote = GameObject.Find("Bote");
-        // Levanta todos los prefab de la carpeta Resources/Floaters
-        foreach (Object i in  Resources.LoadAll("Floaters", typeof(GameObject))){
-            prefabList.Add(i);
-        }
-
-        if (!isServer) return;
-        //Spawn del bote inicial
-        /* El nuclo no se spawnea, es algo que siempre va a estar en el mismo lugar
-        GameObject nucleo = Instantiate(Resources.Load("Other/nucleo") as GameObject, spawnpointNucleo.position, Quaternion.identity, Bote.transform);
-        nucleo.name = "Nucleo";
-        NetworkServer.Spawn(nucleo);
-        */
-        GameObject Nucleo = GameObject.Find("Nucleo");
-        int j = -4;
-        while (j < 4)
+        //GameObject Nucleo = GameObject.Find("Nucleo");
+        GameObject Nucleo;
+        if (!Bote)
         {
-            GameObject boteFloater = Instantiate(Resources.Load("Floaters/Crate1") as GameObject, spawnpointNucleo.position + new Vector3(j, -1, 0), Quaternion.identity);
-            boteFloater.GetComponent<Floater>().Nucleo = Nucleo;
-            boteFloater.GetComponent<Floater>().daddy = Bote.transform;
-            NetworkServer.Spawn(boteFloater);
-            j++;
+            Bote = GameObject.Find("BoteDefault");
+            Bote.name = "Bote";
+            Nucleo = Bote.transform.GetChild(0).gameObject;
+            // Levanta todos los prefab de la carpeta Resources/Floaters
+            foreach (Object i in  Resources.LoadAll("Floaters", typeof(GameObject))){
+                prefabList.Add(i);
+            }
+
+            if (!isServer) return;
+            //Spawn del bote inicial
+            /* El nuclo no se spawnea, es algo que siempre va a estar en el mismo lugar
+            GameObject nucleo = Instantiate(Resources.Load("Other/nucleo") as GameObject, spawnpointNucleo.position, Quaternion.identity, Bote.transform);
+            nucleo.name = "Nucleo";
+            NetworkServer.Spawn(nucleo);
+            */
+            
+            int j = -4;
+            while (j < 4)
+            {
+                GameObject boteFloater = Instantiate(Resources.Load("Floaters/Crate1") as GameObject, spawnpointNucleo.position + new Vector3(j, -1, 0), Quaternion.identity);
+                boteFloater.GetComponent<Floater>().Nucleo = Nucleo;
+                boteFloater.GetComponent<Floater>().daddy = Bote.transform;
+                NetworkServer.Spawn(boteFloater);
+                j++;
+            }
+        }
+        else
+		{
+            NetworkServer.Destroy(GameObject.Find("BoteDefault"));
+            Nucleo = Bote.transform.GetChild(0).gameObject;
+            Nucleo.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
         }
     }
 
-    [Command]
-    private void CmdSpawfloater(GameObject floater)
+    [ClientRpc]
+    private void CoreSetup(GameObject nucleo)
     {
-        return;
+        //nucleo.GetComponent<Nucleo>().SetUp();
     }
 
 

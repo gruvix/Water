@@ -26,8 +26,14 @@ public class ServerManager : NetworkBehaviour
 			{
                 RpcRemoveDataComp(bote.GetChild(i).gameObject);
 			}
-
 		}
+        if (bote.childCount > 1)
+        {
+            NetworkServer.UnSpawn(bote.gameObject);
+            bote.gameObject.transform.parent = null;
+            DontDestroyOnLoad(bote.gameObject);
+            NetworkServer.Spawn(bote.gameObject);
+        }
         NetworkManager.singleton.ServerChangeScene(gameScene);
     }
 
