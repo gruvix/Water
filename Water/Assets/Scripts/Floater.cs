@@ -56,19 +56,22 @@ public class Floater : NetworkBehaviour
 
     void SyncParent(Transform olddaddy, Transform newdaddy)
 	{
-        if(!newdaddy.gameObject || !LinePrefab) { return; }
-        if (newdaddy.name == "Bote")//Hace una adopcion como personalizada
+        if (SceneManager.GetActiveScene().name != "Lobby")
         {
-            transform.SetParent(newdaddy);
-            gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
-            gameObject.layer = 10;
-
-            if (gameObject.GetComponent<PlatformEffector2D>() != null)//Esto es para las plataformas
+            if (!newdaddy.gameObject || !LinePrefab) { return; }
+            if (newdaddy.name == "Bote")//Hace una adopcion como personalizada
             {
-                gameObject.GetComponent<PlatformEffector2D>().enabled = true;
+                transform.SetParent(newdaddy);
+                gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
+                gameObject.layer = 10;
+
+                if (gameObject.GetComponent<PlatformEffector2D>() != null)//Esto es para las plataformas
+                {
+                    gameObject.GetComponent<PlatformEffector2D>().enabled = true;
+                }
+                StartCoroutine(HammerTime());
+                MakeLine();
             }
-            StartCoroutine(HammerTime());
-            MakeLine();
         }
     }
 

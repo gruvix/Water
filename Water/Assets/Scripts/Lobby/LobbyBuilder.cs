@@ -8,10 +8,10 @@ public class LobbyBuilder : NetworkBehaviour
     public Transform bote;
     public GameObject Ghost;//Ghost es el fantasma verde guia de construccion
     private bool ghostCheck = true;
-    [SerializeField]
+    //[SerializeField]
     private bool has_floater = false;
-    private GameObject floater;
-    [SerializeField]
+    public GameObject floater;
+    //[SerializeField]
     private string floaterName;
     private float rotationCounter = 0;
     private float rotationAmount = 30f;
@@ -27,6 +27,7 @@ public class LobbyBuilder : NetworkBehaviour
 
         //Lista de precios
         precios.Add("Crate1", 2f);
+        precios.Add("Crate1(Clone)", 2f);
     }
 
     void Update()
@@ -41,14 +42,23 @@ public class LobbyBuilder : NetworkBehaviour
             {
                 // Si tiene algo agarrado y haces click lo deja donde hiciste click y se lo da al bote
                 ghostCheck = Ghost.GetComponent<LobbyGhost>().CanPlace;
+                //si puede colocarlo
                 if (ghostCheck)
                 {
-                    //CmdMoveFloater(Ghost.transform.position, Ghost.transform.rotation, floater); //Se crea y se coloca todo junto
+                    if (floater.transform.parent.name == "Bote")
+                    {
+                        CmdSpawnandPlaceFloater(floaterName, Ghost.transform.position, Ghost.transform.rotation);
+                        CmdDestroyFloater(floater);
+                    }
+                    else
+                    {
+                        CmdSpawnandPlaceFloater(floaterName, Ghost.transform.position, Ghost.transform.rotation);
+                        CmdDiscountValue(floaterName);
+                    }
                     Ghost.GetComponent<LobbyGhost>().DestroyCollider();
                     has_floater = false;
                     floater = null;
                     Ghost.SetActive(false);
-                    CmdBuyandPlaceFloater(floaterName, Ghost.transform.position, Ghost.transform.rotation);
                 }
             }
 
@@ -66,19 +76,20 @@ public class LobbyBuilder : NetworkBehaviour
                         
                         Debug.Log("hiciste click en el floater: " + floater);
                         
-                        //Si es un objeto que compre
+                        //Si es un objeto que ya compre
                         if (hit.collider.transform.parent == bote)
 						{
                             Ghost.SetActive(true);
                             Ghost.GetComponent<LobbyGhost>().SetCollider(floater);
                             Ghost.transform.rotation = Quaternion.identity;
                             Ghost.transform.position = new Vector3(m_puntero[0], m_puntero[1], Ghost.transform.position.z);
-                            //hit.collider.gameObject.SetActive(false);
+                            CmdMoveFloater(new Vector3(5,5,0), floater.transform.rotation, floater);
                         }
 
                         //Si es de la lista de compra
                         else 
                         { 
+                            //Si no podes pagarlo
                             if(lobbyHandler.GetComponent<LobbyHandler>().boatPoints < (float)precios[floaterName])
 							{
 								Debug.Log("Insuficiente Dinero");
@@ -136,71 +147,66 @@ public class LobbyBuilder : NetworkBehaviour
         //Soltar Objeto (Huerfano)
         if (Input.GetMouseButtonDown(1) && has_floater)
         {
+			if (floater) {
+                if (floater.transform.parent.name == "Bote")
+                {
+                    CmdSellFloater(floater);
+                }
+                else
+                {
+                    //CmdDismisFloater(floater);
+                }
+            }
             Ghost.GetComponent<LobbyGhost>().DestroyCollider();
             Ghost.SetActive(false);
             has_floater = false;
-			if (floater) { CmdSellFloater(floater); }
         }
     }
 
-    //Crea un objeto nuevo cuando clicleas en la imagen
-    [Command]
-    private void CmdBuyFloater(string floaterString, float cost, GameObject player)
-    {
-        lobbyHandler.GetComponent<LobbyHandler>().boatPoints -= cost;
-        lobbyHandler.GetComponent<LobbyHandler>().RpcUpdateBoatPoints();
-        //Resources.Load($"Floaters/{floaterString}") as GameObject
-        GameObject newFlot = Instantiate(NetworkManager.singleton.spawnPrefabs.Find((X) => X.name == floaterString), new Vector3(-100, -100, 0), Quaternion.identity);
-        
-        newFlot.transform.parent = bote;
-        //newFlot.GetComponent<Floater>().enabled = false;
-        newFlot.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
-        newFlot.GetComponent<Renderer>().material.SetInt("_Shine", 1);
-        newFlot.layer = 10;
-        NetworkServer.Spawn(newFlot);
-        newFlot.AddComponent<Buyables_Floater_Data>();
-        newFlot.GetComponent<Buyables_Floater_Data>().nameString = floaterString;
-        newFlot.GetComponent<Buyables_Floater_Data>().prefab = newFlot;
-        newFlot.GetComponent<Buyables_Floater_Data>().isFloater = true;
-        newFlot.GetComponent<Buyables_Floater_Data>().cost = cost;
-
-        player.GetComponent<LobbyBuilder>().floater = newFlot;
-    }
 
     //Mueve un objeto que ya es parte de la balsa
     [Command]
     private void CmdMoveFloater(Vector3 ghostPos, Quaternion ghostRot, GameObject adoptedFloater)
     {
         //ver si no se puede mover directamente sin desespawnear
-        NetworkServer.UnSpawn(adoptedFloater);
         adoptedFloater.transform.SetPositionAndRotation(ghostPos, ghostRot);
-        NetworkServer.Spawn(adoptedFloater);
-
     }
 
     [Command]
-    private void CmdBuyandPlaceFloater(string floaterString, Vector3 ghostPos, Quaternion ghostRot)
+    private void CmdSpawnandPlaceFloater(string floaterString, Vector3 ghostPos, Quaternion ghostRot)
     {
-        //lobbyHandler.GetComponent<LobbyHandler>().boatPoints -= (float)precios[floaterName];
-        //lobbyHandler.GetComponent<LobbyHandler>().RpcUpdateBoatPoints();
+        //Quitar el (Clone) del final del string. 
+        //Si existe el caracter ')' entonces elimina los ultimos 7 caracteres de string que coresponden a (Clone)
+        if (floaterString.LastIndexOf(')')!=-1)
+        {
+            floaterString = floaterString.Remove(floaterString.Length - 7);
+            Debug.Log("String limpio: " + floaterString);
+        }
         GameObject newFlot = Instantiate(NetworkManager.singleton.spawnPrefabs.Find((X) => X.name == floaterString), new Vector3(-100, -100, 0), Quaternion.identity);
-        
+        newFlot.transform.parent = GameObject.Find("Bote").transform;
         NetworkServer.Spawn(newFlot);
-        changeName(newFlot, floaterString);
         newFlot.GetComponent<Floater>().Adopcion(ghostPos, ghostRot);
-    }
-    [ClientRpc]
-    private void changeName(GameObject newFlot, string floaterString)
-    {
-        newFlot.name = floaterString;
     }
 
     //Despawnea el objeto
     [Command]
     private void CmdSellFloater(GameObject soldFloater)
     {
-        lobbyHandler.GetComponent<LobbyHandler>().boatPoints += (float)precios[soldFloater.name];
-        lobbyHandler.GetComponent<LobbyHandler>().RpcUpdateBoatPoints();
-        NetworkServer.Destroy(floater);
+        CmdRefundValue(soldFloater.name);
+        soldFloater.GetComponent<Floater>().CmdDestroy();
+    }
+    [Command]
+    private void CmdDestroyFloater(GameObject floatertodestroy)
+    {
+        floatertodestroy.GetComponent<Floater>().CmdDestroy();
+    }
+    [Command]
+    private void CmdDiscountValue(string floaterString)
+    {
+        lobbyHandler.GetComponent<LobbyHandler>().boatPoints -= (float)precios[floaterString];
+    }
+    private void CmdRefundValue(string floaterString)
+    {
+        lobbyHandler.GetComponent<LobbyHandler>().boatPoints += (float)precios[floaterString];
     }
 }

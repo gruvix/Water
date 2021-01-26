@@ -23,7 +23,7 @@ public class LobbyHandler : NetworkBehaviour
 	public Chat chat;
 	private bool started = false;
 	private int delay = 0;
-	[SyncVar]
+	[SyncVar (hook = nameof(OnboatPointsChange))]
 	public float boatPoints = 20;
 	public TextMeshProUGUI boatValueText;
 	private bool timeout = false;
@@ -91,7 +91,13 @@ public class LobbyHandler : NetworkBehaviour
 		boatValueText.text = $"Boat Points:{boatPoints}";
 	}
 
-	[ClientRpc]
+	[Client]
+	private void OnboatPointsChange(float oldboatPoints, float newboatPoints)
+	{
+		boatValueText.text = $"Boat Points:{newboatPoints}";
+	}
+
+[ClientRpc]
 	public void NameFieldRpc()
 	{
 		string name = $"<#{htmlColor}>{NetworkManager.singleton.userName}</color>";
