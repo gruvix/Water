@@ -41,7 +41,7 @@ Material:
     - Vector1_E280F5E3: 100
     - _EnableExternalAlpha: 0
     - _Health: 100
-    - _Shine: 0
+    - _Shine: 1
     m_Colors:
     - Color_BF616C5D: {r: 0.74545133, g: 0.094562106, b: 0.8018868, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

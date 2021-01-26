@@ -146,7 +146,6 @@ public class Floater : NetworkBehaviour
         gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 0);
     }
 
-
     [ClientRpc]
     public void Adopcion(Vector3 targetPos, Quaternion targetRot)//Ahora es del bote
     {
@@ -161,8 +160,7 @@ public class Floater : NetworkBehaviour
         else{ Debug.Log("se encontro el bote: False"); }
         
         gameObject.transform.SetParent(Bote.transform);
-        gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
-        gameObject.layer = 10;
+        
 
         if (gameObject.GetComponent<PlatformEffector2D>() != null)//Esto es para las plataformas
         {
@@ -173,6 +171,8 @@ public class Floater : NetworkBehaviour
 
         if(SceneManager.GetActiveScene().name != "Lobby")
         {
+            gameObject.GetComponent<Renderer>().material.SetInt("_Shine", 1);
+            gameObject.layer = 10;
             MakeLine();
             if (isServer) { StartCoroutine(HammerTime()); }
             else { gameObject.GetComponent<Rigidbody2D>().simulated = true; }
