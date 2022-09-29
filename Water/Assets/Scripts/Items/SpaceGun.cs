@@ -18,7 +18,7 @@ public class SpaceGun : NetworkBehaviour
     public float offset = 0.05f; //Que tan lejos está el arma del personaje
     public float compensation = -38f;//compensa que la punta del arma no está en la base del sprite
     private bool canshoot=true;
-    public float cooldowntime=1f;
+    public float cooldowntime=0.2f;
 
     void Start()
     {

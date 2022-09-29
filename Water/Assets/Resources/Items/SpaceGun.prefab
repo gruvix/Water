@@ -306,6 +306,7 @@ MonoBehaviour:
   playerHeight: 0.67
   offset: 0.1
   compensation: -38
+  cooldowntime: 0.2
 --- !u!114 &143196378
 MonoBehaviour:
   m_ObjectHideFlags: 0
